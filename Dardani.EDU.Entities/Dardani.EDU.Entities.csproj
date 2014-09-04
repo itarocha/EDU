@@ -47,9 +47,6 @@
     <Reference Include="NHibernate">
       <HintPath>..\packages\NHibernate.3.3.1.4000\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="Petra.Util">
-      <HintPath>..\..\PETRA\Petra.Util\bin\Debug\Petra.Util.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -291,6 +288,12 @@
     <None Include="App.config" />
     <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\PETRA.BaseMvc\Petra.Util\Petra.Util.csproj">
+      <Project>{48fd18f1-2685-4fa3-8f4f-3b9333a2f381}</Project>
+      <Name>Petra.Util</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

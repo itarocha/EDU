@@ -44,10 +44,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="Dardani.EDU.Entities, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Dardani.EDU.Entities\bin\Debug\Dardani.EDU.Entities.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.dll</HintPath>
@@ -90,7 +86,7 @@
       <HintPath>..\packages\NHibernate.3.3.3.4001\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="Petra.Util">
-      <HintPath>..\..\PETRA\Petra.Util\bin\Debug\Petra.Util.dll</HintPath>
+      <HintPath>..\..\PETRA.BaseMvc\Petra.Util\bin\Debug\Petra.Util.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -2940,6 +2936,10 @@
     <ProjectReference Include="..\Dardani.EDU.BO\Dardani.EDU.BO.csproj">
       <Project>{a19b0fd8-61bd-4ed4-aba7-0da82e64fc56}</Project>
       <Name>Dardani.EDU.BO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dardani.EDU.Entities\Dardani.EDU.Entities.csproj">
+      <Project>{b2b6d703-511e-478b-bcbb-92b2887ddbad}</Project>
+      <Name>Dardani.EDU.Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

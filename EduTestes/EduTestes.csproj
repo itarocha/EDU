@@ -66,12 +66,6 @@
     <Reference Include="Dardani.EDU.Entities">
       <HintPath>..\Dardani.EDU.Entities\bin\Debug\Dardani.EDU.Entities.dll</HintPath>
     </Reference>
-    <Reference Include="Dardani.GER.BO">
-      <HintPath>..\..\GER\Dardani.GER.BO\bin\Debug\Dardani.GER.BO.dll</HintPath>
-    </Reference>
-    <Reference Include="Dardani.GER.Entities">
-      <HintPath>..\..\GER\Dardani.GER.Entities\bin\Debug\Dardani.GER.Entities.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.dll</HintPath>
@@ -100,10 +94,6 @@
     <Reference Include="NHibernate, Version=3.3.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\NHibernate.3.3.3.4001\lib\Net35\NHibernate.dll</HintPath>
-    </Reference>
-    <Reference Include="Petra.Util, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\PETRA\Petra.Util\bin\Debug\Petra.Util.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -162,6 +152,10 @@
     <ProjectReference Include="..\..\PETRA.BaseMvc\Petra.DAO\Petra.DAO.csproj">
       <Project>{7b8105c9-2a48-4052-ab3d-c677e919a60a}</Project>
       <Name>Petra.DAO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\PETRA.BaseMvc\Petra.Util\Petra.Util.csproj">
+      <Project>{48fd18f1-2685-4fa3-8f4f-3b9333a2f381}</Project>
+      <Name>Petra.Util</Name>
     </ProjectReference>
     <ProjectReference Include="..\Dardani.EDU.BO\Dardani.EDU.BO.csproj">
       <Project>{a19b0fd8-61bd-4ed4-aba7-0da82e64fc56}</Project>
