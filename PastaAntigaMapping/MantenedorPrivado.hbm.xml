@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="MantenedorPrivado" table="EDU_MANTENEDOR_PRIVADO">
+    <id name="Id" column="ID_MANTENEDOR_PRIVADO">
+      <generator class="native"/>
+    </id>
+    <property name="Descricao" not-null="true" column="DS_MANTENEDOR_PRIVADO" length="128"/>
+    <property name="ValorEducacenso" column="VL_EDUCACENSO"  not-null="true"/>
+    <property name="FlagPadrao" not-null="true" column="FL_PADRAO" length="1"/>
+    <property name="FlagAtivo" not-null="true" column="FL_ATIVO" length="1"/>
+  </class>
+</hibernate-mapping>

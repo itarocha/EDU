@@ -1,0 +1,76 @@
+﻿@model Dardani.CMT.Entities.VO.UsuarioVO
+
+@{
+    ViewBag.Title = ViewBag.Acao;
+    List<Dardani.CMT.Entities.Model.ItemVO> ListaSexos = (List<Dardani.CMT.Entities.Model.ItemVO>)Session["ListaSexos"];
+    List<Dardani.CMT.Entities.Model.ItemStringVO> ListaNiveis = (List<Dardani.CMT.Entities.Model.ItemStringVO>)Session["ListaNiveis"];
+    List<Dardani.CMT.Entities.Model.ItemStringVO> ListaSimNao = (List<Dardani.CMT.Entities.Model.ItemStringVO>)Session["ListaSimNao"];
+}
+
+<script type="text/javascript">
+    $(function () {
+        $("#Nome").focus();
+        bindCalendario("#DataNascimento");
+    });
+</script>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false)
+
+    <fieldset>
+        <legend>Usuário</legend>
+
+        <table style="width:100%;">
+            <tr>
+                <td colspan="2"><p class="titulo-tabela">Dados Pessoais</p></td>
+            </tr>
+            <tr>
+                <td><div class="editor-label">@Html.LabelFor(model => model.Nome)</div></td>
+                <td><div class="editor-field">@Html.EditorFor(model => model.Nome, new { Size = "50"})</div></td>
+            </tr>
+            <tr>
+                <td><div class="editor-label">@Html.LabelFor(model => model.DataNascimento)</div></td>
+                <td><div class="editor-field">@Html.TextBoxFor(model => model.DataNascimento, new { @Value = Model.DataNascimento.ToString("dd/MM/yyyy") })</div></td>
+            </tr>
+            <tr>
+                <td><div class="editor-label">@Html.LabelFor(model => model.SexoId)</div></td>
+                <td><div class="editor-field">@Html.DropDownListFor(model => model.SexoId, new SelectList(ListaSexos, "Id", "Descricao"))</div></td>
+            </tr>
+            <tr>
+                <td><div class="editor-label">@Html.LabelFor(model => model.NumeroCPF)</div></td>
+                <td><div class="editor-field">@Html.EditorFor(model => model.NumeroCPF, new { Size = "50"})</div></td>
+            </tr>
+
+            <tr>
+                <td colspan="2"><p class="titulo-tabela">Acessibilidade</p></td>
+            </tr>
+            <tr>
+                <td><div class="editor-label">@Html.LabelFor(model => model.NomeUsuario)</div></td>
+                <td> <div class="editor-field">@Html.EditorFor(model => model.NomeUsuario)</div></td>
+            </tr>
+            <tr>
+                <td><div class="editor-label">@Html.LabelFor(model => model.Email)</div></td>
+                <td> <div class="editor-field">@Html.EditorFor(model => model.Email)</div></td>
+            </tr>
+            <tr>
+                <td><div class="editor-label">@Html.LabelFor(model => model.Nivel)</div></td>
+                <td><div class="editor-field">@Html.DropDownListFor(model => model.Nivel, new SelectList(ListaNiveis, "Id", "Descricao"))</div></td>
+            </tr>
+            <tr>
+                <td><div class="editor-label">@Html.LabelFor(model => model.Ativo)</div></td>
+                <td><div class="editor-field">@Html.DropDownListFor(model => model.Ativo, new SelectList(ListaSimNao, "Id", "Descricao"))</div></td>
+            </tr>
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.SenhaAcesso)
+       </table>
+        <p>
+            <input type="submit" value="Gravar" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Voltar a Lista", "Index", "Usuarios", null, new { @class="links_big"})
+</div>
+

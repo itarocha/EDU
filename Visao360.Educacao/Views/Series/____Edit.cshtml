@@ -1,0 +1,59 @@
+﻿@model Dardani.EDU.Entities.VO.SerieVO
+
+@{
+    ViewBag.Title = ViewBag.Acao;
+    List<Dardani.GER.Entities.Model.ItemVO> ListaEnsinos = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaEnsinos"];
+}
+
+<script type="text/javascript">
+    $(function() {
+        $("#Descricao").focus();
+    });
+</script>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false)
+
+    <fieldset>
+        <legend>Série</legend>
+
+        <table style="width:100%;">
+            <tr>
+                <td><div class="editor-label">@Html.LabelFor(model => model.Descricao)</div></td>
+                <td><div class="editor-field">@Html.EditorFor(model => model.Descricao, new { Size = "50"})</div></td>
+            </tr>
+            <tr>
+                <td><div class="editor-label">@Html.LabelFor(model => model.DescricaoAbreviada)</div></td>
+                <td><div class="editor-field">@Html.EditorFor(model => model.DescricaoAbreviada, new { Size = "50"})</div></td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="editor-label">
+                        Ensino
+                    </div>
+                </td>
+                <td>
+                    <div class="editor-field">
+                        @Html.DropDownListFor(model => model.EnsinoId, new SelectList(ListaEnsinos, "Id", "Descricao"))
+                        @Html.ValidationMessageFor(model => model.EnsinoId)
+                    </div>
+                <td>
+            </tr>
+            <tr>
+                <td><div class="editor-label">@Html.LabelFor(model => model.Sequencia)</div></td>
+                <td><div class="editor-field">@Html.EditorFor(model => model.Sequencia, new { Size = "50"})</div></td>
+            </tr>
+       </table>
+        <p>
+            <input type="submit" value="Gravar" />
+        </p>
+        @Html.HiddenFor(model => model.Id)
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Voltar a Lista", "Index", "Series", null, new { @class="links_big"})
+</div>
+
+

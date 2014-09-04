@@ -1,0 +1,32 @@
+﻿@model Dardani.EDU.Entities.Model.AnoLetivo 
+
+@{
+    ViewBag.Title = ViewBag.Acao;
+}
+
+<script type="text/javascript">
+    $(function() {
+        $("#Descricao").focus();
+    });
+</script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false)
+
+    <div class="row">
+        <div class="col-md-8">
+            <label class="input-label f-left">@Html.LabelFor(model => model.Ano):</label>
+            @Html.TextBoxFor(model => model.Ano, new { @class = "input-text f-left" })
+        </div>
+    </div>
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.FlagStatus)
+    <div class="row">
+        <div class="col-md-12 pt-20">
+            <input type="submit" value="Gravar" class="btn btn-success" />
+            @Html.ActionLink("Voltar", "Index", "AnosLetivos", null, new { @class = "btn btn-default" })
+        </div>
+    </div>
+}

@@ -1,0 +1,139 @@
+﻿@model Dardani.EDU.Entities.VO.TurmaVO
+
+@{
+    ViewBag.Title = ViewBag.Acao;
+
+    //List<Dardani.GER.Entities.Model.ItemVO> ListaCalendario = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaCalendario"];
+    //List<Dardani.GER.Entities.Model.ItemVO> ListaSala = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaSala"];
+    //List<Dardani.GER.Entities.Model.ItemVO> ListaTurno = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaTurno"];
+    //List<Dardani.GER.Entities.Model.ItemVO> ListaTipoAtendimento = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaTipoAtendimento"];
+    //List<Dardani.GER.Entities.Model.ItemVO> ListaModalidade = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaModalidade"];
+    //List<Dardani.GER.Entities.Model.ItemVO> ListaEtapa = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaEtapa"];
+    //List<Dardani.GER.Entities.Model.ItemStringVO> ListaSimNao = (List<Dardani.GER.Entities.Model.ItemStringVO>)Session["ListaSimNao"];
+
+    String ckDom = Model.FlagDomingo == "S" ? "checked" : "";
+    String ckSeg = Model.FlagSegunda == "S" ? "checked" : "";
+    String ckTer = Model.FlagTerca == "S" ? "checked" : "";
+    String ckQua = Model.FlagQuarta == "S" ? "checked" : "";
+    String ckQui = Model.FlagQuinta == "S" ? "checked" : "";
+    String ckSex = Model.FlagSexta == "S" ? "checked" : "";
+    String ckSab = Model.FlagSabado == "S" ? "checked" : "";
+}
+
+<script type="text/javascript">
+    $(function() {
+        carregarEtapas();
+        $("#Nome").focus();
+       
+
+            /*
+            $.post(LINK_DEFAULT + 'recrutador/agendaentrevista/ajaxbuscacandidatos/',
+            {
+                modalidade_id: $('#ModalidadeId').val(),
+                //cod_vaga: $('#cod_vaga').val()
+            }, function(data) {
+                $('#EtapaId').html(data);
+            });
+            */
+    });
+</script>
+@if (Model.Id > 0)
+{
+<div class="row">
+    <div class="col-md-12 btn-group pt-20">
+    @Html.ActionLink("Movimentação", "View", new { id = Model.Id }, new { @class = "btn btn-default disabled" }) 
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-default" }) 
+    <a href="/TurmaAlunos/@Model.Id" class="btn btn-default">Alunos</a>    
+    @Html.ActionLink("Quadro de Horários", "QuadroHorarios", new { id = Model.Id }, new { @class = "btn btn-default" }) 
+    </div>
+</div>
+}
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false)
+
+    <div class="row">
+        <div class="col-md-8">
+            <label class="input-label f-left">@Html.LabelFor(model => model.Nome):</label>
+            <h4>@Html.DisplayTextFor(model => model.Nome)</h4>
+            </div>
+        <div class="col-md-4">
+            <label class="input-label f-left">@Html.LabelFor(model => model.CodigoINEP):</label>
+            <h4>@Html.DisplayTextFor(model => model.CodigoINEP)</h4>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <label class="input-label f-left">@Html.LabelFor(model => model.ModalidadeId):</label>
+            <h4>@Html.DisplayTextFor(model => model.ModalidadeDescricao)</h4>
+        </div>
+        <div class="col-md-6">
+            <label class="input-label f-left">@Html.LabelFor(model => model.EtapaId):</label>
+            <h4>@Model.TipoEnsinoDescricao - @Model.SerieDescricao</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label class="input-label f-left">@Html.LabelFor(model => model.CalendarioId):</label>
+            <h4>@Html.DisplayTextFor(model => model.CalendarioDescricao)</h4>
+        </div>
+        <div class="col-md-6">
+            <label class="input-label f-left">@Html.LabelFor(model => model.SalaId):</label>
+            <h4>@Html.DisplayTextFor(model => model.SalaDescricao)</h4>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <label class="input-label f-left">@Html.LabelFor(model => model.TurnoId):</label>
+            <h4>@Html.DisplayTextFor(model => model.TurnoDescricao)</h4>
+        </div>
+        <div class="col-md-6">
+            <label class="input-label f-left">@Html.LabelFor(model => model.TipoAtendimentoId):</label>
+            <h4>@Html.DisplayTextFor(model => model.TipoAtendimentoDescricao)</h4>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label class="input-label f-left">Dias Com Aula:</label>
+            <h4>@Html.DisplayTextFor(model => model.FlagPrograma)</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <label class="input-label f-left">@Html.LabelFor(model => model.FlagPrograma):</label>
+            <div class="editor-field">
+                <ul style="list-style-type:none; padding:0px;">
+                    <li style="display:inline;padding-right:10px;"><input type="checkbox" name="CkbDom" id="CkbDom" value="S" @ckDom /> Dom</li>
+                    <li style="display:inline;padding-right:10px;"><input type="checkbox" name="CkbSeg" id="CkbSeg" value="S" @ckSeg /> Seg</li>
+                    <li style="display:inline;padding-right:10px;"><input type="checkbox" name="CkbTer" id="CkbTer" value="S" @ckTer /> Ter</li>
+                    <li style="display:inline;padding-right:10px;"><input type="checkbox" name="CkbQua" id="CkbQua" value="S" @ckQua /> Qua</li>
+                    <li style="display:inline;padding-right:10px;"><input type="checkbox" name="CkbQui" id="CkbQui" value="S" @ckQui /> Qui</li>
+                    <li style="display:inline;padding-right:10px;"><input type="checkbox" name="CkbSex" id="CkbSex" value="S" @ckSex /> Sex</li>
+                    <li style="display:inline;padding-right:10px;"><input type="checkbox" name="CkbSab" id="CkbSab" value="S" @ckSab /> Sáb</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.EscolaId)
+        @Html.HiddenFor(model => model.FlagDomingo)
+        @Html.HiddenFor(model => model.FlagSegunda)
+        @Html.HiddenFor(model => model.FlagTerca)
+        @Html.HiddenFor(model => model.FlagQuarta)
+        @Html.HiddenFor(model => model.FlagQuinta)
+        @Html.HiddenFor(model => model.FlagSexta)
+        @Html.HiddenFor(model => model.FlagSabado)
+
+    <div class="row">
+        <div class="col-md-12 pt-20">
+            @Html.ActionLink("Voltar a Lista", "Index", "Turmas", null, new { @class="btn btn-default"})
+        </div>
+    </div>
+}
+
+
+

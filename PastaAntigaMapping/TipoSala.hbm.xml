@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="TipoSala" table="EDU_TIPO_SALA">
+    <id name="Id" column="ID_TIPO_SALA">
+      <generator class="native"/>
+    </id>
+    <property name="Descricao" not-null="true" column="DS_DISCIPLINA" length="64"/>
+    <property name="FlagSalaAula" not-null="true" column="FL_SALA_AULA" length="1"/>
+  </class>
+</hibernate-mapping>

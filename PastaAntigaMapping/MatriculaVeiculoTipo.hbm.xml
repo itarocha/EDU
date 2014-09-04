@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="MatriculaVeiculoTipo" table="EDU_MATRICULA_VEICULO_TIPO">
+    <id name="Id" column="ID_MATRICULA_VEICULO_TIPO">
+      <generator class="native"/>
+    </id>
+    <many-to-one name="Matricula" class="Matricula"  column="ID_MATRICULA"  not-null="true" />
+    <many-to-one name="VeiculoTipo" class="VeiculoTipo"  column="ID_VEICULO_TIPO"  not-null="true" />
+  </class>
+</hibernate-mapping>

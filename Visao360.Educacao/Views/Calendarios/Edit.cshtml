@@ -1,0 +1,66 @@
+﻿@model Dardani.EDU.Entities.VO.CalendarioVO
+
+@{
+    ViewBag.Title = ViewBag.Acao;
+}
+
+<script type="text/javascript">
+    $(function () {
+        $(".calendario").datepicker({
+            dateFormat: 'dd/mm/yy',
+            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+            dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+            dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+            monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+            nextText: 'Próximo',
+            prevText: 'Anterior'
+        });
+
+        $("#Descricao").focus();
+    });
+</script>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false)
+
+    <div class="row">
+        <div class="col-md-8">
+            <label class="input-label f-left">@Html.LabelFor(model => model.Descricao):</label>
+            @Html.TextBoxFor(model => model.Descricao, new { @class = "input-text f-left" })
+        </div>
+        <div class="col-md-2">
+            <label class="input-label f-left">@Html.LabelFor(model => model.DiasLetivos):</label>
+            @Html.TextBoxFor(model => model.DiasLetivos, new { @class = "input-text f-left" })
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-4">
+            <label class="input-label f-left">@Html.LabelFor(model => model.DataInicio):</label>
+            @Html.TextBoxFor(model => model.DataInicio, new { @Value = Model.DataInicio.ToString("dd/MM/yyyy"), @class = "input-text f-left calendario", alt="date" })
+        </div>
+        <div class="col-md-4">
+            <label class="input-label f-left">@Html.LabelFor(model => model.DataTermino):</label>
+            @Html.TextBoxFor(model => model.DataTermino, new { @Value = Model.DataTermino.ToString("dd/MM/yyyy"), @class = "input-text f-left calendario", alt="date" })
+        </div>
+        <div class="col-md-4">
+            <label class="input-label f-left">@Html.LabelFor(model => model.DataResultado):</label>
+            @Html.TextBoxFor(model => model.DataResultado, new { @Value = Model.DataResultado.ToString("dd/MM/yyyy"), @class = "input-text f-left calendario", alt="date" })
+        </div>
+    </div>
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.AnoLetivoId)
+    @Html.HiddenFor(model => model.EscolaId)
+    
+    <div class="row">
+        <div class="col-md-12 pt-20">
+            <p>
+            <input type="submit" class="btn btn-success" value="Gravar" />
+            @Html.ActionLink("Voltar", "Index", "Calendarios", null, new { @class = "btn btn-default" })
+            </p>
+        </div>
+    </div>
+}
+

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="EscolaPrivada" table="EDU_ESCOLA_PRIVADA">
+    <id name="Id" column="ID_ESCOLA">
+      <generator class="foreign">
+        <param name="property">
+          Escola
+        </param>
+      </generator>
+    </id>
+    <one-to-one name="Escola" class="Escola" constrained="true" cascade="all"/>
+    <many-to-one name="CategoriaPrivada" class="CategoriaPrivada"  column="ID_CATEGORIA_PRIVADA"  not-null="true" />
+    <many-to-one name="ConvenioPublico" class="ConvenioPublico"  column="ID_CONVENIO_PUBLICO"  not-null="true" />
+    <property name="CNPJ" column="DS_CNPJ" length="12"/>
+    <property name="CNPJMantenedora" column="DS_CNPJ_MANTENEDORA" length="12"/>
+  </class>
+</hibernate-mapping>

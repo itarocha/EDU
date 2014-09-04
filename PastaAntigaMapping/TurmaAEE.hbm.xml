@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="TurmaAEE" table="EDU_TURMA_AEE">
+    <id name="Id" column="ID_TURMA_AEE">
+      <generator class="native"/>
+    </id>
+    <many-to-one name="Turma" class="Turma"  column="ID_TURMA"  not-null="true" />
+    <many-to-one name="TipoAEE" class="TipoAEE"  column="ID_TIPO_AEE"  not-null="true" />
+  </class>
+</hibernate-mapping>

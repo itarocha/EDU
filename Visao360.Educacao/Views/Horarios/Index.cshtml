@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Dardani.EDU.Entities.Model.Horario>
+
+@{
+    ViewBag.Title = "Horários";
+}
+
+<div class="row">
+    <div class="col-md-12">
+    @Html.ActionLink("Novo Horario", "Edit", "Horarios", null, new { @class = "btn btn-default" }) 
+    </div>
+</div>
+<div id="lista">
+@Html.Partial("_Listagem", Model)
+</div>
+
+

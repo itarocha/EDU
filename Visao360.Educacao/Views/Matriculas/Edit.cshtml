@@ -1,0 +1,87 @@
+﻿@model Dardani.EDU.Entities.VO.MatriculaVO
+
+@{
+    ViewBag.Title = ViewBag.Acao;
+    Dardani.EDU.Entities.VO.TurmaVO turma = (Dardani.EDU.Entities.VO.TurmaVO)ViewBag.TurmaVO;
+}
+
+<script type="text/javascript">
+    $(function () {
+        $("#Nome").focus();
+    });
+</script>
+
+<div class="row">
+    <div class="col-md-12 pt-20">
+        <a href="/TurmaAlunos/@turma.Id" class="btn btn-default">Voltar</a>
+        @Html.ActionLink("Editar Turma", "Edit", "Turmas", new { id = @turma.Id }, new { @class = "btn btn-default" }) 
+        @Html.ActionLink("Editar Aluno", "Edit", "Alunos", new { id = @Model.PessoaId }, new { @class = "btn btn-default" }) 
+    </div>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false)
+
+    <div class="row">
+        <div class="col-md-12">
+            <label class="input-label f-left">@Html.LabelFor(model => model.PessoaNome):</label>
+            @Html.TextBoxFor(model => model.PessoaNome, new { @class = "input-text f-left", @readonly="readonly" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label class="input-label f-left">Turma:</label>
+            <input type="text" value="@turma.Nome" readonly="readonly" class = "input-text f-left"/>
+        </div>
+        <div class="col-md-6">
+            <label class="input-label f-left">Modalidade:</label>
+            <input type="text" value="@turma.ModalidadeDescricao" readonly="readonly" class = "input-text f-left"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label class="input-label f-left">Tipo de Ensino:</label>
+            <input type="text" value="@turma.TipoEnsinoDescricao" readonly="readonly" class = "input-text f-left"/>
+        </div>
+        <div class="col-md-6">
+            <label class="input-label f-left">Turno:</label>
+            <input type="text" value="@turma.TurnoDescricao" readonly="readonly" class = "input-text f-left"/>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-4">
+            <label class="input-label f-left">@Html.LabelFor(model => model.EscolarizacaoEspecialId):</label>
+            @Html.DropDownListFor(model => model.EscolarizacaoEspecialId, ViewBag.ListaEscolarizacaoEspecial as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
+        </div>
+        <div class="col-md-4">
+            <label class="input-label f-left">@Html.LabelFor(model => model.TurmaUnificadaId):</label>
+            @Html.DropDownListFor(model => model.TurmaUnificadaId, ViewBag.ListaTurmaUnificada as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
+        </div>
+        <div class="col-md-4">
+            <label class="input-label f-left">@Html.LabelFor(model => model.TransportePublicoId):</label>
+            @Html.DropDownListFor(model => model.TransportePublicoId, ViewBag.ListaTransportePublico as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <label class="input-label f-left">@Html.LabelFor(model => model.FlagRematricular):</label>
+            @Html.DropDownListFor(model => model.FlagRematricular, ViewBag.ListaSimNao as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
+        </div>
+    </div>
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.AnoLetivoId)
+    @Html.HiddenFor(model => model.TurmaId)
+    @Html.HiddenFor(model => model.PessoaId)
+    
+    <div class="row">
+        <div class="col-md-12 pt-20">
+            <p>
+            <input type="submit" class="btn btn-success" value="Gravar" />
+            </p>
+        </div>
+    </div>
+}

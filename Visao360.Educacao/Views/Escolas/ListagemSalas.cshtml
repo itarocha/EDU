@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Dardani.EDU.Entities.Model.Sala>
+@using Visao360.Educacao.Helpers
+
+@{
+    WebGrid grid = new WebGrid(Model, rowsPerPage: 20, ajaxUpdateContainerId: "gridAreaSala");
+}
+
+<div id="gridAreaSala">
+@grid.GetHtml(
+    tableStyle:"grade",
+    alternatingRowStyle: "altRow",
+    columns:new[] {
+        grid.Column("Id", style:"to-the-right"),
+        grid.Column("Descricao",header:"Descricao"),
+        grid.Column("",header:"Ações", format:@<text>
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }) 
+                @Html.ActionLink("Excluir", "Delete", new { @item.Id })
+                </text>)
+    }
+)
+</div>

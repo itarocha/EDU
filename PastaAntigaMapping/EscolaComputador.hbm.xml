@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="EscolaComputador" table="EDU_ESCOLA_COMPUTADOR">
+    <id name="Id" column="ID_ESCOLA">
+      <generator class="foreign">
+        <param name="property">
+          Escola
+        </param>
+      </generator>
+    </id>
+    <one-to-one name="Escola" class="Escola" constrained="true" cascade="all"/>
+    <property name="QuantidadeUsoAdministrativo" column="VL_QUANTIDADE_USO_ADMINISTRATIVO"/>
+    <property name="QuantidadeUsoAluno" column="VL_QUANTIDADE_USO_ALUNO"/>
+    <property name="FlagAcessoInternet" column="FL_ACESSO_INTERNET" length="1"/>
+    <property name="FlagBandaLarga" column="FL_BANDA_LARGA" length="1"/>
+  </class>
+</hibernate-mapping>

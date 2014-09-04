@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Dardani.EDU.Entities.Model.Disciplina>
+@using Visao360.Educacao.Helpers
+
+@{
+    WebGrid grid = new WebGrid(Model, rowsPerPage: 20, ajaxUpdateContainerId: "gridArea", defaultSort: "DisciplinaEnsino.Disciplina.Descricao");
+}
+
+<div id="gridArea">
+@grid.GetHtml(
+    tableStyle:"grade",
+    alternatingRowStyle: "altRow",
+    columns:new[] {
+        grid.Column("Id", style:"to-the-right"),
+        grid.Column("DisciplinaEnsino.Disciplina.Descricao",header:"Disciplina", style:"to-the-center"),
+        grid.Column("QuantidadePeriodosSemana",header:"Períodos", style:"to-the-center"),
+        grid.Column("",header:"Ações", style:"to-the-center", format:@<text>
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }) 
+                @Html.ActionLink("Excluir", "Delete", new { @item.Id })
+                </text>)
+    }
+)
+</div>

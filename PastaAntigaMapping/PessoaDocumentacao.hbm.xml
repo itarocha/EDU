@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="PessoaDocumentacao" table="EDU_PESSOA_DOCUMENTACAO">
+    <id name="Id" column="ID_PESSOA">
+      <generator class="foreign">
+        <param name="property">
+          Pessoa
+        </param>
+      </generator>
+    </id>
+    <one-to-one name="Pessoa" class="Pessoa" constrained="true" cascade="all"/>
+    <many-to-one name="SituacaoDocumento" class="SituacaoDocumento"  column="ID_SITUACAO_DOCUMENTO" not-null="false"  />
+    <many-to-one name="ModeloCertidao" class="ModeloCertidao"  column="ID_MODELO_CERTIDAO"  not-null="false"/>
+    <many-to-one name="TipoCertidao" class="TipoCertidao"  column="ID_TIPO_CERTIDAO" not-null="false"/>
+    <property name="CertidaoNumero" column="DS_CERTIDAO_NUMERO" length="16"/>
+    <property name="CertidaoTermo" column="DS_CERTIDAO_TERMO" length="16"/>
+    <property name="CertidaoFolha" column="DS_CERTIDAO_FOLHA" length="16"/>
+    <property name="CertidaoLivro" column="DS_CERTIDAO_LIVRO" length="16"/>
+    <property name="CertidaoNomeCartorio" column="DS_CERTIDAO_CARTORIO" length="64"/>
+    <property name="CertidaoDataEmissao" column="DT_CERTIDAO_EMISSAO" />
+    <many-to-one name="CertidaoCidade" class="Municipio" column="ID_CERTIDAO_MUNICIPIO" />
+    <many-to-one name="CertidaoUF" class="Estado" column="ID_CERTIDAO_ESTADO" />
+
+    <property name="CertidaoNumeroNovo" column="DS_NUMERO_NOVO" length="32"/>
+    <property name="RGNumero" column="DS_RG_NUMERO" length="32"/>
+    <property name="RGComplemento" column="DS_RG_COMPLEMENTO" length="16"/>
+    <property name="RGOrgao" column="DS_RG_ORGAO" length="16"/>
+    <property name="RGDataEmissao" column="DT_RG_EMISSAO" />
+    <many-to-one name="RGUF" class="Estado" column="ID_RG_ESTADO" />
+
+    <property name="CPFNumero" column="DS_CPF_NUMERO" length="11"/>
+    <property name="DocumentoEstrangeiroNumero" column="DS_DOCUMENTO_ESTRANGEIRO_NUMERO" length="32"/>
+    <property name="CNHNumero" column="DS_CNH_NUMERO" length="32"/>
+    <property name="CNHCategoria" column="DS_CNH_CATEGORIA" length="8"/>
+    <property name="CNHDataEmissao" column="DT_CNH_EMISSAO" />
+    <property name="CNHDataValidade" column="DT_CNH_VALIDADE" />
+    <many-to-one name="CNHUF" class="Estado" column="ID_CNH_ESTADO" />
+  
+  </class>
+</hibernate-mapping>

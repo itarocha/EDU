@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="BaseCurricular" table="EDU_BASE_CURRICULAR">
+    <id name="Id" column="ID_BASE">
+      <generator class="native"/>
+    </id>
+    <property name="Descricao" not-null="true" column="DS_BASE_CURRICULAR" length="64"/>
+    <property name="DescricaoTurno" not-null="true" column="DS_TURNO" length="32"/>
+    <property name="FlagMediaFrequencia" not-null="true" column="FL_MEDIA_FREQUENCIA" length="1"/>
+    <property name="FlagControleFrequencia" not-null="true" column="FL_CONTROLE_FREQUENCIA" length="1"/>
+    <property name="FlagConclusao" not-null="true" column="FL_CONCLUSAO" length="1"/>
+    <many-to-one name="Curso" class="Curso" not-null="true" column="ID_CURSO" cascade="all"/>
+    <many-to-one name="RegimeMatricula" class="RegimeMatricula" not-null="true" column="ID_REGIME_MATRICULA" cascade="all"/>
+  </class>
+</hibernate-mapping>
+

@@ -1,0 +1,46 @@
+﻿@model Visao360.Educacao.Models.ChangePasswordModel
+
+@{
+    ViewBag.Title = "Alteração de Senha";
+}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#UserName").focus();
+    });
+</script>
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>LogIn</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.OldPassword)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.OldPassword)
+            @Html.ValidationMessageFor(model => model.OldPassword)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NewPassword)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NewPassword)
+            @Html.ValidationMessageFor(model => model.NewPassword)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PasswordConfirmation)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PasswordConfirmation)
+            @Html.ValidationMessageFor(model => model.PasswordConfirmation)
+        </div>
+
+        <p>
+            <input type="submit" value="Gravar" />
+             @Html.ActionLink("Cancelar", "Index",  "Home", null, null)
+        </p>
+    </fieldset>
+}

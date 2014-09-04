@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="TransportePublico" table="EDU_TRANSPORTE_PUBLICO">
+    <id name="Id" column="ID_TRANSPORTE_PUBLICO">
+      <generator class="native"/>
+    </id>
+    <property name="Descricao" not-null="true" column="DS_TRANSPORTE_PUBLICO" length="64"/>
+    <property name="ValorEducacenso" column="VL_EDUCACENSO"  not-null="true"/>
+    <property name="FlagUtiliza" not-null="true" column="FL_UTILIZA" length="1"/>
+    <property name="FlagPadrao" not-null="true" column="FL_PADRAO" length="1"/>
+    <property name="FlagAtivo" not-null="true" column="FL_ATIVO" length="1"/>
+  </class>
+</hibernate-mapping>

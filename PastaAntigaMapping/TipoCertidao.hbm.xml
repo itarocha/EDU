@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="TipoCertidao" table="EDU_TIPO_CERTIDAO">
+    <id name="Id" column="ID_TIPO_CERTIDAO">
+      <generator class="native"/>
+    </id>
+    <property name="Descricao" not-null="true" column="DS_TIPO_CERTIDAO" length="64"/>
+    <property name="FlagPadrao" not-null="true" column="FL_PADRAO" length="1"/>
+    <property name="FlagAtivo" not-null="true" column="FL_ATIVO" length="1"/>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Dardani.EDU.Entities.Model.Sala>
+@{
+    WebGrid grid = new WebGrid(Model, rowsPerPage: 20, ajaxUpdateContainerId: "gridArea", defaultSort:"Descricao");
+}
+
+<div id="gridArea">
+@grid.GetHtml(
+    tableStyle:"table table-striped",
+    /*alternatingRowStyle: "altRow",*/
+    columns:new[] {
+        grid.Column("Id", style:"to-the-right", canSort:false),
+        grid.Column("Descricao",header:"Sala", canSort:false),
+        grid.Column("TipoSala.Descricao",header:"Tipo", canSort:false),
+        grid.Column("Metragem",header:"Metragem", style:"to-the-right", canSort:false),
+        grid.Column("Capacidade",header:"Capacidade", style:"to-the-right", canSort:false),
+        grid.Column("",header:"Ações", format:@<text>
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new{@class="btn btn-xs btn-info"}) 
+                @Html.ActionLink("Excluir", "Delete", new { @item.Id }, new{@class="btn btn-xs btn-danger"})
+        </text>)
+    }
+)
+</div>

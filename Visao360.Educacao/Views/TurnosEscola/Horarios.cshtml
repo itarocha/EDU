@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Dardani.EDU.Entities.VO.TurnoPeriodoVO>
+
+@{
+    ViewBag.Title = "Horários do Turno";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="alert alert-success"><b>@ViewBag.Turno.Descricao</b></div>
+    </div>
+</div>
+<p>
+    <a href="/TurnoHorarios/@ViewBag.Turno.Id/Edit" class="btn btn-default">Novo Horário</a>
+    <a href="/Turnos" class="btn btn-default">Voltar</a>
+</p>
+
+<div id="lista">
+@Html.Partial("_ListagemHorarios", Model)
+</div>
+
+

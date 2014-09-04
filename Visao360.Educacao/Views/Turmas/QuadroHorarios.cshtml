@@ -1,0 +1,375 @@
+﻿@model Visao360.Educacao.Models.Quadro
+
+@{
+    ViewBag.Title = ViewBag.Acao;
+    //String situacaoItem = "";
+
+    Dardani.EDU.Entities.VO.TurmaVO turma = (Dardani.EDU.Entities.VO.TurmaVO)ViewBag.Turma;
+    
+    
+    //Visao360.Educacao.Models.Quadro quadro = (Visao360.Educacao.Models.Quadro)ViewBag.Quadro;
+    //Dardani.EDU.Entities.VO.TurnoPeriodoVO tp;
+
+    Visao360.Educacao.Models.Faixa faixa;
+    int periodoAulaId = 0;
+    
+    var index = 0;
+    bool tem = false;
+    string nome = "";
+    string disciplina = "";
+    string classe = "";
+    string valorColuna = "";
+}
+<style>
+    .negrito {
+        font-weight:bold;
+    }
+
+	ul, li {
+	    padding:0;
+	    margin:0;
+	    margin-top:-1px;
+	    list-style:none;
+	}
+    
+    #grade li {
+        width:80px;
+    }
+	
+	#grade li p{
+		/*width: 80px;*/
+        /*width: 100%;*/
+        /*margin:10px;*/
+        text-align:center;
+        font-size:.8em;
+        margin:0 0 5px;
+	}
+	
+	.fila-ul { 
+        width:100%;
+        /*height:100px;*/
+        float:left;
+        display:table;
+	}
+	
+	.a100{
+		height:4em;
+	}
+	
+	.a50{
+		height:2em;
+        text-align:center;
+	}
+	
+	.coluna-li { 
+	    display:table-cell;
+	    border:solid 1px #808080;
+	    cursor:pointer;
+	    position:relative;
+	    overflow:hidden;
+	    transition:all ease 0.35s;
+	}
+	.input-check { 
+        display:block;
+        opacity:.0;
+        padding:0;
+        margin:0;
+        height:1px;
+	}
+	.ocupado { 
+        background:#ddd;
+	}
+	.check { 
+        background:#b6ff00; 
+	}
+</style>
+
+<script type="text/javascript">
+    $(function () {
+        var sigla = "";
+
+        /*
+        var fNames = ["Carnation", "Lily", "Orchid"];
+        var fRow = $("<div id=row3 class=drow/>").appendTo("div#conteudo");
+        var fTemplate = $("<div class=dcell><img/><label/><input/></div>");
+        for (var i = 0; i < fNames.length; i++) {
+            fTemplate.clone().appendTo(fRow).children()
+            .filter("img").attr("src", fNames[i] + ".png").end()
+            .filter("label").attr("for", fNames[i]).text(fNames[i]).end()
+            .filter("input").attr({name: fNames[i], value: 0, required: "required"})
+        }
+        */
+
+        var linhas = "@ViewBag.Linhas";
+        var colunas = "@ViewBag.Colunas";
+        //var linhas = 5;
+        //var colunas = 8;
+
+        //alert(linhas+", "+colunas);
+
+        var charCode = 65;
+        var letra = "";
+
+        var ful = $("<ul class=fila-ul>");
+        var fli = $("<li class=coluna-li><input type=checkbox><p/><li/>");
+
+        var pmat = $("<p class='titulo_disciplina negrito'>MAT</p>")
+        var ppes = $("<p class='nome_professor'>ITAMAR ROCHA</p>")
+
+        var pmatold = $("<p class='titulo_disciplina_old negrito'>MAT</p>")
+        var ppesold = $("<p class='nome_professor_old'>ITAMAR ROCHA</p>")
+
+        var n = 0;
+ 
+		/* SE FOSSE PRA FAZER SOMENTE COM JQUERY
+        for (var l = 1; l <= linhas; l++) {
+            letra = String.fromCharCode(charCode++);
+            var ul = ful.clone().appendTo("div#area");
+            for (var c = 1; c <= colunas; c++) {
+                var li = fli.clone().appendTo(ul)
+                li.data("title", n++ % 3 == 0 ? "ocupado" : "livre");
+                li.find(":input").addClass("input-check").addClass("teste");
+                if (l == 1) {
+                	li.children().filter("p").text("xxxx").css("text-align", "center");
+                } else {
+                	li.children().filter("p").text(letra + "-" + c).css("text-align", "center");
+                }
+            }
+        }
+        */
+
+        // Função que desabilita o botão para assentos ocupadas
+        $('.coluna-li').each(function () {
+            if ($(this).data('title') == 'ocupado') {
+                $(this).addClass('ocupado');
+                $(this).find('.input-check').prop('disabled', true).prop('checked', false);
+            };
+        });
+
+        // Função que permite selecionar um assento livre e alterar a cor
+        $('.coluna-li').click(function () {
+            if ($(this).data('title') != 'ocupado') {
+                $(this).toggleClass('check');
+                var e = $(this).find('.input-check');
+                e.prop('checked', e.is(':checked') ? false : true);
+                if (e.is(':checked')) {
+                    //alert('MARCADO');
+                    pmat.clone().html(sigla).appendTo($(this));
+                    ppes.clone().html($("#PessoaId option:selected").text()).appendTo($(this));
+
+                    $(this).find('.titulo_disciplina_old').hide();
+                    $(this).find('.nome_professor_old').hide();
+
+                } else {
+                    //alert('desmarcadoooo');
+                    $(this).find('.titulo_disciplina').remove();
+                    $(this).find('.nome_professor').remove();
+
+                    $(this).find('.titulo_disciplina_old').show();
+                    $(this).find('.nome_professor_old').show();
+
+                    //pmat2.clone().appendTo($(this));
+                    //ppes2.clone().appendTo($(this));
+                }
+            }
+        });
+        
+		/*
+        $('.celula').each(function () {
+            if ($(this).data("pode") == false) {
+                $(this).css({
+                    "background": "#888"
+                });
+            }
+        });
+
+        $('.celula').click(function () {
+            if ($(this).data("pode") != false) {
+                if ($(this).data("dono") == null) {
+                    $(this).css({
+                        "background": "blue"
+                    });
+                    $(this).data("dono", "sim");
+                } else {
+                    $(this).css({
+                        "background": "yellow"
+                    });
+                    $(this).removeData("dono");
+                }
+            }
+
+        });
+        */
+        /*
+        $('.celula').mouseleave(function(){
+            $(this).css({
+                "background": "yellow"
+            });
+        });
+        */
+        $('#PessoaId').change(function () {
+            limparTudo();
+        });
+
+        $('#DisciplinaId').change(function () {
+            $("#PessoaId").empty();
+            carregarProfissionais();
+            limparTudo();
+        });
+
+        function limparTudo() {
+            $('.input-check').prop('checked', false);
+            $('.coluna-li').removeClass("check");
+
+            $('.coluna-li').find('.titulo_disciplina').remove();
+            $('.coluna-li').find('.nome_professor').remove();
+
+            $('.coluna-li').find('.titulo_disciplina_old').show();
+            $('.coluna-li').find('.nome_professor_old').show();
+        }
+
+        function carregarProfissionais() {
+            var disciplina_id = $('#DisciplinaId').val();
+            sigla = $('#DisciplinaId option:selected').text();
+
+            $.getJSON("/Turmas/ProfissionaisPorDisciplina", { disciplinaId: disciplina_id },
+               function (fooList) {
+                   var options = '';
+                   $.each(fooList, function (i, foo) {
+                       options += "<option value='" + foo.Id + "'>"
+                          + foo.Descricao + "</option>";
+                   });
+                   $('#PessoaId').removeAttr('disabled').html(options);
+               });
+        }
+
+
+        // Solo teste
+        /*
+        $('.coluna-li').each(function () {
+            if ($(this).data('title') != 'ocupado') {
+                pmatold.clone().appendTo($(this));
+                ppesold.clone().appendTo($(this));
+            };
+        });
+        */
+
+    });
+</script>
+
+
+<div class="alert alert-info">
+    Turma: <strong>@turma.Nome</strong> Modalidade: <strong>@turma.ModalidadeDescricao</strong> Etapa: <strong>@turma.SerieDescricao</strong> Turno: <strong>@turma.TurnoDescricao</strong>
+</div>
+@if (turma.Id > 0)
+{
+<div class="row">
+    <div class="col-md-12 btn-group pt-20">
+    @Html.ActionLink("Movimentação", "View", new { id = turma.Id }, new { @class = "btn btn-default" }) 
+    @Html.ActionLink("Editar", "Edit", new { id = turma.Id }, new { @class = "btn btn-default" }) 
+    <a href="/TurmaAlunos/@turma.Id" class="btn btn-default">Alunos</a>    
+    @Html.ActionLink("Quadro de Horários", "QuadroHorarios", new { id = turma.Id }, new { @class = "btn btn-default disabled" }) 
+    <a href="/Matriz/@turma.ModalidadeId/@turma.EtapaId" class="btn btn-default">Matriz Curricular</a>    
+    <a href="/MatrizDisciplina/@turma.ModalidadeId/@turma.EtapaId" class="btn btn-default">Disciplinas</a>    
+    </div>
+</div>
+}
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false)
+    
+    <div class="row">
+        <div class="col-md-6">
+            <label class="input-label f-left">Disciplina:</label>
+            @Html.DropDownListFor(model => model.DisciplinaId, ViewBag.ListaDisciplina as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
+        </div>
+
+        <div class="col-md-6">
+            <label class="input-label f-left">Profissional de Ensino:</label>
+            <select id="PessoaId" name="PessoaId" class="input-select f-left"></select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            &nbsp;    
+        </div>    
+    </div>    
+    
+    <div class="row">
+        <div class="col-md-12">
+	        <div id="grade">
+		        @for(int l = -1; l <= Model.Faixas.Count()-1; l++ ){
+			        if(l==-1){
+				        classe="a50";	
+			        } else {
+				        classe="a100";
+			        }
+			        <ul class="fila-ul @classe">
+			        @for(int c = -1; c <= Model.Colunas.Count -1; c++ ){
+                            
+				        if (l==-1 && c>=0){
+				        <li class="coluna-li" data-title="ocupado"><p style="font-weight:bold; text-align:center;">@Model.Colunas[c].Descricao</p></li>
+                        }
+                        else if (l > -1 && c == -1)
+                        {
+                            faixa = Model.Faixas.ElementAt(l);
+                            periodoAulaId = faixa.Id;
+
+				        <li class="coluna-li" data-title="ocupado"><p style="font-weight:bold; text-align:center; vertical-align:middle;">@faixa.FaixaHorario</p></li>
+                        }
+                        else if (l == -1 && c == -1)
+                        {
+				        <li class="coluna-li" data-title="ocupado"><p>&nbsp;</p></li>
+                        }
+                        else
+                        {
+                            index++;
+
+                            valorColuna = String.Format("{0}_{1}", periodoAulaId, c + 1);
+                            Visao360.Educacao.Models.Coluna coluna = Model.Colunas[c];
+                            string titulo = coluna.Selecionavel ? "" : "ocupado";
+                            string check = ""; //coluna.Selecionavel ? "check" : "";
+                            string checado = ""; // checked
+
+                            nome = "";
+                            disciplina = "";
+                            tem = false;
+
+
+                            foreach (Dardani.EDU.Entities.VO.TurmaHorarioVO cel in Model.ListaHorarios)
+                            {
+                                if ((cel.FlagDiaSemana == c+1) && (cel.PeriodoAulaId == periodoAulaId))
+                                {
+                                    nome = cel.PessoaNome;
+                                    disciplina = cel.DisciplinaDescricao;
+                                    tem = true;
+                                    break;
+                                }
+                            }
+		        	        <li class="coluna-li @check" data-title="@titulo">
+		        		        <input type=checkbox class="input-check" name="horarios" value="@valorColuna" @checado>
+                                @if(tem) {
+                                    <p class='titulo_disciplina_old negrito'>@disciplina</p>
+                                    <p class='nome_professor_old'>@nome</p>
+                                }
+		        	        </li>
+                        }
+           }
+			        </ul>
+          }
+	        </div>
+        </div>
+    </div>
+    @Html.HiddenFor(model => model.TurmaId)
+    @Html.HiddenFor(model => model.HorarioId)
+    <div class="row">
+        <div class="col-md-12 pt-20">
+            @Html.ActionLink("Voltar a Lista", "Index", "Turmas", null, new { @class="btn btn-default"})
+            <input type="submit" value="Gravar" class="btn btn-success" />
+        </div>
+    </div>
+}
+
+
+

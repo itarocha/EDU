@@ -1,0 +1,68 @@
+﻿@model Dardani.EDU.Entities.VO.RegenciaVO
+
+@{
+    ViewBag.Title = ViewBag.Acao;
+    List<Dardani.GER.Entities.Model.ItemVO> ListaDisciplinas = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaDisciplinas"];
+}
+
+<script type="text/javascript">
+    $(function() {
+        $("#Descricao").focus();
+    });
+</script>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false)
+
+    <fieldset>
+        <legend>Disciplina</legend>
+
+        <table style="width:100%;">
+            <tr>
+                <td>
+                    <div class="editor-label">
+                        Turma
+                    </div>
+                </td>
+                <td>
+                    <b>
+                        @Model.TurmaId&nbsp;-&nbsp;@Model.TurmaDescricao
+                    </b>
+                <td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.DisciplinaEnsinoId)
+                    </div>
+                </td>
+                <td>
+                    <div class="editor-field">
+                        @Html.DropDownListFor(model => model.DisciplinaEnsinoId, new SelectList(ListaDisciplinas, "Id", "Descricao"))
+                        @Html.ValidationMessageFor(model => model.DisciplinaEnsinoId)
+                    </div>
+                <td>
+            </tr>
+            <tr>
+                <td><div class="editor-label">@Html.LabelFor(model => model.QuantidadePeriodosSemana)</div></td>
+                <td><div class="editor-field">@Html.EditorFor(model => model.QuantidadePeriodosSemana)</div></td>
+            </tr>
+            <tr>
+                <td><div class="editor-label">@Html.LabelFor(model => model.FlagFrequencia)</div></td>
+                <td><div class="editor-field">@Html.EditorFor(model => model.FlagFrequencia)</div></td>
+            </tr>
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.TurmaId)
+            @Html.HiddenFor(model => model.TurmaDescricao)
+       </table>
+        <p>
+            <input type="submit" value="Gravar" />
+        </p>
+        @Html.HiddenFor(model => model.Id)
+    </fieldset>
+}
+
+<div>
+    <a href="/DT/@Model.TurmaId" class="links_big">Voltar para Listagem de Disciplinas</a>
+</div>

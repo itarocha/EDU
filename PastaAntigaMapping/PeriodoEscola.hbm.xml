@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="PeriodoEscola" table="EDU_PERIODO_ESCOLA">
+    <id name="Id" column="ID_PERIODO_ESCOLA">
+      <generator class="native"/>
+    </id>
+    <property name="HoraInicio" not-null="true" column="DS_HORA_INICIO" length="5"/>
+    <property name="HoraTermino" not-null="true" column="DS_HORA_TERMINO" length="5"/>
+    <many-to-one name="Escola" class="Escola" not-null="true" column="ID_ESCOLA" />
+    <many-to-one name="Turno" class="Turno" not-null="true" column="ID_TURNO" />
+    <many-to-one name="PeriodoAula" class="PeriodoAula" not-null="true" column="ID_PERIODO_AULA" />
+  </class>
+</hibernate-mapping>

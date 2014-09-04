@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Dardani.EDU.Entities.Model.TipoEnsino>
+
+@{
+    WebGrid grid = new WebGrid(Model, rowsPerPage: 20, ajaxUpdateContainerId: "gridArea", defaultSort:"Descricao");
+}
+
+<div id="gridArea">
+@grid.GetHtml(
+    tableStyle:"grade",
+    alternatingRowStyle: "altRow",
+    columns:new[] {
+        grid.Column("Id", style:"to-the-right"),
+        grid.Column("Descricao",header:"Descrição"),
+        grid.Column("DescricaoAbreviada",header:"Abreviatura"),
+        grid.Column("",header:"Ações", format:@<text>
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }) 
+                @Html.ActionLink("Excluir", "Delete", new { @item.Id })
+                </text>)
+    }
+)
+</div>

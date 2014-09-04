@@ -1,0 +1,52 @@
+﻿<style>
+
+</style>
+<script>
+    $(function () {
+        $('.thenav li').hover(
+            function() {
+                $('ul', this).fadeIn();
+            },
+            function() {
+                $('ul', this).fadeOut();
+            }
+         );
+    });
+</script>
+
+<ul class="thenav">
+    <li><a href="/Home">Home</a></li>
+    <li><a href="#">Cadastros Básicos</a>
+        <ul>
+            <li>@Html.ActionLink("Dias da Semana", "Index", "DiasSemana", null, null)</li>
+            <!--<li>__Html.ActionLink("Regimes de Matrículas", "Index", "RegimesMatriculas", null, null)</li>-->
+            <!--<li>__Html.ActionLink("Tipos de Turmas", "Index", "TiposTurmas", null, null)</li>-->
+            <li>@Html.ActionLink("Períodos", "Index", "PeriodosAulas", null, null)</li>
+            <li>@Html.ActionLink("Tipos de Salas", "Index", "TiposSalas", null, null)</li>
+            <!--<li>__Html.ActionLink("Tipos de Ensinos", "Index", "TiposEnsinos", null, null)</li>-->
+            <li>@Html.ActionLink("Disciplinas", "Index", "Disciplinas", null, null)</li>
+            <!--<li>__Html.ActionLink("Ensinos", "Index", "Ensinos", null, null)</li>-->
+            <!--<li>__Html.ActionLink("Disciplinas de Ensino", "Index", "DisciplinasEnsino", null, null)</li>-->
+            <!--<li>__Html.ActionLink("Séries", "Index", "Series", null, null)</li>-->
+            <!--<li>__Html.ActionLink("Cursos", "Index", "Cursos", null, null)</li>-->
+            <!--<li>__Html.ActionLink("Bases Curriculares", "Index", "BasesCurriculares", null, null)</li>-->
+        </ul>
+    </li>
+    <li><a href="#">Escolas</a>
+        <ul>
+            <li>@Html.ActionLink("Cadastro de Escolas", "Index", "Escolas", null, null)</li>
+            <li>@Html.ActionLink("Calendários", "Index", "Calendarios", null, null)</li>
+            <li>@Html.ActionLink("Salas", "Index", "Salas", null, null)</li>
+            <li>@Html.ActionLink("Períodos", "Index", "PeriodosEscola", null, null)</li>
+            <li>@Html.ActionLink("Turnos", "Index", "Turnos", null, null)</li>
+            <!--<li>_Html.ActionLink("Cursos", "Index", "CursosTurnos", null, null)</li>-->
+            <li>@Html.ActionLink("Turmas", "Index", "Turmas", null, null)</li>
+        </ul>
+    </li>
+    <li><a href="#">Movimentação</a>
+        <ul>
+            <li>@Html.ActionLink("Profissionais de Ensino", "Index", "Profissionais", null, null)</li>
+            <li>@Html.ActionLink("Alunos", "Index", "Alunos", null, null)</li>
+        </ul>
+    <li>
+</ul>

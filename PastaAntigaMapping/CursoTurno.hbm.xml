@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="CursoTurno" table="EDU_CURSO_TURNO">
+    <id name="Id" column="ID_CURSO_TURNO">
+      <generator class="native"/>
+    </id>
+    <many-to-one name="Escola" class="Escola" not-null="true" column="ID_ESCOLA"/>
+    <many-to-one name="Curso" class="Curso" not-null="true" column="ID_CURSO"/>
+    <many-to-one name="Turno" class="Turno" not-null="true" column="ID_TURNO"/>
+  </class>
+</hibernate-mapping>

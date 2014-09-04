@@ -1,0 +1,71 @@
+﻿@model Dardani.EDU.Entities.VO.MatrizDisciplinaVO
+
+@{
+    ViewBag.Title = ViewBag.Acao;
+}
+
+@using(Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false)
+
+    <div class="row">
+        <div class="col-md-4">
+            <label class="input-label f-left">Modalidade:</label>
+            <h4>@ViewBag.EtapaVO.ModalidadeDescricao</h4>
+        </div>
+        <div class="col-md-4">
+            <label class="input-label f-left">Ensino:</label>
+            <h4>@ViewBag.EtapaVO.TipoEnsinoDescricao</h4>
+        </div>
+        <div class="col-md-4">
+            <label class="input-label f-left">Série:</label>
+            <h4>@ViewBag.EtapaVO.SerieDescricao</h4>
+        </div>
+    </div>
+    
+    
+    <div class="row">
+        <div class="col-md-12">
+            <label class="input-label f-left">@Html.LabelFor(model => model.DisciplinaId):</label>
+            @Html.DropDownListFor(model => model.DisciplinaId, ViewBag.ListaDisciplina as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-4">
+            <label class="input-label f-left">@Html.LabelFor(model => model.FlagCategoria):</label>
+            @Html.DropDownListFor(model => model.FlagCategoria, ViewBag.ListaDisciplinaCategoria as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
+        </div>
+        <div class="col-md-4">
+            <label class="input-label f-left">@Html.LabelFor(model => model.FlagReprova):</label>
+            @Html.DropDownListFor(model => model.FlagReprova, ViewBag.ListaSimNao as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
+        </div>
+        <div class="col-md-4">
+            <label class="input-label f-left">@Html.LabelFor(model => model.FlagAceitaDispensa):</label>
+            @Html.DropDownListFor(model => model.FlagAceitaDispensa, ViewBag.ListaSimNao as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <label class="input-label f-left">@Html.LabelFor(model => model.FlagTipoAvaliacao):</label>
+            @Html.DropDownListFor(model => model.FlagTipoAvaliacao, ViewBag.ListaTipoAvaliacao as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
+        </div>
+        <div class="col-md-6">
+            <label class="input-label f-left">@Html.LabelFor(model => model.CargaHorariaSemanal):</label>
+            @Html.TextBoxFor(model => model.CargaHorariaSemanal, new { @class = "input-text f-left" })
+        </div>
+    </div>
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.MatrizId)
+    @Html.HiddenFor(model => model.DisciplinaId)
+    <div class="row">
+        <div class="col-md-12 pt-20">
+            <p>
+            <input type="submit" class="btn btn-success" value="Gravar" />
+            <a href="/Matriz/@ViewData["modalidadeId"]/@ViewData["etapaId"]" class="btn btn-default">Editar Matriz</a>	
+            </p>
+        </div>
+    </div>
+}

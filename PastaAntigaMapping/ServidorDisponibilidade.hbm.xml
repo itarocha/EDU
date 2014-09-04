@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="ServidorDisponibilidade" table="EDU_SERVIDOR_DISPONIBILIDADE">
+    <id name="Id" column="ID_SERVIDOR_DISPONIBILIDADE">
+      <generator class="native"/>
+    </id>
+    <many-to-one name="Servidor" class="Servidor" not-null="true" column="ID_SERVIDOR"/>
+    <many-to-one name="DiaSemana" class="DiaSemana" not-null="true" column="ID_DIA_SEMANA"/>
+    <many-to-one name="PeriodoEscola" class="PeriodoEscola" not-null="true" column="ID_PERIODO_ESCOLA"/>
+  </class>
+</hibernate-mapping>

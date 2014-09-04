@@ -1,0 +1,80 @@
+﻿@model Dardani.EDU.Entities.VO.EscolaInfraestruturaVO
+
+@{
+    ViewBag.Title = "Infraestrutura da Escola";
+    //List<Dardani.EDU.Entities.Model.InfraestruturaCategoria> ListaItens = (List<Dardani.EDU.Entities.Model.InfraestruturaCategoria>)Session["ListaItens"];
+    String situacaoItem = "";
+}
+
+<style>
+    label {width: 45%; display:block; float:left;}
+</style>
+
+<script type="text/javascript">
+    $(function() {
+    });
+</script>
+
+<div class="row">
+    <div class="col-md-12">
+    @Html.ActionLink("Escolas", "Index", "Escolas", null, new { @class = "btn btn-info" }) 
+    @Html.ActionLink("Nova Escola", "Edit", "Escolas", new { id = 0 }, new { @class = "btn btn-warning" }) 
+    </div>
+</div>
+@if (Model.Id > 0)
+{
+<div class="row">
+    <div class="col-md-12 btn-group pt-20">
+    @Html.ActionLink("Dados Gerais", "Edit", new { id = Model.Id }, new { @class = "btn btn-default" }) 
+    @Html.ActionLink("Endereço", "Endereco", new { id = Model.Id }, new { @class = "btn btn-default" }) 
+    @Html.ActionLink("Infraestrutura", "Infraestrutura", new { id = Model.Id }, new { @class = "btn btn-default disabled" })
+    @Html.ActionLink("Dados Educacionais", "DadosEducacionais", new { id = Model.Id }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Turnos", "Index", "TurnosEscola", null, new { @class = "btn btn-default" })
+    </div>
+</div>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false)
+
+    foreach (Dardani.EDU.Entities.Model.InfraestruturaCategoria ctg in ViewBag.ListaItens)
+    { 
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success">@ctg.Descricao</div>
+        </div>
+    </div>
+        int x = 1;
+        foreach (Dardani.EDU.Entities.Model.InfraestruturaItem ite in ctg.Itens)
+        {
+            situacaoItem = "";
+            foreach (int cli in Model.ListaItensInfraestrutura)
+            {
+                if (ite.Id == cli)
+                {
+                    situacaoItem = "checked";
+                    break;
+                }
+            }
+            <div class="row">
+                <div class="col-md-12">
+                    <label style="font-weight:normal; width:100%;"><input type="checkbox" name="ListaItensInfraestrutura" value="@ite.Id" @situacaoItem/> @ite.Descricao</label>
+                </div>
+            </div>
+            x++;
+        }
+    }
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.EscolaId)
+
+    <div class="row">
+        <div class="col-md-12 pt-20">
+            <input type="submit" value="Gravar" class="btn btn-success" />
+            @Html.ActionLink("Voltar a Lista", "Index", "Escolas", null, new { @class="btn btn-default"})
+        </div>
+    </div>
+}
+<p></p>
+

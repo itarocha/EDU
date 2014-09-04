@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A19B0FD8-61BD-4ED4-ABA7-0DA82E64FC56}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Dardani.EDU.BO</RootNamespace>
+    <AssemblyName>Dardani.EDU.BO</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Dardani.EDU.Entities">
+      <HintPath>..\Dardani.EDU.Entities\bin\Debug\Dardani.EDU.Entities.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentNHibernate">
+      <HintPath>..\packages\FluentNHibernate.1.4.0.0\lib\net35\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\packages\NHibernate.3.3.3.4001\lib\Net35\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App\EDUListasBuilder.cs" />
+    <Compile Include="App\ItemVOBuilders.cs" />
+    <Compile Include="NH\EstadoDAO.cs" />
+    <Compile Include="NH\AEEDAO.cs" />
+    <Compile Include="NH\AtividadeComplementarDAO.cs" />
+    <Compile Include="NH\CalendarioDAO.cs" />
+    <Compile Include="NH\CalendarioDiaDAO.cs" />
+    <Compile Include="NH\CalendarioDiaEventoDAO.cs" />
+    <Compile Include="NH\CategoriaPrivadaDAO.cs" />
+    <Compile Include="NH\ConvenioPublicoDAO.cs" />
+    <Compile Include="NH\AnoLetivoDAO.cs" />
+    <Compile Include="NH\EscolaTurnoDAO.cs" />
+    <Compile Include="NH\TipoDiaDAO.cs" />
+    <Compile Include="NH\TipoEventoDAO.cs" />
+    <Compile Include="NH\TurmaHorarioDAO.cs" />
+    <Compile Include="NH\SerieDAO.cs" />
+    <Compile Include="NH\DisciplinaEducacensoDAO.cs" />
+    <Compile Include="NH\MatrizDAO.cs" />
+    <Compile Include="NH\MatrizDisciplinaDAO.cs" />
+    <Compile Include="NH\PessoaDisciplinaDAO.cs" />
+    <Compile Include="NH\EscolaEducacionalDAO.cs" />
+    <Compile Include="NH\EscolaEtapaDAO.cs" />
+    <Compile Include="NH\EscolaModalidadeDAO.cs" />
+    <Compile Include="NH\EstadoCivilDAO.cs" />
+    <Compile Include="NH\EtapaEscolaDAO.cs" />
+    <Compile Include="NH\DisciplinaDAO.cs" />
+    <Compile Include="NH\EquipamentoDAO.cs" />
+    <Compile Include="NH\EscolaCompartilhamentoDAO.cs" />
+    <Compile Include="NH\EscolaComputadorDAO.cs" />
+    <Compile Include="NH\EscolaDAO.cs" />
+    <Compile Include="NH\EscolaEnderecoDAO.cs" />
+    <Compile Include="NH\EscolaEquipamentoDAO.cs" />
+    <Compile Include="NH\EscolaInfraestruturaItemDAO.cs" />
+    <Compile Include="NH\EscolaLocalDAO.cs" />
+    <Compile Include="NH\EscolaPrivadaDAO.cs" />
+    <Compile Include="NH\EscolaPrivadaMantenedorDAO.cs" />
+    <Compile Include="NH\EscolarizacaoEspecialDAO.cs" />
+    <Compile Include="NH\EstagioRegulamentacaoDAO.cs" />
+    <Compile Include="NH\EtapaDAO.cs" />
+    <Compile Include="NH\FormaIngressoFederalDAO.cs" />
+    <Compile Include="NH\FormaOcupacaoDAO.cs" />
+    <Compile Include="NH\InfraestruturaCategoriaDAO.cs" />
+    <Compile Include="NH\InfraestruturaItemDAO.cs" />
+    <Compile Include="NH\LinguaIndigenaDAO.cs" />
+    <Compile Include="NH\LocalEscolaDAO.cs" />
+    <Compile Include="NH\LocalizacaoDiferenciadaDAO.cs" />
+    <Compile Include="NH\MantenedorPrivadoDAO.cs" />
+    <Compile Include="NH\MaterialEspecificoDAO.cs" />
+    <Compile Include="NH\MatriculaDAO.cs" />
+    <Compile Include="NH\MatriculaVeiculoTipoDAO.cs" />
+    <Compile Include="NH\ModalidadeDAO.cs" />
+    <Compile Include="NH\ModeloCertidaoDAO.cs" />
+    <Compile Include="NH\MunicipioDAO.cs" />
+    <Compile Include="NH\PaisDAO.cs" />
+    <Compile Include="NH\PeriodoAulaDAO.cs" />
+    <Compile Include="NH\HorarioDAO.cs" />
+    <Compile Include="NH\HorarioPeriodoDAO.cs" />
+    <Compile Include="NH\PessoaDAO.cs" />
+    <Compile Include="NH\PessoaDocumentacaoDAO.cs" />
+    <Compile Include="NH\PessoaEnderecoDAO.cs" />
+    <Compile Include="NH\EspecialCategoriaDAO.cs" />
+    <Compile Include="NH\EspecialItemDAO.cs" />
+    <Compile Include="NH\PessoaEspecialItemDAO.cs" />
+    <Compile Include="NH\PessoaRecursoINEPDAO.cs" />
+    <Compile Include="NH\PosGraduacaoDAO.cs" />
+    <Compile Include="NH\ProfissionalDisciplinaDAO.cs" />
+    <Compile Include="NH\RacaDAO.cs" />
+    <Compile Include="NH\RecursoINEPDAO.cs" />
+    <Compile Include="NH\SalaDAO.cs" />
+    <Compile Include="NH\SexoDAO.cs" />
+    <Compile Include="NH\SituacaoCursoSuperiorDAO.cs" />
+    <Compile Include="NH\SituacaoDocumentoDAO.cs" />
+    <Compile Include="NH\SituacaoFuncionamentoDAO.cs" />
+    <Compile Include="NH\TipoAdministracaoDAO.cs" />
+    <Compile Include="NH\TipoAEEDAO.cs" />
+    <Compile Include="NH\TipoAtendimentoDAO.cs" />
+    <Compile Include="NH\TipoCertidaoDAO.cs" />
+    <Compile Include="NH\TipoComplementarDAO.cs" />
+    <Compile Include="NH\TipoEnsinoDAO.cs" />
+    <Compile Include="NH\TipoInstituicaoDAO.cs" />
+    <Compile Include="NH\TipoNacionalidadeDAO.cs" />
+    <Compile Include="NH\TipoSalaDAO.cs" />
+    <Compile Include="NH\TransportePublicoDAO.cs" />
+    <Compile Include="NH\TurmaAEEDAO.cs" />
+    <Compile Include="NH\TurmaComplementarDAO.cs" />
+    <Compile Include="NH\TurmaDAO.cs" />
+    <Compile Include="NH\TurmaUnificadaDAO.cs" />
+    <Compile Include="NH\TurnoDAO.cs" />
+    <Compile Include="NH\UsuarioAcessoDAO.cs" />
+    <Compile Include="NH\UsuarioDAO.cs" />
+    <Compile Include="NH\VeiculoCategoriaDAO.cs" />
+    <Compile Include="NH\VeiculoTipoDAO.cs" />
+    <Compile Include="NH\ZonaDAO.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\PETRA.BaseMvc\Petra.DAO\Petra.DAO.csproj">
+      <Project>{7b8105c9-2a48-4052-ab3d-c677e919a60a}</Project>
+      <Name>Petra.DAO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\PETRA.BaseMvc\Petra.Util\Petra.Util.csproj">
+      <Project>{48fd18f1-2685-4fa3-8f4f-3b9333a2f381}</Project>
+      <Name>Petra.Util</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

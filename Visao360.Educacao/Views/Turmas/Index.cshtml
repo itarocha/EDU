@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Dardani.EDU.Entities.VO.TurmaVO>
+
+@{
+    ViewBag.Title = "Turmas da Escola";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+    @Html.ActionLink("Nova Turma", "Edit", "Turmas", null, new { @class = "btn btn-default" }) 
+    </div>
+</div>
+<div id="lista">
+@Html.Partial("_Listagem", Model)
+</div>
+
+

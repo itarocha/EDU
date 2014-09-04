@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="Serie" table="EDU_SERIE">
+    <id name="Id" column="ID_SERIE">
+      <generator class="native"/>
+    </id>
+    <property name="Descricao" column="DS_SERIE" length="128" not-null="true"/>
+    <property name="Abreviatura" column="DS_ABREVIATURA" length="32" not-null="true"/>
+    <property name="FlagAtivo" column="FL_ATIVO" length="1" not-null="true"/>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,52 @@
+﻿@model Dardani.EDU.Entities.VO.EnsinoVO
+
+@{
+    ViewBag.Title = ViewBag.Acao;
+    List<Dardani.GER.Entities.Model.ItemVO> ListaTiposEnsinos = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaTiposEnsinos"];
+}
+
+<script type="text/javascript">
+    $(function() {
+        $("#Descricao").focus();
+    });
+</script>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false)
+
+    <fieldset>
+        <legend>Ensino</legend>
+
+        <table style="width:100%;">
+            <tr>
+                <td><div class="editor-label">@Html.LabelFor(model => model.Descricao)</div></td>
+                <td><div class="editor-field">@Html.EditorFor(model => model.Descricao, new { Size = "50"})</div></td>
+            </tr>
+            <tr>
+                <td><div class="editor-label">@Html.LabelFor(model => model.DescricaoAbreviada)</div></td>
+                <td><div class="editor-field">@Html.EditorFor(model => model.DescricaoAbreviada, new { Size = "50"})</div></td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="editor-label">
+                        Tipo de Ensino
+                    </div>
+                </td>
+                <td>
+                    <div class="editor-field">
+                        @Html.DropDownListFor(model => model.TipoEnsinoId, new SelectList(ListaTiposEnsinos, "Id", "Descricao"))
+                        @Html.ValidationMessageFor(model => model.TipoEnsinoId)
+                    </div>
+                <td>
+       </table>
+        <p>
+            <input type="submit" value="Gravar" />
+        </p>
+        @Html.HiddenFor(model => model.Id)
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Voltar a Lista", "Index", "Turnos", null, new { @class="links_big"})
+</div>

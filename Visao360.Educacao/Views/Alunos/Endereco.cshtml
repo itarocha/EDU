@@ -1,0 +1,125 @@
+﻿@model Dardani.EDU.Entities.VO.PessoaEnderecoVO
+
+@{
+    ViewBag.Title = "Endereço do Aluno";
+}
+
+<script type="text/javascript">
+    $(function () {
+        $("#Logradouro").focus();
+
+        //bindCaledario($("#DataNascimento"));
+        //bindCaledario($("#RGDataExpedicao"));
+        //bindCaledario($("#CTPSDataExpedicao"));
+    });
+</script>
+@if (ViewBag.TurmaId > 0) {
+<div class="alert alert-info">
+    Turma: <strong>@ViewBag.TurmaNome</strong>
+</div>
+}
+@if (Model.Id > 0)
+{
+<div class="row">
+    <div class="col-md-12 btn-group pt-20">
+    <a href="/Alunos/Edit/@ViewBag.MatriculaId" class="btn btn-default">Dados Básicos</a>&nbsp;
+    <a href="/Alunos/Endereco/@ViewBag.MatriculaId" class="btn btn-default disabled">Endereço</a>&nbsp;
+    <a href="/Alunos/Documentacao/@ViewBag.MatriculaId" class="btn btn-default">Documentação</a>&nbsp;
+    </div>
+</div>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false)
+
+    <div class="row">
+        <div class="col-md-12">
+            <label class="input-label f-left">Nome:</label>
+            <h4>@ViewBag.PessoaNome</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success">Localização</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <label class="input-label f-left">@Html.LabelFor(model => model.Logradouro):</label>
+            @Html.TextBoxFor(model => model.Logradouro, new { @class = "input-text f-left" })
+        </div>
+        <div class="col-md-4">
+            <label class="input-label f-left">@Html.LabelFor(model => model.Numero):</label>
+            @Html.TextBoxFor(model => model.Numero, new { @class = "input-text f-left" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <label class="input-label f-left">@Html.LabelFor(model => model.Complemento):</label>
+            @Html.TextBoxFor(model => model.Complemento, new { @class = "input-text f-left" })
+        </div>
+        <div class="col-md-4">
+            <label class="input-label f-left">@Html.LabelFor(model => model.Bairro):</label>
+            @Html.TextBoxFor(model => model.Bairro, new { @class = "input-text f-left" })
+        </div>
+        <div class="col-md-4">
+            <label class="input-label f-left">@Html.LabelFor(model => model.CEP):</label>
+            @Html.TextBoxFor(model => model.CEP, new { @class = "input-text f-left", @alt="cep"})
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <label class="input-label f-left">@Html.LabelFor(model => model.UFId):</label>
+            @Html.DropDownListFor(model => model.UFId, ViewBag.ListaUF as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
+        </div>
+        <div class="col-md-4">
+            <label class="input-label f-left">@Html.LabelFor(model => model.CidadeId):</label>
+            @Html.DropDownListFor(model => model.CidadeId, ViewBag.ListaCidade as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
+        </div>
+        <div class="col-md-4">
+            <label class="input-label f-left">@Html.LabelFor(model => model.ZonaId):</label>
+            @Html.DropDownListFor(model => model.ZonaId, ViewBag.ListaZona as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
+        </div>
+    </div>
+    
+   <div class="row">
+       <div class="col-md-12  pt-20">
+       </div>
+   </div>
+        
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success">Telefone/Fax/E-mail</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <label class="input-label f-left">@Html.LabelFor(model => model.Telefone):</label>
+            @Html.TextBoxFor(model => model.Telefone, new { @class = "input-text f-left", @alt="phone"})
+        </div>
+        <div class="col-md-4">
+            <label class="input-label f-left">@Html.LabelFor(model => model.Fax):</label>
+            @Html.TextBoxFor(model => model.Fax, new { @class = "input-text f-left", @alt="phone" })
+        </div>
+        <div class="col-md-4">
+            <label class="input-label f-left">@Html.LabelFor(model => model.Email):</label>
+            @Html.TextBoxFor(model => model.Email, new { @class = "input-text f-left" })
+        </div>
+    </div>
+    <div class="row">
+       <div class="col-md-12  pt-20">
+       </div>
+   </div>
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.PessoaId)
+    @Html.HiddenFor(model => model.TurmaId)
+    <div class="row">
+        <div class="col-md-12 pt-20">
+            <input type="submit" value="Gravar" class="btn btn-success" />
+            @Html.ActionLink("Voltar", "Index", "Alunos", null, new { @class="btn btn-default"})
+        </div>
+    </div>
+}
+

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="Escola" table="EDU_ESCOLA">
+    <id name="Id" column="ID_ESCOLA">
+      <generator class="native"/>
+    </id>
+    <property name="Nome" column="DS_NOME" length="128" not-null="true"/>
+    <many-to-one name="SituacaoFuncionamento" class="SituacaoFuncionamento"  column="ID_SITUACAO_FUNCIONAMENTO"  not-null="true" />
+    <property name="CodigoINEP" column="DS_CODIGO_INEP" length="32" />
+    <property name="NomeGestor" column="DS_NOME_GESTOR" length="64" not-null="true"/>
+    <property name="FlagGestorDiretor" column="FL_GESTOR_DIRETOR" length="1" not-null="true"/>
+    <property name="Email" column="DS_EMAIL" length="64"/>
+    <property name="CodigoOrgaoRegional" column="VL_CODIGO_REGIONAL" length="8"/>
+    <property name="NomeOrgaoRegional" column="DS_CODIGO_REGIONAL" length="128"/>
+    <many-to-one name="TipoAdministracao" class="TipoAdministracao"  column="ID_TIPO_ADMINISTRACAO"  not-null="true" />
+    <many-to-one name="EstagioRegulamentacao" class="EstagioRegulamentacao"  column="ID_ESTAGIO_REGULAMENTACAO"  not-null="true" />
+    <property name="QuantidadeFuncionarios" column="VL_QUANTIDADE_FUNCIONARIOS" length="8" not-null="true"/>
+    <property name="FlagAlimentacaoEscolar" column="FL_ALIMENTACAO_ESCOLAR" length="1" not-null="true"/>
+  </class>
+</hibernate-mapping>

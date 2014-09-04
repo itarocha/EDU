@@ -1,0 +1,35 @@
+﻿@model Dardani.EDU.Entities.Model.TipoTurma
+
+@{
+    ViewBag.Title = ViewBag.Acao;
+}
+
+<script type="text/javascript">
+    $(function() {
+        $("#Descricao").focus();
+    });
+</script>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false)
+
+    <fieldset>
+        <legend>Tipo de Ensino</legend>
+
+        <table style="width:100%;">
+            <tr>
+                <td><div class="editor-label">@Html.LabelFor(model => model.Descricao)</div></td>
+                <td><div class="editor-field">@Html.EditorFor(model => model.Descricao, new { Size = "50"})</div></td>
+            </tr>
+       </table>
+        <p>
+            <input type="submit" value="Gravar" />
+        </p>
+        @Html.HiddenFor(model => model.Id)
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Voltar a Lista", "Index", "TiposTurmas", null, new { @class="links_big"})
+</div>

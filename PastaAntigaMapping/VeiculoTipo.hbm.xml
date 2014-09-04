@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="VeiculoTipo" table="EDU_VEICULO_TIPO">
+    <id name="Id" column="ID_VEICULO_TIPO">
+      <generator class="native"/>
+    </id>
+    <property name="Descricao" not-null="true" column="DS_VEICULO_TIPO" length="128"/>
+    <many-to-one name="VeiculoCategoria" class="VeiculoCategoria"  column="ID_VEICULO_CATEGORIA" not-null="true" />
+    <property name="ValorEducacenso" column="VL_EDUCACENSO"  not-null="true"/>
+    <property name="FlagPadrao" not-null="true" column="FL_PADRAO" length="1"/>
+    <property name="FlagAtivo" not-null="true" column="FL_ATIVO" length="1"/>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,15 @@
+﻿@model IEnumerable<Dardani.EDU.Entities.Model.Escola>
+
+@{
+    ViewBag.Title = "Listagem de Escolas";
+}
+
+<p>
+    @Html.ActionLink("Nova Escola", "Edit", "Escolas", null, new { @class="btn btn-default"})
+</p>
+
+<div id="lista">
+@Html.Partial("_Listagem", Model)
+</div>
+
+

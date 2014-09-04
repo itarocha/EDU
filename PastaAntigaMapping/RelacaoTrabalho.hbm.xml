@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="RelacaoTrabalho" table="EDU_RELACAO_TRABALHO">
+    <id name="Id" column="ID_RELACAO_TRABALHO">
+      <generator class="native"/>
+    </id>
+    <many-to-one name="Servidor" class="Servidor" not-null="true" column="ID_SERVIDOR"/>
+    <many-to-one name="RegimeTrabalho" class="RegimeTrabalho" not-null="true" column="ID_REGIME_TRABALHO"/>
+    <many-to-one name="AreaTrabalho" class="AreaTrabalho" not-null="true" column="ID_AREA_TRABALHO"/>
+    <many-to-one name="Disciplina" class="Disciplina" not-null="true" column="ID_DISCIPLINA"/>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="Modalidade" table="EDU_MODALIDADE">
+    <id name="Id" column="ID_MODALIDADE">
+      <generator class="native"/>
+    </id>
+    <property name="Descricao" column="DS_MODALIDADE" length="128" not-null="true"/>
+    <property name="Abreviatura" column="DS_ABREVIATURA" length="8" not-null="true"/>
+    <property name="ValorEducacenso" column="VL_EDUCACENSO"  not-null="true"/>
+    <property name="FlagAtivo" column="FL_ATIVO" length="1" not-null="true"/>
+  </class>
+</hibernate-mapping>

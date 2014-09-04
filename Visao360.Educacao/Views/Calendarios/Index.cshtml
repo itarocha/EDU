@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Dardani.EDU.Entities.Model.Calendario>
+
+@{
+    ViewBag.Title = "Calendários da Escola";
+}
+
+<div class="row">
+    <div class="col-md-12">
+    @Html.ActionLink("Novo Calendário", "Edit", "Calendarios", null, new { @class = "btn btn-default" }) 
+    </div>
+</div>
+
+<!--
+using (Ajax.BeginForm(    
+     new AjaxOptions
+     {
+         HttpMethod = "get",
+         InsertionMode = InsertionMode.Replace,
+         UpdateTargetId = "lista"
+        }))
+     {
+         <p>
+         Entre com o texto:
+         <input type="search" name="SearchString" /> 
+         <input type="submit" value="Filtrar" />
+         </p> 
+     } 
+-->
+<div id="lista">
+@Html.Partial("_Listagem", Model)
+</div>
+
+

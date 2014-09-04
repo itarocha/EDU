@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Dardani.EDU.Entities.VO.EscolaTurnoVO>
+
+@{
+    ViewBag.Title = "Turnos da Escola";
+}
+
+<div class="row">
+    <div class="col-md-12">
+    @Html.ActionLink("Novo Turno", "Edit", "TurnosEscola", null, new { @class = "btn btn-default" }) 
+    </div>
+</div>
+@if (ViewBag.EscolaId >= 0)
+{
+<div class="row">
+    <div class="col-md-12 btn-group pt-20">
+    @Html.ActionLink("Dados Gerais", "Edit", "Escolas", new { id = ViewBag.EscolaId }, new { @class = "btn btn-default" }) 
+    @Html.ActionLink("Endereço", "Endereco", "Escolas", new { id = ViewBag.EscolaId }, new { @class = "btn btn-default" }) 
+    @Html.ActionLink("Infraestrutura", "Infraestrutura", "Escolas", new { id = ViewBag.EscolaId }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Dados Educacionais", "DadosEducacionais", "Escolas", new { id = ViewBag.EscolaId }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Turnos", "Index","TurnosEscola", null, new { @class = "btn btn-default disabled" })
+    </div>
+</div>
+}
+<div id="lista">
+@Html.Partial("_Listagem", Model)
+</div>
+
+

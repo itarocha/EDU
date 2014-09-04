@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="EscolaEtapa" table="EDU_ESCOLA_ETAPA">
+    <id name="Id" column="ID_ESCOLA_ETAPA">
+      <generator class="native"/>
+    </id>
+    <many-to-one name="Escola" class="Escola"  column="ID_ESCOLA"  not-null="true" />
+    <many-to-one name="EtapaEscola" class="EtapaEscola"  column="ID_ETAPA_ESCOLA"  not-null="true" />
+  </class>
+</hibernate-mapping>

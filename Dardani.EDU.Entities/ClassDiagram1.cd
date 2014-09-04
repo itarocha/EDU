@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Dardani.EDU.Entities.Model.AreaTrabalho">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAABAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>Model\AreaTrabalho.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.Model.Atividade">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAIAAAAABAAAAACIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Atividade.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.Model.BaseCurricular">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgACACAIBQABAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\BaseCurricular.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.Model.Calendario">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAACAAAAQAABAAAAAAAwAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Model\Calendario.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.Model.Cargo">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Cargo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.Model.Curso">
+    <Position X="11" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAABAAAAEAAAAAAAAAAAAEAABAAAAAAAAAA=</HashCode>
+      <FileName>Model\Curso.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.Model.CursoEscola" Collapsed="true">
+    <Position X="0.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAACAAAAAwIBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\CursoEscola.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.Model.CursoTurno" Collapsed="true">
+    <Position X="2.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Model\CursoTurno.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.Model.DiaSemana" Collapsed="true">
+    <Position X="7.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACACAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\DiaSemana.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.Model.Disciplina" Collapsed="true">
+    <Position X="9.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACACAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Disciplina.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.Model.DisciplinaEnsino" Collapsed="true">
+    <Position X="11" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAIAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>Model\DisciplinaEnsino.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.Model.Ensino" Collapsed="true">
+    <Position X="2.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACACAAAAAAABAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>Model\Ensino.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.Model.Escola" Collapsed="true">
+    <Position X="5.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Model\Escola.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.Model.PeriodoAula" Collapsed="true">
+    <Position X="9.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAABAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\PeriodoAula.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.Model.PeriodoEscola" Collapsed="true">
+    <Position X="11" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACABAAAgAAAAAAAAQAAAAEAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Model\PeriodoEscola.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.Model.Regencia" Collapsed="true">
+    <Position X="2.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAICAAAAAAAAIAIAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Regencia.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.Model.RegenciaHorario" Collapsed="true">
+    <Position X="4" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAABEAAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\RegenciaHorario.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.Model.RegimeMatricula" Collapsed="true">
+    <Position X="7.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACACAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\RegimeMatricula.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.Model.RegimeTrabalho" Collapsed="true">
+    <Position X="9.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\RegimeTrabalho.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.Model.RelacaoTrabalho" Collapsed="true">
+    <Position X="11" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAIAAAACAAAAAAAAAEAAAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\RelacaoTrabalho.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.Model.Sala" Collapsed="true">
+    <Position X="0.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAgABAAABAAAAABAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Sala.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.Model.Serie" Collapsed="true">
+    <Position X="4" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACACAAAAAAABAAAAEAAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>Model\Serie.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.Model.Servidor" Collapsed="true">
+    <Position X="7.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAEAAEAAgAAIAggAEAAAAAAJAAAABCAAAAAUAgAA=</HashCode>
+      <FileName>Model\Servidor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.Model.ServidorAtividade" Collapsed="true">
+    <Position X="9.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAgAAAAIEAAAAAEAAAgAAAAAAAAA=</HashCode>
+      <FileName>Model\ServidorAtividade.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.Model.ServidorDisponibilidade" Collapsed="true">
+    <Position X="11" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAABEAAAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\ServidorDisponibilidade.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.Model.ServidorEscola" Collapsed="true">
+    <Position X="0.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAgAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\ServidorEscola.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.Model.TipoEnsino" Collapsed="true">
+    <Position X="2.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACACAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\TipoEnsino.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.Model.TipoSala" Collapsed="true">
+    <Position X="4" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAABAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\TipoSala.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.Model.TipoTurma" Collapsed="true">
+    <Position X="5.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\TipoTurma.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.Model.Turma" Collapsed="true">
+    <Position X="7.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAIAgABAIAAAAAAAAAIAAgAAAAAAAAABAAQAAE=</HashCode>
+      <FileName>Model\Turma.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.Model.Turno" Collapsed="true">
+    <Position X="11" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAABAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Turno.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.VO.EscolaVO" Collapsed="true">
+    <Position X="7.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Model\EscolaVO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.VO.BaseCurricularVO" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACQCAIBAABAAAAAQAgAAAAEAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>VO\BaseCurricularVO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.VO.CursoTurnoVO" Collapsed="true">
+    <Position X="4" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACCAAAAAAAAAAAAAQgAAAAEAAAIAAAEAAAACAAAIA=</HashCode>
+      <FileName>VO\CursoTurnoVO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.VO.CursoVO" Collapsed="true">
+    <Position X="5.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAABAgAAEAAAAAAQAAAAAEAAIAAAAAAAAAA=</HashCode>
+      <FileName>VO\CursoVO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.VO.DisciplinaEnsinoVO" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgACAAAAAEAAAgAAAAAAAAAQAAAAAAAAIAEAAAAAAAA=</HashCode>
+      <FileName>VO\DisciplinaEnsinoVO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.VO.EnsinoVO" Collapsed="true">
+    <Position X="4" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACACAAAAAAABAAQAAAAAAAAIAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>VO\EnsinoVO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.VO.PeriodoEscolaVO" Collapsed="true">
+    <Position X="0.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACDBAAAAAAAAAAAAQgAAAMAAAAIAAAEAAAACAAAAA=</HashCode>
+      <FileName>VO\PeriodoEscolaVO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.VO.RegenciaVO" Collapsed="true">
+    <Position X="5.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQICAAAAAEAAAABAACAAAAAAAAAAAABAAAEAAAAAAAA=</HashCode>
+      <FileName>VO\RegenciaVO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.VO.SalaVO" Collapsed="true">
+    <Position X="2.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAhEAAAAAAAABAEAAgAIAAAEAAAAAAAAAA=</HashCode>
+      <FileName>VO\SalaVO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.VO.SerieVO" Collapsed="true">
+    <Position X="5.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACACAAAAAAABAgAAEAAAAAAQAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>VO\SerieVO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dardani.EDU.Entities.VO.TurmaVO" Collapsed="true">
+    <Position X="9.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgACCAAAAEARAIAAAAQAAAAAAACAICAAEAABAEQAkAE=</HashCode>
+      <FileName>VO\TurmaVO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

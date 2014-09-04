@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Dardani.EDU.Entities.VO.PessoaVO>
+
+@{
+    ViewBag.Title = ViewBag.Titulo;
+}
+
+<p>
+    @if  (ViewBag.Tipo == "A") {
+        @Html.ActionLink("Novo Aluno", "Edit", "Alunos", null, new { @class = "links_big" });
+    } else { // "P"
+        @Html.ActionLink("Novo Profissional", "Edit", "Profissionais", null, new { @class="links_big"});
+    }
+</p>
+
+ @using (Ajax.BeginForm(    
+     new AjaxOptions
+     {
+         HttpMethod = "get",
+         InsertionMode = InsertionMode.Replace,
+         UpdateTargetId = "lista"
+        }))
+     {
+         <p>
+         Entre com o texto:
+         <input type="search" name="SearchString" /> 
+         <input type="submit" value="Filtrar" />
+         </p> 
+     } 
+
+<div id="lista">
+@Html.Partial("_Listagem", Model)
+</div>
+
+<script>
+    function getPosition() {
+        // Verifica se o browser do usuario tem suporte a Geolocation
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (posicao) {
+                console.log(posicao.coords.latitude, posicao.coords.longitude);
+            });
+        }
+    }
+
+    $(document).ready(function () {
+        getPosition();
+    });
+</script>
+
+

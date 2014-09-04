@@ -1,0 +1,32 @@
+﻿@model Dardani.EDU.Entities.VO.EscolaTurnoVO
+
+@{
+    ViewBag.Title = ViewBag.Acao;
+}
+
+<script type="text/javascript">
+    $(function() {
+        $("#Descricao").focus();
+    });
+</script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false)
+
+    <div class="row">
+        <div class="col-md-12">
+            <label class="input-label f-left">@Html.LabelFor(model => model.TurnoId):</label>
+            @Html.DropDownListFor(model => model.TurnoId, ViewBag.ListaTurno as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
+        </div>
+    </div>
+    @Html.HiddenFor(model => model.EscolaId)
+    @Html.HiddenFor(model => model.Id)
+    <div class="row">
+        <div class="col-md-12 pt-20">
+            <input type="submit" value="Gravar" class="btn btn-success" />
+            @Html.ActionLink("Voltar", "Index", "TurnosEscola", null, new { @class = "btn btn-default" })
+        </div>
+    </div>
+}

@@ -1,0 +1,43 @@
+﻿@model Visao360.Educacao.Models.EscolaSessao
+
+@{
+    ViewBag.Title = "Selecionar Escola e Ano Letivo";
+
+    List<Petra.Util.Model.ItemVO> ListaEscola = (List<Petra.Util.Model.ItemVO>)Session["ListaEscola"];
+    List<Petra.Util.Model.ItemVO> ListaAnoLetivo = (List<Petra.Util.Model.ItemVO>)Session["ListaAnoLetivo"];
+}
+
+<script type="text/javascript">
+    $(function() {
+        $("#Nome").focus();
+    });
+</script>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false)
+
+    <div class="row">
+        <div class="col-md-6">
+            <label class="input-label f-left">@Html.LabelFor(model => model.EscolaId):</label>
+            @Html.DropDownListFor(model => model.EscolaId, new SelectList(ListaEscola, "Id", "Descricao"), new { @class = "input-select f-left" })
+        </div>
+    </div>
+
+    
+    <div class="row">
+        <div class="col-md-6">
+            <label class="input-label f-left">@Html.LabelFor(model => model.AnoLetivoId):</label>
+            @Html.DropDownListFor(model => model.AnoLetivoId, new SelectList(ListaAnoLetivo, "Id", "Descricao"), new { @class = "input-select f-left" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 pt-20">
+            <input type="submit" value="Selecionar" class="btn btn-success" />
+            @Html.ActionLink("Cancelar", "Index", "Home", null, new { @class="btn btn-default"})
+        </div>
+    </div>
+}
+
+
+

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="Matricula" table="EDU_MATRICULA">
+    <id name="Id" column="ID_MATRICULA">
+      <generator class="native"/>
+    </id>
+    <many-to-one name="Pessoa" class="Pessoa"  column="ID_PESSOA"  not-null="true" />
+    <many-to-one name="Turma" class="Turma"  column="ID_TURMA"  not-null="true" />
+    <many-to-one name="EscolarizacaoEspecial" class="EscolarizacaoEspecial"  column="ID_ESCOLARIZACAO_ESPECIAL"  not-null="true" />
+    <many-to-one name="TransportePublico" class="TransportePublico"  column="ID_TRANSPORTE_PUBLICO"  not-null="true" />
+    <many-to-one name="TurmaUnificada" class="TurmaUnificada"  column="ID_TURMA_UNIFICADA"  not-null="true" />
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,83 @@
+﻿@model Dardani.EDU.Entities.VO.MatrizVO
+@{
+    ViewBag.Title = "Editar Matriz Curricular";
+}
+@using(Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false)
+
+    <div class="row">
+        <div class="col-md-4">
+            <label class="input-label f-left">Modalidade:</label>
+            <h4>@ViewBag.EtapaVO.ModalidadeDescricao</h4>
+        </div>
+        <div class="col-md-4">
+            <label class="input-label f-left">Ensino:</label>
+            <h4>@ViewBag.EtapaVO.TipoEnsinoDescricao</h4>
+        </div>
+        <div class="col-md-4">
+            <label class="input-label f-left">Série:</label>
+            <h4>@ViewBag.EtapaVO.SerieDescricao</h4>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <label class="input-label f-left">@Html.LabelFor(model => model.DiasLetivos):</label>
+            @Html.TextBoxFor(model => model.DiasLetivos, new { @class = "input-text f-left" })
+            </div>
+        <div class="col-md-6">
+            <label class="input-label f-left">@Html.LabelFor(model => model.CargaHorariaSemanal):</label>
+            @Html.TextBoxFor(model => model.CargaHorariaSemanal, new { @class = "input-text f-left" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label class="input-label f-left">@Html.LabelFor(model => model.CargaHorariaAula):</label>
+            @Html.TextBoxFor(model => model.CargaHorariaAula, new { @class = "input-text f-left" })
+            </div>
+        <div class="col-md-6">
+            <label class="input-label f-left">@Html.LabelFor(model => model.NumeroSemanasLetivas):</label>
+            @Html.TextBoxFor(model => model.NumeroSemanasLetivas, new { @class = "input-text f-left" })
+        </div>
+    </div>
+    @Html.HiddenFor(model => model.ModalidadeId)
+    @Html.HiddenFor(model => model.EtapaId)
+    @Html.HiddenFor(model => model.Id)
+    <div class="row">
+        <div class="col-md-12 pt-20">
+            <p>
+            <input type="submit" class="btn btn-success" value="Gravar" />
+            @Html.ActionLink("Voltar a Lista", "Index", "Matrizes", null, new { @class = "btn btn-default" })
+            <a href="/MatrizDisciplina/@Model.ModalidadeId/@Model.EtapaId" class="btn btn-warning">Adicionar Disciplina</a>
+            </p>
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="alert alert-success">Disciplinas</div>
+    </div>
+</div>
+
+@{
+    WebGrid grid = new WebGrid(@ViewBag.Disciplinas, rowsPerPage: 20, ajaxUpdateContainerId: "gridArea", defaultSort:"Descricao");
+}
+
+<div id="gridArea">
+@grid.GetHtml(
+    tableStyle:"table table-striped",
+    /*alternatingRowStyle: "altRow",*/
+    columns:new[] {
+        grid.Column("DisciplinaDescricao",header:"Descrição", canSort:false),
+        grid.Column("CargaHorariaSemanal",header:"Carga Semanal", canSort:false),
+        grid.Column("FlagTipoAvaliacaoDescricao",header:"Tipo de Avaliação", canSort:false),
+        grid.Column("",header:"Ações", format:@<text>
+            <a href="/MatrizDisciplina/@Model.ModalidadeId/@Model.EtapaId/@item.Id" class="btn btn-xs btn-info">Editar</a>
+        </text>)
+    }
+)
+</div>
+

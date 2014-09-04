@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="Calendario" table="EDU_CALENDARIO">
+    <id name="Id" column="ID_CALENDARIO">
+      <generator class="native"/>
+    </id>
+    <property name="Descricao" not-null="true" column="DS_CALENDARIO" length="32"/>
+    <property name="Ano" not-null="true" column="NM_ANO"/>
+    <property name="DataInicio" not-null="true" column="DT_INICIO"/>
+    <property name="DataTermino" not-null="true" column="DT_TERMINO"/>
+    <property name="DataResultado" not-null="true" column="DT_RESULTADO"/>
+    <property name="DiasLetivos" not-null="true" column="NM_DIAS_LETIVOS"/>
+    <many-to-one name="Escola" class="Escola"  column="ID_ESCOLA"  not-null="true" />
+  </class>
+</hibernate-mapping>

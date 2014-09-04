@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Dardani.EDU.Entities.VO.PessoaVO>
+
+@{
+    WebGrid grid = new WebGrid(Model, rowsPerPage: 20, ajaxUpdateContainerId: "gridArea");
+}
+
+<div id="gridArea">
+@grid.GetHtml(
+    tableStyle:"grade",
+    alternatingRowStyle: "altRow",
+    columns:new[] {
+        grid.Column("Id", style:"to-the-right"),
+        grid.Column("Nome",header:"Nome"),
+        grid.Column("DataNascimento",header:"Nascimento", format: (item) => string.Format("{0:dd/MM/yyyy}", item.DataNascimento)  ),
+        grid.Column("NumeroNIS",header:"NumeroNIS"),
+        grid.Column("",header:"Ações", format:@<text>
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }) 
+                @Html.ActionLink("Excluir", "Delete", new { @item.Id })
+                </text>)
+    }
+)
+</div>

@@ -1,0 +1,41 @@
+﻿@model Dardani.EDU.Entities.VO.TurnoPeriodoVO
+
+@{
+    ViewBag.Title = ViewBag.Acao;
+    // Período
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="alert alert-success"><b>@ViewBag.Turno.Descricao</b></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function() {
+        $("#PeriodoAulaId").focus();
+    });
+</script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false)
+
+    <div class="row">
+        <div class="col-md-12">
+            <label class="input-label f-left">@Html.LabelFor(model => model.PeriodoAulaId):</label>
+            @Html.DropDownListFor(model => model.PeriodoAulaId, ViewBag.ListaPeriodoAula as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
+        </div>
+    </div>
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.TurnoId)
+    <div class="row">
+        <div class="col-md-12 pt-20">
+            <input type="submit" value="Gravar" class="btn btn-success" />
+            @Html.ActionLink("Voltar", "Index", "Turnos", null, new { @class = "btn btn-default" })
+        </div>
+    </div>
+}
+
+

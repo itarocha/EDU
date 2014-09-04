@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="EscolaEducacional" table="EDU_ESCOLA_EDUCACIONAL">
+    <id name="Id" column="ID_ESCOLA">
+      <generator class="foreign">
+        <param name="property">
+          Escola
+        </param>
+      </generator>
+    </id>
+    <one-to-one name="Escola" class="Escola" constrained="true" cascade="all"/>
+    <many-to-one name="AEE" class="AEE" column="ID_AEE" not-null="true"/>
+    <many-to-one name="AtividadeComplementar" class="AtividadeComplementar"  column="ID_ATIVIDADE_COMPLEMENTAR" not-null="true"/>
+    <many-to-one name="LocalizacaoDiferenciada" class="LocalizacaoDiferenciada"  column="ID_LOCALIZACAO_DIFERENCIADA" not-null="true"/>
+
+    <many-to-one name="LinguaIndigena" class="LinguaIndigena"  column="ID_LINGUA_INDIGENA" />
+
+    <property name="FlagEnsinoFundamentalCiclos" column="FL_ENSINO_FUNDAMENTAL_CICLOS" length="1" not-null="true"/>
+    <property name="FlagMaterialQuilombola" column="FL_MATERIAL_QUILOMBOLA" length="1" not-null="true"/>
+    <property name="FlagMaterialIndigena" column="FL_MATERIAL_INDIGENA" length="1" not-null="true"/>
+    <property name="FlagEducacaoIndigena" column="FL_EDUCACAO_INDIGENA" length="1" not-null="true"/>
+    <property name="FlagEnsinoLinguaIndigena" column="FL_ENSINO_LINGUA_INDIGENA" length="1" not-null="true"/>
+    <property name="FlagEnsinoLinguaPortuguesa" column="FL_ENSINO_LINGUA_PORTUGUESA" length="1" not-null="true"/>
+    <property name="FlagBrasilAlfabetizado" column="FL_BRASIL_ALFABETIZADO" length="1" not-null="true"/>
+    <property name="FlagFinalSemana" column="FL_FINAL_SEMANA" length="1" not-null="true"/>
+    <property name="FlagAlternancia" column="FL_ALTERNANCIA" length="1" not-null="true"/>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,38 @@
+﻿@model Dardani.EDU.Entities.Model.PeriodoAula
+
+@{
+    ViewBag.Title = "Confirmar Exclusão";
+}
+
+<h3>Deseja realmente excluir a Sala abaixo?</h3>
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(false)
+    <fieldset>
+        <legend>Detalhes</legend>
+        <table style="width:100%;">
+            <tr>
+                <td style="width:100px;">
+                    <div class="editor-label">@Html.LabelFor(model => model.Descricao)</div>
+                </td>
+                <td>
+                    <div class="editor-field">@Html.DisplayFor(model => model.Descricao)</div>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:100px;">
+                    <div class="editor-label">@Html.LabelFor(model => model.Descricao)</div>
+                </td>
+                <td>
+                    <div class="editor-field">@Html.DisplayFor(model => model.Descricao)</div>
+                </td>
+            </tr>
+        </table>
+        @Html.HiddenFor(model => model.Id)
+        <p>
+            <input type="submit" value="Confirmar" />
+        </p>
+    </fieldset>
+}
+<div>
+    @Html.ActionLink("Voltar a Lista", "Index", "Salas", null, new { @class="links_big"})
+</div>

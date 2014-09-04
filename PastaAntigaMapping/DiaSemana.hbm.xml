@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="DiaSemana" table="EDU_DIA_SEMANA">
+    <id name="Id" column="ID_DIA_SEMANA">
+      <generator class="native"/>
+    </id>
+    <property name="Descricao" not-null="true" column="DS_DIA_SEMANA" length="16"/>
+    <property name="DescricaoAbreviada" not-null="true" column="DS_ABREVIATURA" length="8"/>
+  </class>
+</hibernate-mapping>

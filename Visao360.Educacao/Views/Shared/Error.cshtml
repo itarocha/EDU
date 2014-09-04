@@ -1,0 +1,24 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+
+@{
+    ViewBag.Title = "Erro ao Executar Requisição";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Error</title>
+</head>
+<body>
+    <h2>
+        Ocorreu um erro ao processar a requisição.
+    </h2>
+
+    <h2>Detalhes</h2>
+    <p>Controller:<b>@Model.ControllerName</b></p>
+    <p>Ação:<b>@Model.ActionName</b></p>
+    <p>Descrição do Erro:<br/><b>"@Model.Exception.Message"</b></p>
+</body>
+</html>

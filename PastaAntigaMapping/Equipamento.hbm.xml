@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="Equipamento" table="EDU_EQUIPAMENTO">
+    <id name="Id" column="ID_EQUIPAMENTO">
+      <generator class="native"/>
+    </id>
+    <property name="Descricao" not-null="true" column="DS_EQUIPAMENTO" length="64"/>
+    <property name="FlagAtivo" not-null="true" column="FL_ATIVO" length="1"/>
+  </class>
+</hibernate-mapping>

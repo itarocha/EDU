@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="PessoaRecursoINEP" table="EDU_PESSOA_RECURSO_INEP">
+    <id name="Id" column="ID_PESSOA_RECURSO_INEP">
+      <generator class="native"/>
+    </id>
+    <many-to-one name="Pessoa" class="Pessoa"  column="ID_PESSOA"  not-null="true" />
+    <many-to-one name="RecursoINEP" class="RecursoINEP"  column="ID_RECURSO_INEP"  not-null="true" />
+  </class>
+</hibernate-mapping>

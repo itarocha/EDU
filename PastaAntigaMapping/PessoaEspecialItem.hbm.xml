@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="PessoaEspecialItem" table="EDU_PESSOA_ESPECIAL_ITEM">
+    <id name="Id" column="ID_PESSOA_ESPECIAL_ITEM">
+      <generator class="native"/>
+    </id>
+    <many-to-one name="Pessoa" class="Pessoa"  column="ID_PESSOA"  not-null="true" />
+    <many-to-one name="EspecialItem" class="EspecialItem"  column="ID_ESPECIAL_ITEM"  not-null="true" />
+  </class>
+</hibernate-mapping>

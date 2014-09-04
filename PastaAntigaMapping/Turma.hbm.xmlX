@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="Turma" table="EDU_TURMA">
+    <id name="Id" column="ID_TURMA">
+      <generator class="native"/>
+    </id>
+    <property name="Descricao" not-null="true" column="DS_TURMA" length="64"/>
+    <property name="NumeroVagas" not-null="true" column="NM_VAGAS"/>
+    <many-to-one name="Escola" class="Escola" not-null="true" column="ID_ESCOLA"/>
+    <many-to-one name="Calendario" class="Calendario" not-null="true" column="ID_CALENDARIO"/>
+    <many-to-one name="Serie" class="Serie" not-null="true" column="ID_SERIE"/>
+    <many-to-one name="Sala" class="Sala" not-null="true" column="ID_SALA"/>
+    <many-to-one name="Turno" class="Turno" not-null="true" column="ID_TURNO"/>
+    <many-to-one name="TipoTurma" class="TipoTurma" not-null="true" column="ID_TIPO_TURMA"/>
+    <many-to-one name="BaseCurricular" class="BaseCurricular" not-null="true" column="ID_BASE_CURRICULAR"/>
+  </class>
+</hibernate-mapping>

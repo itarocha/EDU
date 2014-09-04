@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="PessoaEndereco" table="EDU_PESSOA_ENDERECO">
+    <id name="Id" column="ID_PESSOA">
+      <generator class="foreign">
+        <param name="property">
+          Pessoa
+        </param>
+      </generator>
+    </id>
+    <one-to-one name="Pessoa" class="Pessoa" constrained="true" cascade="all"/>
+    <property name="Logradouro"  column="DS_LOGRADOURO" length="64"/>
+    <property name="Numero"  column="VL_NUMERO" />
+    <property name="Complemento"  column="DS_COMPLEMENTO" length="64"/>
+    <property name="Bairro"  column="DS_BAIRRO" length="32"/>
+    <property name="CEP"  column="DS_CEP" length="8"/>
+    <many-to-one name="Cidade" class="Municipio" column="ID_MUNICIPIO" />
+    <many-to-one name="UF" class="Estado" column="ID_ESTADO" />
+    <many-to-one name="Zona" class="Zona" column="ID_ZONA" />
+    <property name="Telefone"  column="DS_TELEFONE" length="16"/>
+    <property name="Fax"  column="DS_FAX" length="16"/>
+    <property name="Email"  column="DS_EMAIL" length="64"/>
+  </class>
+</hibernate-mapping>

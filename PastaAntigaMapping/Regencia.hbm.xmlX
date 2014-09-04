@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="Regencia" table="EDU_REGENCIA">
+    <id name="Id" column="ID_REGENCIA">
+      <generator class="native"/>
+    </id>
+    <property name="QuantidadePeriodosSemana" not-null="true" column="NM_PERIODOS_SEMANA"/>
+    <property name="FlagFrequencia" not-null="true" column="FL_FREQUENCIA" length="1"/>
+    <many-to-one name="Turma" class="Turma" not-null="true" column="ID_TURMA" />
+    <many-to-one name="DisciplinaEnsino" class="DisciplinaEnsino" not-null="true" column="ID_DISCIPLINA_ENSINO"/>
+  </class>
+</hibernate-mapping>

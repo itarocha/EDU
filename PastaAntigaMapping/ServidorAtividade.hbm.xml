@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="ServidorAtividade" table="EDU_SERVIDOR_ATIVIDADE">
+    <id name="Id" column="ID_SERVIDOR_ATIVIDADE">
+      <generator class="native"/>
+    </id>
+    <many-to-one name="Servidor" class="Servidor" not-null="true" column="ID_SERVIDOR" />
+    <many-to-one name="Atividade" class="Atividade" not-null="true" column="ID_ATIVIDADE" />
+    <property name="HorasManha" not-null="true" column="NM_HORAS_MANHA"/>
+    <property name="HorasTarde" not-null="true" column="NM_HORAS_TARDE"/>
+    <property name="HorasNoite" not-null="true" column="NM_HORAS_NOITE"/>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,18 @@
+﻿@model IEnumerable<Dardani.EDU.Entities.Model.Regencia>
+@{
+    ViewBag.Title = "Disciplinas da Turma";
+}
+
+<h2>Turma: @ViewBag.TurmaId - @ViewBag.TurmaDescricao</h2>
+
+<p>
+    <a href="/DT/@ViewBag.TurmaId/Edit" class="links_big">Nova Disciplina</a>
+    <a href="/HT/@ViewBag.TurmaId" class="links_big">Horários da Turma</a>
+    @Html.ActionLink("Voltar para Turmas", "Index", "Turmas", null, new { @class="links_big"})
+</p>
+
+<div id="lista">
+@Html.Partial("_ListagemDisciplinas", Model)
+</div>
+
+

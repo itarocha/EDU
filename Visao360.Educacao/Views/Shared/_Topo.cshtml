@@ -1,0 +1,55 @@
+﻿@using Visao360.Educacao.Helpers;
+@using Visao360.Educacao.Models;
+
+   <table style="height: 5px; width:100%">
+        <tbody>
+            <tr>
+                <td style="background-image: url(/Imagens/BarraAzulHNew.gif); background-repeat: repeat-x;
+                    background-position: center; height: 0px;">
+                    <table style="height: 20px; width:100%" border="0">
+                        <tbody>
+                            <tr>
+                                <td style="width: 20px; height: 20px;">
+                                </td>
+                                <td>
+                                    <table cellpadding="5px" border="0">
+                                        <tbody>
+                                            <tr>
+                                                <td style="width: 35px;" valign="middle" nowrap="nowrap">
+                                                    @Html.ActionLink("Home", "Index", null, new { @class = "menusuperior"})
+                                                </td>
+                                                <td>
+                                                    <a href="http://www.dardani.com.br" class="menusuperior">Dardani Sistemas para Gestão Pública</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td class="txtbuscar" style="text-align:right;">
+                                </td>
+                                <td style="text-align:left;">
+                                    <font class="SessaoExpirou"></font>
+                                </td>
+                                <td class="menusuperior" style="text-align:right;">
+                                    Bem vindo, 
+                                    @{ 
+                                        if (AutenticacaoHelper.Autenticado()) {
+                                            UsuarioLogado u = GerenciadorUsuarioSessao.UsuarioLogado();
+                                            @u.Nome@:!
+                                            @Html.ActionLink("Sair", "Logout", "Contas", null, new { @class = "menusuperior"})
+                                        } else
+                                        {
+                                            @:visitante!
+                                            @Html.ActionLink("Clique aqui para Entrar", "Login", "Contas", null, new { @class = "menusuperior"})
+                                        }
+                                     }
+                                    
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+

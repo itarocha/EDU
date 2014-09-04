@@ -1,0 +1,185 @@
+﻿@model Dardani.EDU.Entities.VO.EscolaEducacionalVO
+
+@{
+    ViewBag.Title = "Dados Educacionais";
+    List<Dardani.EDU.Entities.Model.Modalidade> ListaModalidade = (List<Dardani.EDU.Entities.Model.Modalidade>)ViewBag.ListaModalidade;
+}
+
+<script type="text/javascript">
+    $(function () {
+        $("#Nome").focus();
+    });
+</script>
+
+<div class="row">
+    <div class="col-md-12">
+    @Html.ActionLink("Escolas", "Index", "Escolas", null, new { @class = "btn btn-info" }) 
+    @Html.ActionLink("Nova Escola", "Edit", "Escolas", new { id = 0 }, new { @class = "btn btn-warning" }) 
+    </div>
+</div>
+@if (Model.Id > 0)
+{
+<div class="row">
+    <div class="col-md-12 btn-group pt-20">
+    @Html.ActionLink("Dados Gerais", "Edit", "Escolas", new { id = Model.Id }, new { @class = "btn btn-default" }) 
+    @Html.ActionLink("Endereço", "Endereco", "Escolas", new { id = Model.Id }, new { @class = "btn btn-default" }) 
+    @Html.ActionLink("Infraestrutura", "Infraestrutura", "Escolas", new { id = Model.Id }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Dados Educacionais", "DadosEducacionais", "Escolas", new { id = Model.Id }, new { @class = "btn btn-default disabled" })
+    @Html.ActionLink("Turnos", "Index", "TurnosEscola", null, new { @class = "btn btn-default" })
+    </div>
+</div>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false)
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-success">Dados Educacionais</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <label class="input-label f-left">@Html.LabelFor(model => model.AEEId):</label>
+            @Html.DropDownListFor(model => model.AEEId,  ViewBag.ListaAEE as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
+        </div>
+        <div class="col-md-4">
+            <label class="input-label f-left">@Html.LabelFor(model => model.AtividadeComplementarId):</label>
+            @Html.DropDownListFor(model => model.AtividadeComplementarId,  ViewBag.ListaAtividadeComplementar as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
+        </div>
+        <div class="col-md-4">
+            <label class="input-label f-left">@Html.LabelFor(model => model.LocalizacaoDiferenciadaId):</label>
+            @Html.DropDownListFor(model => model.LocalizacaoDiferenciadaId, ViewBag.ListaLocalizacaoDiferenciada as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <label class="input-label f-left">@Html.LabelFor(model => model.FlagEnsinoFundamentalCiclos)</label>
+            @Html.DropDownListFor(model => model.FlagEnsinoFundamentalCiclos, ViewBag.ListaSimNao as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
+        </div>
+        <div class="col-md-4">
+            <label class="input-label f-left">@Html.LabelFor(model => model.FlagMaterialQuilombola)</label>
+            @Html.DropDownListFor(model => model.FlagMaterialQuilombola, ViewBag.ListaSimNao as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
+        </div>
+        <div class="col-md-4">
+            <label class="input-label f-left">@Html.LabelFor(model => model.FlagMaterialIndigena)</label>
+            @Html.DropDownListFor(model => model.FlagMaterialIndigena, ViewBag.ListaSimNao as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label class="input-label f-left">@Html.LabelFor(model => model.FlagEnsinoLinguaPortuguesa)</label>
+            @Html.DropDownListFor(model => model.FlagEnsinoLinguaPortuguesa, ViewBag.ListaSimNao as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
+        </div>
+        <div class="col-md-6">
+            <label class="input-label f-left">@Html.LabelFor(model => model.FlagEnsinoLinguaIndigena)</label>
+            @Html.DropDownListFor(model => model.FlagEnsinoLinguaIndigena, ViewBag.ListaSimNao as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
+        </div>
+    </div>
+        
+    <div class="row">
+        <div class="col-md-2">
+            <label class="input-label f-left">@Html.LabelFor(model => model.FlagEducacaoIndigena)</label>
+            @Html.DropDownListFor(model => model.FlagEducacaoIndigena, ViewBag.ListaSimNao as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
+        </div>
+        <div class="col-md-10">
+            <label class="input-label f-left">@Html.LabelFor(model => model.LinguaIndigenaId)</label>
+            @Html.DropDownListFor(model => model.LinguaIndigenaId, ViewBag.ListaLinguaIndigena as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label class="input-label f-left">@Html.LabelFor(model => model.FlagBrasilAlfabetizado)</label>
+            @Html.DropDownListFor(model => model.FlagBrasilAlfabetizado, ViewBag.ListaSimNao as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
+        </div>
+        <div class="col-md-6">
+            <label class="input-label f-left">@Html.LabelFor(model => model.FlagFinalSemana)</label>
+            @Html.DropDownListFor(model => model.FlagFinalSemana, ViewBag.ListaSimNao as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label class="input-label f-left">@Html.LabelFor(model => model.FlagAlternancia)</label>
+            @Html.DropDownListFor(model => model.FlagAlternancia, ViewBag.ListaSimNao as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 pt-20">
+            <div class="alert alert-success">Modalidades</div>
+        </div>
+    </div>
+    foreach (Dardani.EDU.Entities.Model.Modalidade mod in ListaModalidade)
+    { 
+        int x = 1;
+        string situacaoItem = "";
+        situacaoItem = "";
+
+        foreach (int modId in Model.ListaModalidades)
+        {
+            if (mod.Id == modId)
+            {
+                situacaoItem = "checked";
+                break;
+            }
+        }
+        <div class="row">
+            <div class="col-md-12">
+                <label style="font-weight:normal; width:100%;"><input type="checkbox" name="ListaModalidades" value="@mod.Id" @situacaoItem/> @mod.Descricao</label>
+            </div>
+        </div>
+        x++;
+    }
+
+    <div class="row">
+        <div class="col-md-12 pt-20">
+            <div class="alert alert-success">Etapas</div>
+        </div>
+    </div>
+
+    foreach (Dardani.EDU.Entities.Model.Modalidade mod in ListaModalidade)
+    { 
+    <div class="row">
+        <div class="col-md-12">
+            <h4>@mod.Descricao</h4>
+        </div>
+    </div>
+        int x = 1;
+        string situacaoItem = "";
+        foreach (Dardani.EDU.Entities.Model.EtapaEscola ite in mod.EtapasEscola)
+        {
+            situacaoItem = "";
+
+            foreach (int etpId in Model.ListaEtapas)
+            {
+                if (ite.Id == etpId)
+                {
+                    situacaoItem = "checked";
+                    break;
+                }
+            }
+            <div class="row">
+                <div class="col-md-12">
+                    <label style="font-weight:normal; width:100%;"><input type="checkbox" name="ListaEtapas" value="@ite.Id" @situacaoItem/> @ite.Descricao</label>
+                </div>
+            </div>
+            x++;
+        }
+    }
+        
+    @Html.HiddenFor(model => model.Id)
+    
+    <div class="row">
+        <div class="col-md-12 pt-20">
+            <p>
+            <input type="submit" class="btn btn-success" value="Gravar" />
+            @Html.ActionLink("Voltar a Lista", "Index", "Escolas", null, new { @class = "btn btn-default" })
+            </p>
+        </div>
+    </div>
+}

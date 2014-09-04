@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="Pessoa" table="EDU_PESSOA">
+    <id name="Id" column="ID_PESSOA">
+      <generator class="native"/>
+    </id>
+    <property name="Nome" not-null="true" column="DS_NOME" length="64"/>
+    <property name="DataNascimento" not-null="true" column="DT_NASCIMENTO" />
+    
+    <many-to-one name="Sexo" class="Dardani.GER.Entities.Model.Sexo" lazy="false" column="ID_SEXO" not-null="true" />
+    <many-to-one name="Raca" class="Dardani.GER.Entities.Model.Raca"  column="ID_RACA" />
+    <property name="NumeroNIS" column="DS_NUMERO_NIS" length="11"/>
+    <property name="CodigoINEP" column="DS_CODIGO_INEP" />
+    <property name="NomeMae" not-null="true" column="DS_NOME_MAE" length="64"/>
+    <property name="NomePai" column="DS_NOME_PAI" length="64"/>
+    <property name="NomeResponsavel" column="DS_NOME_RESPONSAVEL" length="64"/>
+    <property name="EmailResponsavel" column="DS_EMAIL_RESPONSAVEL" length="64"/>
+    <many-to-one name="EstadoCivil" class="Dardani.GER.Entities.Model.EstadoCivil" column="ID_ESTADO_CIVIL" />
+    <property name="NomeConjuge" column="DS_NOME_CONJUGE" length="64"/>
+    <many-to-one name="TipoNacionalidade" class="TipoNacionalidade"  column="ID_TIPO_NACIONALIDADE" not-null="true" />
+    <many-to-one name="PaisOrigem" class="Pais"  column="ID_PAIS" />
+    <many-to-one name="UFNascimento" class="Estado" column="ID_ESTADO" />
+    <many-to-one name="CidadeNascimento" class="Municipio" column="ID_MUNICIPIO" />
+    <property name="FlagDeficiencia" not-null="true" column="FL_DEFICIENCIA" length="1"/>
+    <property name="FlagTipoPessoa" not-null="true" column="FL_TIPO_PESSOA" length="1"/>
+
+    <one-to-one name="Endereco" class="PessoaEndereco" />
+    <one-to-one name="Documentacao" class="PessoaDocumentacao" />
+  </class>
+</hibernate-mapping>

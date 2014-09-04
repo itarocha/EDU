@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Dardani.EDU.Entities.Model.AnoLetivo>
+
+@{
+    ViewBag.Title = "Anos Letivos";
+}
+
+<p>
+    @Html.ActionLink("Novo Ano Letivo", "Edit", "AnosLetivos", null, new { @class="btn btn-default"})&nbsp;
+</p>
+<!--
+ _using (Ajax.BeginForm(    
+     new AjaxOptions
+     {
+         HttpMethod = "get",
+         InsertionMode = InsertionMode.Replace,
+         UpdateTargetId = "lista"
+        }))
+     {
+         <p>
+         Entre com o texto:
+         <input type="search" name="SearchString" /> 
+         <input type="submit" value="Filtrar" />
+         </p> 
+     } 
+-->
+<div id="lista">
+@Html.Partial("_Listagem", Model)
+</div>
+
+

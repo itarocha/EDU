@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Dardani.EDU.Entities.Model.TipoTurma>
+
+@{
+    ViewBag.Title = "Listagem de Tipos de Turmas";
+}
+
+<p>
+    @Html.ActionLink("Novo Tipo de Turma", "Edit", "TiposTurmas", null, new { @class="links_big"})&nbsp;
+</p>
+
+ @using (Ajax.BeginForm(    
+     new AjaxOptions
+     {
+         HttpMethod = "get",
+         InsertionMode = InsertionMode.Replace,
+         UpdateTargetId = "lista"
+        }))
+     {
+         <p>
+         Entre com o texto:
+         <input type="search" name="SearchString" /> 
+         <input type="submit" value="Filtrar" />
+         </p> 
+     } 
+
+<div id="lista">
+@Html.Partial("_Listagem", Model)
+</div>
+
+

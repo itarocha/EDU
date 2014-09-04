@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Dardani.EDU.Entities.VO.DisciplinaVO>
+
+@{
+    ViewBag.Title = "Disciplinas";
+}
+
+<p>
+    @Html.ActionLink("Nova Disciplina", "Edit", "Disciplinas", null, new { @class="btn btn-default"})&nbsp;
+</p>
+<div id="lista">
+@Html.Partial("_Listagem", Model)
+</div>
+
+

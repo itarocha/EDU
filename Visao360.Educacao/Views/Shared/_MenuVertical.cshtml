@@ -1,0 +1,78 @@
+﻿@using Visao360.Educacao.Helpers;
+@using Visao360.Educacao.Models;
+@{
+    UsuarioLogado u = GerenciadorUsuarioSessao.UsuarioLogado();
+}     
+
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function () {
+        $("#themenu").accordion({
+            header: "h3",
+            active: 0,
+            heightStyle: "content",
+            autoHeight: false,
+            navigation: true
+        });
+    });
+</script>
+
+                    <div id="themenu">
+                        @{
+                            if (AutenticacaoHelper.Autenticado())
+                            {
+                                if ( (u != null) && (u.IsAdministrador || u.IsVisitante) )
+                                {
+                                    @:<h3>Cadastros</h3>
+                                    @:<div>
+                                    @Html.ActionLink("Disciplinas", "Index", "Disciplinas", null, new { @class = "modcor" })<br/>
+                                    //@Html.ActionLink("Regimes de Matrículas", "Index", "RegimesMatriculas", null, new { @class = "modcor" })<br/>
+                                    //@Html.ActionLink("Dias da Semana", "Index", "DiasSemana", null, new { @class = "modcor" })<br/>
+                                    @Html.ActionLink("Calendário", "Index", "Calendarios", null, new { @class = "modcor" })<br/>
+                                    @Html.ActionLink("Tipos de Ensinos", "Index", "TiposEnsinos", null, new { @class = "modcor" })<br/>
+                                    @Html.ActionLink("Tipos de Turmas", "Index", "TiposTurmas", null, new { @class = "modcor" })<br/>
+                                    @Html.ActionLink("Turnos", "Index", "Turnos", null, new { @class = "modcor" })<br/>
+                                    @Html.ActionLink("Períodos", "Index", "PeriodosAulas", null, new { @class = "modcor" })<br/>
+                                    @Html.ActionLink("Tipos de Salas", "Index", "TiposSalas", null, new { @class = "modcor" })<br/>
+                                    @Html.ActionLink("Ensinos", "Index", "Ensinos", null, new { @class = "modcor" })<br/>
+                                    @Html.ActionLink("Cursos", "Index", "Cursos", null, new { @class = "modcor" })<br/>
+                                    @Html.ActionLink("Séries", "Index", "Series", null, new { @class = "modcor" })<br/>
+                                    @Html.ActionLink("Disciplinas de Ensino", "Index", "DisciplinasEnsino", null, new { @class = "modcor" })<br/>
+                                    @Html.ActionLink("Bases Curriculares", "Index", "BasesCurriculares", null, new { @class = "modcor" })<br/>
+                                    
+                                    @Html.ActionLink("Usuários", "Index", "Usuarios", null, new { @class = "modcor" })<br/>
+                                    @:</div>
+                                    
+                                    //@:<h3>Movimentação</h3>
+                                    //@:<div>
+                                    //@Html.ActionLink("Obras", "Index", "Obras", null, new { @class = "modcor" })<br/>
+                                    //@Html.ActionLink("Reservas", "Index", "Reservas", null, new { @class = "modcor" })<br/>
+                                    //@Html.ActionLink("Obras Procuradas", "Index", "ObrasProcuradas", null, new { @class = "modcor" })<br/>
+                                    //@Html.ActionLink("Exemplares Locados", "Index", "ExemplaresLocados", null, new { @class = "modcor" })<br/>
+                                    //@Html.ActionLink("Manutenções", "Index", "Manutencoes", null, new { @class = "modcor" })<br/>
+                                    //@Html.ActionLink("Cesta de Locação", "Index", "Cesta", null, new { @class = "modcor" })<br/>
+                                    //@:</div>
+                                }
+                            }
+                        }    
+                        <h3>Administração</h3>
+                        <div>
+                            @{
+                                if (AutenticacaoHelper.Autenticado())
+                                {
+                                       @Html.ActionLink("Trocar usuário", "Login", "Contas", null, new { @class = "modcor" })<br/>
+                                       @Html.ActionLink("Alterar Senha", "AlterarSenha", "Contas", null, new { @class = "modcor" })<br/>
+                                       @Html.ActionLink("Sair", "Logout", "Contas", null, new { @class = "modcor" })<br/>
+                                    if (false /*!u.IsAdministrador*/)
+                                    {
+                                       //@Html.ActionLink("Locações", "Index", "LocacoesUsuario", null, new { @class = "modcor" })<br/>
+                                       //@Html.ActionLink("Reservas", "Index", "Reservas", null, new { @class = "modcor" })<br/>
+                                       //@Html.ActionLink("Obras Procuradas", "Index", "ObrasProcuradas", null, new { @class = "modcor" })<br/>
+                                    }
+                                }
+                                else
+                                {
+                                    @Html.ActionLink("Entrar", "Login", "Contas", null, new { @class = "modcor" })<br/>
+                                }
+                            }
+                        </div>
+                    </div>

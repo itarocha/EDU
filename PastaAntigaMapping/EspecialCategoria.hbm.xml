@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="EspecialCategoria" table="EDU_ESPECIAL_CATEGORIA">
+    <id name="Id" column="ID_ESPECIAL_CATEGORIA">
+      <generator class="native"/>
+    </id>
+    <property name="Descricao" not-null="true" column="DS_ESPECIAL_CATEGORIA" length="64"/>
+    <property name="FlagPadrao" not-null="true" column="FL_PADRAO" length="1"/>
+    <property name="FlagAtivo" not-null="true" column="FL_ATIVO" length="1"/>
+  </class>
+</hibernate-mapping>

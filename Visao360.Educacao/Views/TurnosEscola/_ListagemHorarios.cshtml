@@ -1,0 +1,20 @@
+﻿@model IEnumerable<Dardani.EDU.Entities.VO.TurnoPeriodoVO>
+@{
+    WebGrid grid = new WebGrid(Model, rowsPerPage: 20, ajaxUpdateContainerId: "gridArea");
+}
+
+<div id="gridArea">
+@grid.GetHtml(
+    tableStyle:"table table-striped",
+    //alternatingRowStyle: "altRow",
+    columns:new[] {
+        grid.Column("HoraInicio",header:"Início", style:"to-the-left",canSort:false),
+        grid.Column("HoraTermino",header:"Término", style:"to-the-left",canSort:false),
+        
+        grid.Column("",header:"Ações",style:"w20pct", format:@<text>
+            <a href="/TurnoHorarios/@item.TurnoId/Edit/@item.Id" class="btn btn-xs btn-info">Editar</a>
+            <a href="/TurnoHorarios/@item.TurnoId/Delete/@item.Id" class="btn btn-xs btn-danger">Excluir</a>
+        </text>)
+    }
+)
+</div>

@@ -1,0 +1,15 @@
+﻿@model IEnumerable<Dardani.EDU.Entities.Model.TipoDia>
+
+@{
+    ViewBag.Title = "Listagem de Tipos de Dias";
+}
+
+<p>
+    @Html.ActionLink("Novo Tipo de Dia", "Edit", "TiposDias", null, new { @class="btn btn-default" })&nbsp;
+</p>
+
+<div id="lista">
+@Html.Partial("_Listagem", Model)
+</div>
+
+

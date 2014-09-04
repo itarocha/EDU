@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Dardani.EDU.Entities.Model.Calendario>
+@using Visao360.Educacao.Helpers
+
+@{
+    WebGrid grid = new WebGrid(Model, rowsPerPage: 20, ajaxUpdateContainerId: "gridArea");
+}
+
+<div id="gridArea">
+@grid.GetHtml(
+    tableStyle:"table table-striped",
+    //alternatingRowStyle: "altRow",
+    columns:new[] {
+        grid.Column("Id", style:"to-the-right",canSort:false),
+        grid.Column("Descricao",header:"Descrição",canSort:false),
+        grid.Column("DataInicio",header:"Início",canSort:false),
+        grid.Column("DataTermino",header:"Término",canSort:false),
+        grid.Column("",header:"Ações", format:@<text>
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new {@class="btn btn-xs btn-info"}) 
+                <a href="/Calendarios/@item.Id/Eventos/1" class="btn btn-xs btn-info">Eventos</a>
+                @Html.ActionLink("Excluir", "Delete", new { @item.Id }, new {@class="btn btn-xs btn-danger"})
+                </text>)
+    }
+)
+</div>

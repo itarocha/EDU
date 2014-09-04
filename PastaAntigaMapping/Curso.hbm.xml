@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="Curso" table="EDU_CURSO">
+    <id name="Id" column="ID_CURSO">
+      <generator class="native"/>
+    </id>
+    <property name="Descricao" not-null="true" column="DS_CURSO" length="64"/>
+    <property name="FlagHistorico" not-null="true" column="FL_HISTORICO" length="1"/>
+    <property name="Sequencia" not-null="true" column="NM_SEQUENCIA"/>
+    <many-to-one name="Ensino" class="Ensino" not-null="true" column="ID_ENSINO" cascade="all"/>
+  </class>
+</hibernate-mapping>

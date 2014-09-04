@@ -1,0 +1,102 @@
+﻿@model Dardani.EDU.Entities.VO.SalaVO
+
+@using (Ajax.BeginForm("SalaEdit","Escolas", new AjaxOptions{ OnSuccess = "RefreshListaSalas"})) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Sala</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.EscolaId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.EscolaId)
+            @Html.ValidationMessageFor(model => model.EscolaId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.TipoSalaId)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.TipoSalaId)
+            @Html.ValidationMessageFor(model => model.TipoSalaId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Descricao)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Descricao)
+            @Html.ValidationMessageFor(model => model.Descricao)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Metragem)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Metragem)
+            @Html.ValidationMessageFor(model => model.Metragem)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Capacidade)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Capacidade)
+            @Html.ValidationMessageFor(model => model.Capacidade)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+        @Html.HiddenFor(model => model.Id)
+    </fieldset>
+}
+<div id="listaSalas">
+</div>
+
+<script type="text/javascript">
+    function RefreshListaSalas(data) {
+        var target = $("#listaSalas");
+
+        var URL = "/Escolas/ListagemSalasJson/";
+        $.getJSON(URL,"",function(data) {
+            var result = "";
+            //alert(data);
+            target.empty();
+            $.each(data, function (index, d) {
+                target.append('<p>'+data[index].Descricao+'</p>');
+                /*
+                if (d.WeatherImage != '') {
+                    result += '<br \><img src="' + d.WeatherImage + '" > ';
+                    result += d.Day;
+                    result += ', High ' + d.MaxTemperatureF + 'F';
+                    result += ', Low ' + d.MinTemperatureF + 'F';
+                }
+                */
+            });
+            //$("#Result").html(result);
+        });
+
+
+        $.ajax({
+            url: $('ListagemSalasJson'),
+            type: "get",
+            dataType: 'json',
+            success: function (data) {
+                alert("Sucesso");
+                alert(data);
+                /*
+                $.each(data, function (key, value) {
+                    target.append("<p>'+data.Descricao+'</p>");
+                });
+                */
+            }
+        });
+
+
+
+        //alert(data);
+    }
+</script>

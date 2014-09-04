@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="Turma" table="EDU_TURMA">
+    <id name="Id" column="ID_TURMA">
+      <generator class="native"/>
+    </id>
+    <property name="Nome" column="DS_NOME" length="128" not-null="true"/>
+    <property name="CodigoINEP" column="DS_CODIGO_INEP" length="32" />
+    <many-to-one name="Escola" class="Escola"  column="ID_ESCOLA"  not-null="true" />
+    <many-to-one name="Calendario" class="Calendario"  column="ID_CALENDARIO"  not-null="true" />
+    <many-to-one name="Modalidade" class="Modalidade"  column="ID_MODALIDADE" />
+    <many-to-one name="Etapa" class="Etapa"  column="ID_ETAPA" />
+    <many-to-one name="Turno" class="Turno"  column="ID_TURNO"  not-null="true" />
+    <many-to-one name="Sala" class="Sala"  column="ID_SALA" />
+    <many-to-one name="TipoAtendimento" class="TipoAtendimento"  column="ID_TIPO_ATENDIMENTO"  not-null="true" />
+    <property name="FlagDomingo" column="FL_DOM" length="1" not-null="true"/>
+    <property name="FlagSegunda" column="FL_SEG" length="1" not-null="true"/>
+    <property name="FlagTerca" column="FL_TER" length="1" not-null="true"/>
+    <property name="FlagQuarta" column="FL_QUA" length="1" not-null="true"/>
+    <property name="FlagQuinta" column="FL_QUI" length="1" not-null="true"/>
+    <property name="FlagSexta" column="FL_SEX" length="1" not-null="true"/>
+    <property name="FlagSabado" column="FL_SAB" length="1" not-null="true"/>
+    <property name="FlagPrograma" column="FL_PROGRAMA" length="1" not-null="true"/>
+  </class>
+</hibernate-mapping>

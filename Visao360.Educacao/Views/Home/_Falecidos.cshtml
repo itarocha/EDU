@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Dardani.CMT.Entities.VO.FalecidoEnderecoVO>
+@using Visao360.Educacao.Helpers
+@using Res = ViewRes.Strings
+
+<table id="grade_setores" class="grade">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>Ano Nascimento</th>
+        <th>Falecimento</th>
+        <th>Localização</th>
+    </tr>
+</thead>
+    <tbody>
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FalecidoId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FalecidoNome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FalecidoAnoNascimento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FalecidoDataFalecimento)
+        </td>
+        <td>
+            @if(item.PossuiEndereco)
+            {
+                @Html.DisplayFor(modelItem => item.CemiterioNome)<br/>
+                @Res.LabelGrupo <b>@item.GrupoDescricao</b>
+                @Res.LabelSubgrupo <b>@item.SubgrupoDescricao</b>
+                @:Lote <b>@item.LoteDescricao</b>
+            } else {
+                <span style:"text-align:center;">----</span>
+            }
+        </td>
+    </tr>
+}
+</tbody>
+</table>
+
+@{
+    if(Model.Count() > 0){
+        @PaginadorHelper.Paginador("pager")
+    }
+}
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function () {
+        var sortlist = [[1, 0]];
+        var headers = { 2: { sorter: false } }; // coluna ações
+        decorarTabela($("#grade_setores"), sortlist, headers, $("#pager"));
+        bindPesquisa($('#pesquisar'), $("#grade_setores"));
+    });
+</script>
+
+
+

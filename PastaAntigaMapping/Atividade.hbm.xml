@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="Atividade" table="EDU_ATIVIDADE">
+    <id name="Id" column="ID_ATIVIDADE">
+      <generator class="native"/>
+    </id>
+    <property name="Descricao" not-null="true" column="DS_ATIVIDADE" length="64"/>
+    <property name="FlagRegencia" not-null="true" column="FL_REGENCIA" length="1"/>
+    <property name="FlagDocencia" not-null="true" column="FL_REGENCIA" length="1"/>
+    <property name="FlagExigeAto" not-null="true" column="FL_EXIGE_ATO" length="1"/>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="Dardani.EDU.Entities"
+                   namespace="Dardani.EDU.Entities.Model">
+  <class name="Servidor" table="EDU_SERVIDOR">
+    <id name="Id" column="ID_SERVIDOR">
+      <generator class="native"/>
+    </id>
+    <property name="Matricula" not-null="true" column="NM_MATRICULA" length="64"/>
+    <property name="Nome" not-null="true" column="DS_NOME" length="64"/>
+    <property name="NomePai" column="DS_NOME_PAI" length="64"/>
+    <property name="NomeMae" column="DS_NOME_MAE" length="64"/>
+    <property name="DataNascimento" not-null="true" column="DT_NASCIMENTO"/>
+    <property name="UFNascimento" column="DS_UF_NASCIMENTO" length="2"/>
+    <property name="Naturalidade" column="DS_NATURALIDADE" length="64"/>
+    <property name="CidadeNascimento" column="DS_CIDADE_NASCIMENTO" length="64"/>
+    <many-to-one name="Sexo" class="Dardani.GER.Entities.Model.Sexo" column="ID_SEXO" not-null="true" />
+    <many-to-one name="EstadoCivil" class="Dardani.GER.Entities.Model.EstadoCivil" column="ID_ESTADO_CIVIL" />
+    <many-to-one name="Raca" class="Dardani.GER.Entities.Model.Raca" column="ID_RACA" />
+    <property name="NomeConjuge" column="DS_NOME_CONJUGE" length="64"/>
+    <many-to-one name="Escolaridade" class="Dardani.GER.Entities.Model.Escolaridade" fetch="join" column="ID_ESCOLARIDADE" />
+    <property name="DataAdmissao" not-null="true" column="DT_ADMISSAO"/>
+    <many-to-one name="Cargo" class="Cargo" fetch="join" column="ID_CARGO" not-null="true" />
+
+
+    <!--
+    <one-to-one name="Endereco" class="FalecidoEndereco" cascade="save-update"/>
+    <one-to-one name="Documentacao" class="FalecidoDocumentacao" cascade="all"/>
+    <one-to-one name="DetalhesFalecimento" class="DetalhesFalecimento" cascade="all"/>
+    <one-to-one name="GuiaSepultamento" class="GuiaSepultamento" cascade="all"/>
+    -->
+
+    <!--
+    <bag name="Lotes" inverse="true" cascade="save-update">
+      <key column="ID_FALECIDO" not-null="true" unique="true"/>
+      <one-to-many class="LoteSepultado"/>
+    </bag>
+    -->
+
+  </class>
+</hibernate-mapping>
+
+<!--
+public virtual FalecidoDocumentacao Documentacao { get; set; }
+
+public virtual DetalhesFalecimento DetalhesFalecimento { get; set; }
+
+public virtual GuiaSepultamento GuiaSepultamento { get; set; }
+-->
