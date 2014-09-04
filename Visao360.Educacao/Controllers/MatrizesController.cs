@@ -20,8 +20,6 @@ namespace Visao360.Educacao.Controllers
 {
     public class MatrizesController : BaseController
     {
-        //
-        // GET: /Matriz/
         public ActionResult Index()
         {
             ModalidadeDAO mdao = new ModalidadeDAO();
@@ -30,21 +28,10 @@ namespace Visao360.Educacao.Controllers
         }
 
         private MatrizVO GetMatrizVO(int modalidadeId, int etapaId) {
-            EscolaSessao e = GerenciadorEscolaSessao.GetEscolaAtual(); 
-            int escolaId = (e == null) ? 0 : e.EscolaId;
-            // Se escola for 0, redirecionar para index de Escolas e enviar mensagem
-            if (escolaId == 0)
-            {
-                TempData["mensagem"] = "Para gerenciar Matrizes é necessário tornar uma Escola Padrão";
-                RedirectToAction("Selecionar", "Home"); 
-            }
-
-            int anoLetivoId = e.AnoLetivoId;
-
             MatrizVO model = null;
 
             MatrizDAO dao = new MatrizDAO();
-            model = dao.GetMatrizVOByAnoLetivoModalidadeEtapa(anoLetivoId, modalidadeId, etapaId);
+            model = dao.GetMatrizVOByAnoLetivoModalidadeEtapa(this.EscolaSessao.AnoLetivoId, modalidadeId, etapaId);
             if (model == null)
             {
                 model = new MatrizVO() { ModalidadeId = modalidadeId, EtapaId = etapaId };
@@ -55,6 +42,12 @@ namespace Visao360.Educacao.Controllers
         // Já selecionado
         public ActionResult Matriz(int modalidadeId, int etapaId)
         {
+            if (!ExisteEscolaSelecionada("Para acessar Matrizes, selecione primeiro uma Escola Padrão"))
+            {
+                // Poderia ter uma espécie de AfterSelect para redirecionar para esta Url... vamos ver!
+                return RedirectToAction("Selecionar", "Home");
+            };
+
             ViewData["modalidadeId"] = modalidadeId;
             ViewData["etapaId"] = etapaId;
 
@@ -100,6 +93,13 @@ namespace Visao360.Educacao.Controllers
         // Já selecionado
         public ActionResult MatrizDisciplina(int modalidadeId, int etapaId, int identificacao = 0)
         {
+
+            if (!ExisteEscolaSelecionada("Para acessar Disciplinas da Matriz, selecione primeiro uma Escola Padrão"))
+            {
+                // Poderia ter uma espécie de AfterSelect para redirecionar para esta Url... vamos ver!
+                return RedirectToAction("Selecionar", "Home");
+            };
+
             MatrizVO matrizVO = GetMatrizVO(modalidadeId, etapaId);
 
             if (matrizVO.Id == 0) {
@@ -116,11 +116,7 @@ namespace Visao360.Educacao.Controllers
 
             EnviarViewBagMatrizDisciplina();
 
-            //ViewData["modalidadeId"] = modalidadeId;
-            //ViewData["etapaId"] = etapaId;
-
             // Se não existir, insere
-
             if (identificacao == 0)
             {
                 ViewBag.Acao = "Incluir Disciplina na Matriz Curricular";
@@ -189,15 +185,8 @@ namespace Visao360.Educacao.Controllers
             MatrizDisciplinaDAO dao = new MatrizDisciplinaDAO();
             MatrizDisciplina toSave = novo ? new MatrizDisciplina() : dao.GetById(model.Id);
 
-            /*
-            EscolaSessao e = GerenciadorEscolaSessao.GetEscolaAtual();
-            model.EscolaId = e.EscolaId;
-            model.AnoLetivoId = e.AnoLetivoId;
-            */
-
             Conversor.Converter(model, toSave, NHibernateBase.Session);
             dao.SaveOrUpdate(toSave, toSave.Id);
-
 
             MatrizDAO mdao = new MatrizDAO();
             MatrizVO matriz = mdao.GetMatrizVOById(model.MatrizId);
@@ -205,7 +194,6 @@ namespace Visao360.Educacao.Controllers
             // Na verdade deve enviar para MatrizDisciplina/id/
             return Redirect(String.Format("/Matriz/{0}/{1}", matriz.ModalidadeId, matriz.EtapaId));
         }
-
 
     }
 }

@@ -21,8 +21,7 @@ namespace Visao360.Educacao.Controllers
 {
     public class EscolasController : BaseController
     {
-        //
-        // GET: /Escolas/
+
         [Role(Roles = "Administrador")]
         public ActionResult Index(string searchString)
         {
@@ -120,7 +119,6 @@ namespace Visao360.Educacao.Controllers
             Boolean novo = (id == 0);
 
             Escola p = new EscolaDAO().GetById(id);
-            // if (p == null) HTTPNOTFOUND
 
             EscolaEnderecoVO model = new EscolaEnderecoDAO().GetEscolaEnderecoVOById(id);
             if (model == null)
@@ -379,7 +377,6 @@ namespace Visao360.Educacao.Controllers
             dao.SaveOrUpdate(toSave, toSave.Id);
 
             return PartialView("_SalaEdit", model);
-            //return RedirectToAction("Index");
         }
 
         [Role(Roles = "Administrador")]
@@ -413,10 +410,9 @@ namespace Visao360.Educacao.Controllers
             {
                 Escola o = dao.GetById(id);
                 string descricao = o.Nome;
-
                 dao.Delete(o);
 
-                TempData["mensagem"] = string.Format("Escola \"{0}\" excluída com sucesso", descricao);
+                this.FlashMessage(string.Format("Escola \"{0}\" excluída com sucesso", descricao));
                 return RedirectToAction("Index");
             }
             Escola model = dao.GetById(id);

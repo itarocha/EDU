@@ -14,8 +14,6 @@ namespace Visao360.Educacao.Controllers
 {
     public class TiposEnsinosController : BaseController
     {
-        //
-        // GET: /Funerarias/
         [Role(Roles = "Administrador")]
         public ActionResult Index(string searchString)
         {
@@ -108,7 +106,7 @@ namespace Visao360.Educacao.Controllers
 
                 dao.Delete(o);
 
-                TempData["mensagem"] = string.Format("Tipo de Ensino \"{0}\" excluído com sucesso", descricao);
+                this.FlashMessage(string.Format("Tipo de Ensino \"{0}\" excluído com sucesso", descricao));
                 return RedirectToAction("Index");
             }
             TipoEnsino model = dao.GetById(id);

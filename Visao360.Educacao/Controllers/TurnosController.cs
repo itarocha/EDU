@@ -19,22 +19,16 @@ namespace Visao360.Educacao.Controllers
 {
     public class TurnosController : BaseController
     {
-        //
-        // GET: /Funerarias/
         [Role(Roles = "Administrador")]
         public ActionResult Index(string searchString)
         {
-            EscolaSessao e = GerenciadorEscolaSessao.GetEscolaAtual();
-            int escolaId = (e == null) ? 0 : e.EscolaId;
-
-            // Se escola for 0, redirecionar para index de Escolas e enviar mensagem
-            if (escolaId == 0)
+            if (!ExisteEscolaSelecionada("Para acessar Calendários da Escola, selecione primeiro uma Escola Padrão"))
             {
-                TempData["mensagem"] = "Para gerenciar Calendários é necessário tornar uma Escola Padrão";
-                return RedirectToAction("Selecionar", "Home"); // RedirectToAction("Index", controllerName: "Escolas");
-            }
-            ViewBag.EscolaId = escolaId;
-            IEnumerable<Turno> lista = new TurnoDAO().GetListagemByEscolaId(escolaId);
+                return RedirectToAction("Selecionar", "Home");
+            };
+
+            ViewBag.EscolaId = EscolaSessao.EscolaId;
+            IEnumerable<Turno> lista = new TurnoDAO().GetListagemByEscolaId(EscolaSessao.EscolaId);
             if (Request.IsAjaxRequest())
             {
                 return PartialView("_Listagem", lista);
@@ -52,8 +46,6 @@ namespace Visao360.Educacao.Controllers
                 return HttpNotFound();
             }
             if (novo){
-                EscolaSessao e = GerenciadorEscolaSessao.GetEscolaAtual();
-                //////////model.EscolaId = e.EscolaId;
             }
 
             ViewBag.Acao = novo ? "Novo Turno" : "Editar Turno";
@@ -71,7 +63,6 @@ namespace Visao360.Educacao.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.Acao = novo ? "Novo Turno" : "Editar Turno";
-
                 return View(model);
             }
             TurnoDAO dao = new TurnoDAO();
@@ -83,16 +74,8 @@ namespace Visao360.Educacao.Controllers
 
         private void EnviarViewBagHorarios()
         {
-            EscolaSessao e = GerenciadorEscolaSessao.GetEscolaAtual();
-            int escolaId = (e == null) ? 0 : e.EscolaId;
             ViewBag.ListaPeriodoAula = ComboBuilder.ListaPeriodoAula();
-            //ViewBag.ListaTurnos = ComboBuilder.ListaTurno(escolaId);
         }
-
-
-
-
-
 
         [Role(Roles = "Administrador")]
         public ActionResult Delete(int Id)
@@ -128,7 +111,7 @@ namespace Visao360.Educacao.Controllers
 
                 dao.Delete(o);
 
-                TempData["mensagem"] = string.Format("Turno \"{0}\" excluído com sucesso", descricao);
+                FlashMessage(string.Format("Turno \"{0}\" excluído com sucesso", descricao));
                 return RedirectToAction("Index");
             }
             Turno model = dao.GetById(id);

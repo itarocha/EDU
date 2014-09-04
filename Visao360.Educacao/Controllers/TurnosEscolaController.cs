@@ -22,17 +22,13 @@ namespace Visao360.Educacao.Controllers
         [Role(Roles = "Administrador")]
         public ActionResult Index(string searchString)
         {
-            EscolaSessao e = GerenciadorEscolaSessao.GetEscolaAtual();
-            int escolaId = (e == null) ? 0 : e.EscolaId;
-
-            // Se escola for 0, redirecionar para index de Escolas e enviar mensagem
-            if (escolaId == 0)
+            if (!ExisteEscolaSelecionada("Para acessar Turnos da Escola, selecione primeiro uma Escola Padrão"))
             {
-                TempData["mensagem"] = "Para gerenciar Calendários é necessário tornar uma Escola Padrão";
-                return RedirectToAction("Selecionar", "Home"); // RedirectToAction("Index", controllerName: "Escolas");
-            }
-            ViewBag.EscolaId = escolaId;
-            IEnumerable<EscolaTurnoVO> lista = new EscolaTurnoDAO().GetListaVOByEscolaId(escolaId);
+                return RedirectToAction("Selecionar", "Home");
+            };
+
+            ViewBag.EscolaId = this.EscolaSessao.EscolaId;
+            IEnumerable<EscolaTurnoVO> lista = new EscolaTurnoDAO().GetListaVOByEscolaId(this.EscolaSessao.EscolaId);
             if (Request.IsAjaxRequest())
             {
                 return PartialView("_Listagem", lista);
@@ -91,23 +87,17 @@ namespace Visao360.Educacao.Controllers
         [Role(Roles = "Administrador")]
         public ActionResult Horarios(int id)
         {
-            EscolaSessao e = GerenciadorEscolaSessao.GetEscolaAtual();
-            int escolaId = (e == null) ? 0 : e.EscolaId;
+            if (!ExisteEscolaSelecionada("Para acessar Turnos da Escola, selecione primeiro uma Escola Padrão"))
+            {
+                return RedirectToAction("Selecionar", "Home");
+            };
 
             Turno turno = new TurnoDAO().GetById(id);
-            @ViewBag.Turno = turno;
-
-            // Se escola for 0, redirecionar para index de Escolas e enviar mensagem
-            if (escolaId == 0)
-            {
-                TempData["mensagem"] = "Para gerenciar Períodos é necessário tornar uma Escola Padrão";
-                return RedirectToAction("Selecionar", "Home"); // RedirectToAction("Index", controllerName: "Escolas");
-            }
-
             if (turno == null)
             {
                 return HttpNotFound();
             }
+            ViewBag.Turno = turno;
             
 
             IEnumerable<HorarioPeriodoVO> lista = new HorarioPeriodoDAO().GetByHorarioId(id);
@@ -125,9 +115,6 @@ namespace Visao360.Educacao.Controllers
             HorarioPeriodoVO model = null;
             HorarioPeriodoDAO dao = new HorarioPeriodoDAO();
 
-            EscolaSessao e = GerenciadorEscolaSessao.GetEscolaAtual();
-            int escolaId = (e == null) ? 0 : e.EscolaId;
-
             if (novo)
             {
                 model = new HorarioPeriodoVO();
@@ -144,7 +131,7 @@ namespace Visao360.Educacao.Controllers
             }
 
             Turno turno = new TurnoDAO().GetById(turnoId);
-            @ViewBag.Turno = turno;
+            ViewBag.Turno = turno;
 
             EnviarViewBagHorarios();
 
@@ -195,7 +182,7 @@ namespace Visao360.Educacao.Controllers
 
             HorarioPeriodoDAO dao = new HorarioPeriodoDAO();
             HorarioPeriodo toSave = novo ? new HorarioPeriodo() : dao.GetById(model.Id);
-            EscolaSessao e = GerenciadorEscolaSessao.GetEscolaAtual();
+            //EscolaSessao e = GerenciadorEscolaSessao.GetEscolaAtual();
             //model.EscolaId = e.EscolaId;
 
             Conversor.Converter(model, toSave, NHibernateBase.Session); //
@@ -205,7 +192,6 @@ namespace Visao360.Educacao.Controllers
             //toSave.Escola = e;
 
             dao.SaveOrUpdate(toSave, toSave.Id);
-
 
             return Redirect(String.Format("/HorarioPeriodos/{0}", model.HorarioId));
         }
@@ -244,7 +230,7 @@ namespace Visao360.Educacao.Controllers
 
                 dao.Delete(o);
 
-                TempData["mensagem"] = string.Format("Turno \"{0}\" excluído com sucesso", descricao);
+                this.FlashMessage(string.Format("Turno \"{0}\" excluído com sucesso", descricao));
                 return RedirectToAction("Index");
             }
             Turno model = dao.GetById(id);

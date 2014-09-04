@@ -24,6 +24,14 @@ namespace Visao360.Educacao.Controllers
         [Role(Roles = "Administrador")]
         public ActionResult Index(string searchString)
         {
+            if (!ExisteEscolaSelecionada("Para acessar Horários da Escola, selecione primeiro uma Escola Padrão"))
+            {
+                // Poderia ter uma espécie de AfterSelect para redirecionar para esta Url... vamos ver!
+                return RedirectToAction("Selecionar", "Home");
+            };
+
+
+            /*
             EscolaSessao e = GerenciadorEscolaSessao.GetEscolaAtual();
             int escolaId = (e == null) ? 0 : e.EscolaId;
 
@@ -33,8 +41,11 @@ namespace Visao360.Educacao.Controllers
                 TempData["mensagem"] = "Para gerenciar Calendários é necessário tornar uma Escola Padrão";
                 return RedirectToAction("Selecionar", "Home"); // RedirectToAction("Index", controllerName: "Escolas");
             }
-            ViewBag.EscolaId = escolaId;
-            IEnumerable<Horario> lista = new HorarioDAO().GetListagemByEscolaId(escolaId);
+            */
+
+
+            ViewBag.EscolaId = this.EscolaSessao.EscolaId;
+            IEnumerable<Horario> lista = new HorarioDAO().GetListagemByEscolaId(EscolaSessao.EscolaId);
             if (Request.IsAjaxRequest())
             {
                 return PartialView("_Listagem", lista);
@@ -53,7 +64,6 @@ namespace Visao360.Educacao.Controllers
             }
             if (novo){
                 EscolaSessao e = GerenciadorEscolaSessao.GetEscolaAtual();
-                //////////model.EscolaId = e.EscolaId;
             }
 
             ViewBag.Acao = novo ? "Novo Horario" : "Editar Horario";
@@ -86,19 +96,14 @@ namespace Visao360.Educacao.Controllers
         // id = HorarioId
         public ActionResult Periodos(int id)
         {
-            EscolaSessao e = GerenciadorEscolaSessao.GetEscolaAtual();
-            int escolaId = (e == null) ? 0 : e.EscolaId;
+            if (!ExisteEscolaSelecionada("Para acessar Períodos, selecione primeiro uma Escola Padrão"))
+            {
+                // Poderia ter uma espécie de AfterSelect para redirecionar para esta Url... vamos ver!
+                return RedirectToAction("Selecionar", "Home");
+            };
 
             Horario Horario = new HorarioDAO().GetById(id);
             @ViewBag.Horario = Horario;
-
-            // Se escola for 0, redirecionar para index de Escolas e enviar mensagem
-            if (escolaId == 0)
-            {
-                TempData["mensagem"] = "Para gerenciar Períodos é necessário tornar uma Escola Padrão";
-                return RedirectToAction("Selecionar", "Home"); // RedirectToAction("Index", controllerName: "Escolas");
-            }
-
             if (Horario == null)
             {
                 return HttpNotFound();
@@ -119,14 +124,10 @@ namespace Visao360.Educacao.Controllers
             HorarioPeriodoVO model = null;
             HorarioPeriodoDAO dao = new HorarioPeriodoDAO();
 
-            EscolaSessao e = GerenciadorEscolaSessao.GetEscolaAtual();
-            int escolaId = (e == null) ? 0 : e.EscolaId;
-
             if (novo)
             {
                 model = new HorarioPeriodoVO();
                 model.HorarioId = horarioId;
-                //model.EscolaId = escolaId;
             }
             else
             {
@@ -151,7 +152,6 @@ namespace Visao360.Educacao.Controllers
             EscolaSessao e = GerenciadorEscolaSessao.GetEscolaAtual();
             int escolaId = (e == null) ? 0 : e.EscolaId;
             ViewBag.ListaPeriodoAula = ComboBuilder.ListaPeriodoAula();
-            //ViewBag.ListaHorarios = ComboBuilder.ListaHorario(escolaId);
         }
 
 
@@ -190,32 +190,15 @@ namespace Visao360.Educacao.Controllers
 
             HorarioPeriodoDAO dao = new HorarioPeriodoDAO();
             HorarioPeriodo toSave = novo ? new HorarioPeriodo() : dao.GetById(model.Id);
-            EscolaSessao e = GerenciadorEscolaSessao.GetEscolaAtual();
+            //EscolaSessao e = GerenciadorEscolaSessao.GetEscolaAtual();
             //model.EscolaId = e.EscolaId;
 
             Conversor.Converter(model, toSave, NHibernateBase.Session); //
 
-            //toSave.Horario = tdao.GetById(model.HorarioId);
-            //toSave.PeriodoAula = padao.GetById(model.PeriodoAulaId);
-            //toSave.Escola = e;
-
             dao.SaveOrUpdate(toSave, toSave.Id);
-
 
             return Redirect(String.Format("/PeriodosHorario/{0}", model.HorarioId));
         }
-
-
-
-
-
-
-
-
-
-
-
-
 
         [Role(Roles = "Administrador")]
         public ActionResult Delete(int Id)
@@ -251,7 +234,7 @@ namespace Visao360.Educacao.Controllers
 
                 dao.Delete(o);
 
-                TempData["mensagem"] = string.Format("Horario \"{0}\" excluído com sucesso", descricao);
+                this.FlashMessage(string.Format("Horario \"{0}\" excluído com sucesso", descricao));
                 return RedirectToAction("Index");
             }
             Horario model = dao.GetById(id);

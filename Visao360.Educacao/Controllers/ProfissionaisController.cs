@@ -39,7 +39,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [Role(Roles = "Administrador")]
-        //public ActionResult Edit(int id = 0, string tipo = "", int turmaId = 0)
         public ActionResult Edit(int id = 0)
         {
             Boolean novo = (id == 0);
@@ -129,26 +128,6 @@ namespace Visao360.Educacao.Controllers
             {
                 return HttpNotFound();
             }
-            /*
-            Boolean novo = (id == 0);
-            PessoaEnderecoVO model = new PessoaEnderecoVO();
-
-            if (!novo)
-            {
-                model = new PessoaEnderecoDAO().GetPessoaEnderecoVOById(id);
-                if (model == null)
-                {
-                    model = new PessoaEnderecoVO();
-                    model.PessoaId = model.PessoaId;
-                }
-            }
-            Pessoa pess = new PessoaDAO().GetById(id);
-            ViewBag.PessoaNome = (pess == null) ? "" : pess.Nome;
-            if (model == null)
-            {
-                return HttpNotFound();
-            }
-             */ 
             EnviarViewBagEndereco();
             return View(model);
         }

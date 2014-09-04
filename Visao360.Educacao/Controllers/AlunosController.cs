@@ -98,10 +98,8 @@ namespace Visao360.Educacao.Controllers
         [Persistencia]
         public ActionResult EditConfirmed(PessoaVO model)
         {
-            // Verifica se é novo
             Boolean novo = (model.PessoaId == 0);
 
-            // Se não é válido, retorna
             if (!ModelState.IsValid)
             {
                 EnviarViewBagEdit();

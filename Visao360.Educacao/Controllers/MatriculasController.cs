@@ -107,7 +107,7 @@ namespace Visao360.Educacao.Controllers
 
                 dao.Delete(o);
 
-                TempData["mensagem"] = string.Format("Sala \"{0}\" excluída com sucesso", descricao);
+                FlashMessage(string.Format("Sala \"{0}\" excluída com sucesso", descricao));
                 return RedirectToAction("Index");
             }
             Sala model = dao.GetById(id);

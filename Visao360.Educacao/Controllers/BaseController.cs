@@ -19,9 +19,6 @@ namespace Visao360.Educacao.Controllers
             escolaSessao = new EscolaSessao();
             atualizarEscolaSessao();
 
-
-
-
             //db = new CemiterioContext();
             /*
             UsuarioLogado u = GerenciadorUsuarioSessao.UsuarioLogado();

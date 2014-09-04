@@ -108,10 +108,8 @@ namespace Visao360.Educacao.Controllers
             {
                 AnoLetivo o = dao.GetById(id);
                 int ano =  o.Ano;
-
                 dao.Delete(o);
-
-                TempData["mensagem"] = string.Format("Ano Letivo \"{0}\" excluído com sucesso", ano);
+                FlashMessage(string.Format("Ano Letivo \"{0}\" excluído com sucesso", ano));
                 return RedirectToAction("Index");
             }
             AnoLetivo model = dao.GetById(id);

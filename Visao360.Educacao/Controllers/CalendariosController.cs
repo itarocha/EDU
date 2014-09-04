@@ -19,8 +19,6 @@ namespace Visao360.Educacao.Controllers
 {
     public class CalendariosController : BaseController
     {
-        //
-        // GET: /Funerarias/
         [Role(Roles = "Administrador")]
         public ActionResult Index(string searchString)
         {

@@ -24,16 +24,6 @@ namespace Visao360.Educacao.Controllers
         [Role(Roles = "Administrador")]
         public ActionResult Index(string searchString)
         {
-            //EscolaSessao e = GerenciadorEscolaSessao.GetEscolaAtual();
-            //int escolaId = (e == null) ? 0 : e.EscolaId;
-
-            // Se escola for 0, redirecionar para index de Escolas e enviar mensagem
-            //if (escolaId == 0)
-           // {
-           //     TempData["mensagem"] = "Para gerenciar Calendários é necessário tornar uma Escola Padrão";
-           //     return RedirectToAction("Selecionar", "Home"); // RedirectToAction("Index", controllerName: "Escolas");
-           // }
-
             IEnumerable<DisciplinaVO> lista = new DisciplinaDAO().GetListagemVO();
             if (Request.IsAjaxRequest())
             {
@@ -105,11 +95,6 @@ namespace Visao360.Educacao.Controllers
             DisciplinaDAO dao = new DisciplinaDAO();
             Disciplina toSave = novo ? new Disciplina() : dao.GetById(model.Id);
 
-            /*
-            EscolaSessao e = GerenciadorEscolaSessao.GetEscolaAtual();
-            model.EscolaId = e.EscolaId;
-            model.AnoLetivoId = e.AnoLetivoId;
-            */
             Conversor.Converter(model, toSave, NHibernateBase.Session);
             dao.SaveOrUpdate(toSave, toSave.Id);
             

@@ -127,8 +127,6 @@ namespace Visao360.Educacao.Controllers
                 return HttpNotFound();
             }
 
-            EscolaSessao e = GerenciadorEscolaSessao.GetEscolaAtual();
-
             ViewBag.Acao = "Movimentação de Turma";
             return View(model);
         }
@@ -345,10 +343,8 @@ namespace Visao360.Educacao.Controllers
             {
                 Turma o = dao.GetById(id);
                 string nome = o.Nome;
-
                 dao.Delete(o);
-
-                TempData["mensagem"] = string.Format("Turma \"{0}\" excluída com sucesso", nome);
+                FlashMessage(string.Format("Turma \"{0}\" excluída com sucesso", nome));
                 return RedirectToAction("Index");
             }
             Turma model = dao.GetById(id);
@@ -372,7 +368,7 @@ namespace Visao360.Educacao.Controllers
             // Se escola for 0, redirecionar para index de Escolas e enviar mensagem
             if (escolaId == 0)
             {
-                TempData["mensagem"] = "Para gerenciar Turmas é necessário tornar uma Escola Padrão";
+                FlashMessage("Para gerenciar Turmas é necessário tornar uma Escola Padrão");
                 return RedirectToAction("Selecionar","Home"); // RedirectToAction("Index", controllerName: "Escolas");
             }
             

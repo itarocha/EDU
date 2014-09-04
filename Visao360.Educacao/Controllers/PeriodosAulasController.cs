@@ -14,8 +14,6 @@ namespace Visao360.Educacao.Controllers
 {
     public class PeriodosAulasController : BaseController
     {
-        //
-        // GET: /Funerarias/
         [Role(Roles = "Administrador")]
         public ActionResult Index(string searchString)
         {
@@ -108,7 +106,7 @@ namespace Visao360.Educacao.Controllers
 
                 dao.Delete(o);
 
-                TempData["mensagem"] = string.Format("Período de Aula \"{0}\" excluído com sucesso", descricao);
+                this.FlashMessage(string.Format("Período de Aula \"{0}\" excluído com sucesso", descricao));
                 return RedirectToAction("Index");
             }
             PeriodoAula model = dao.GetById(id);

@@ -103,21 +103,18 @@ namespace Visao360.Educacao.Controllers
         [Role(Roles = "Administrador")]
         public ActionResult Selecionar(int id = 0)
         {
-            EscolaSessao e = GerenciadorEscolaSessao.GetEscolaAtual();
-            int escolaId = (e == null) ? 0 : e.EscolaId;
-            // Se escola for 0, redirecionar para index de Escolas e enviar mensagem
-            if (escolaId == 0)
+            if (!ExisteEscolaSelecionada("Para acessar Rematrícula, selecione primeiro uma Escola Padrão"))
             {
-                TempData["mensagem"] = "Para gerenciar Rematrículas é necessário tornar uma Escola Padrão";
-                return RedirectToAction("Selecionar", "Home"); // RedirectToAction("Index", controllerName: "Escolas");
-            }
+                return RedirectToAction("Selecionar", "Home");
+            };
+
             TurmaVO t = new TurmaDAO().GetVOById(id);
             RematriculaVO model = new RematriculaVO();
             if (t != null)
             {
                 model.TurmaDestinoId = t.Id;
             }
-            IEnumerable<TurmaVO> lista = new TurmaDAO().GetListagemByEscolaAno(escolaId, e.AnoLetivoAno - 1);
+            IEnumerable<TurmaVO> lista = new TurmaDAO().GetListagemByEscolaAno(this.EscolaSessao.EscolaId, this.EscolaSessao.AnoLetivoAno - 1);
             ViewBag.Acao = "Seleção de Alunos para Rematrícula";
             ViewBag.ListaTurma = lista;
             ViewBag.Turma = t;
@@ -164,13 +161,5 @@ namespace Visao360.Educacao.Controllers
             return Redirect(string.Format("/TurmaAlunos/{0}",model.TurmaDestinoId));
         }
 
-        /*
-        public ActionResult Disciplinas(int turmaId)
-        {
-            ViewBag.TurmaId = turmaId;
-
-            return View();
-        }
-        */
     }
 }

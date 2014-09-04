@@ -19,22 +19,40 @@ namespace Visao360.Educacao.Controllers
 {
     public class SalasController : BaseController
     {
-        //
-        // GET: /Funerarias/
+        /*
+        public class SomeActionResult : ViewResult
+        {
+            public override void ExecuteResult(ControllerContext context)
+            {
+                this.ViewName = "Teste";
+
+                base.ExecuteResult(context);
+            }
+        }
+
+        public SalasController()
+        {
+            if (!ExisteEscolaSelecionada("Para gerenciar Salas, selecione primeiro uma Escola Padrão"))
+            {
+                RedirectToAction("Selecionar", "Home");
+
+                SomeActionResult r = new SomeActionResult();
+
+
+                r.ExecuteResult(this.ControllerContext);
+            };
+        }
+        */
+
         [Role(Roles = "Administrador")]
         public ActionResult Index(string searchString)
         {
-            EscolaSessao e = GerenciadorEscolaSessao.GetEscolaAtual();
-            int escolaId = (e == null) ? 0 : e.EscolaId;
-
-            // Se escola for 0, redirecionar para index de Escolas e enviar mensagem
-            if (escolaId == 0)
+            if (!ExisteEscolaSelecionada("Para gerenciar Salas, selecione primeiro uma Escola Padrão"))
             {
-                TempData["mensagem"] = "Para gerenciar Calendários é necessário tornar uma Escola Padrão";
-                return RedirectToAction("Selecionar", "Home"); // RedirectToAction("Index", controllerName: "Escolas");
+                return RedirectToAction("Selecionar", "Home");
             }
-
-            IEnumerable<Sala> lista = new SalaDAO().GetListagemByEscolaId(escolaId);
+            
+            IEnumerable<Sala> lista = new SalaDAO().GetListagemByEscolaId(this.EscolaSessao.EscolaId);
             if (Request.IsAjaxRequest())
             {
                 return PartialView("_Listagem", lista);
@@ -45,6 +63,11 @@ namespace Visao360.Educacao.Controllers
         [Role(Roles = "Administrador")]
         public ActionResult Edit(int id = 0)
         {
+            if (!ExisteEscolaSelecionada("Para gerenciar Salas, selecione primeiro uma Escola Padrão"))
+            {
+                return RedirectToAction("Selecionar", "Home");
+            }
+
             Boolean novo = (id == 0);
             SalaVO model = null;
             SalaDAO dao = new SalaDAO();
@@ -52,8 +75,7 @@ namespace Visao360.Educacao.Controllers
             if (novo)
             {
                 model = new SalaVO();
-                EscolaSessao e = GerenciadorEscolaSessao.GetEscolaAtual();
-                model.EscolaId = e.EscolaId;
+                model.EscolaId = this.EscolaSessao.EscolaId;
             }
             else
             {
@@ -63,9 +85,7 @@ namespace Visao360.Educacao.Controllers
                     return HttpNotFound();
                 }
             }
-
             ViewBag.ListaTipoSala = ComboBuilder.ListaTipoSala();
-
             ViewBag.Acao = novo ? "Nova Sala" : "Editar Sala";
             return View(model);
         }
@@ -142,10 +162,8 @@ namespace Visao360.Educacao.Controllers
             {
                 Sala o = dao.GetById(id);
                 string descricao = o.Descricao;
-
                 dao.Delete(o);
-
-                TempData["mensagem"] = string.Format("Sala \"{0}\" excluída com sucesso", descricao);
+                this.FlashMessage(string.Format("Sala \"{0}\" excluída com sucesso", descricao));
                 return RedirectToAction("Index");
             }
             Sala model = dao.GetById(id);

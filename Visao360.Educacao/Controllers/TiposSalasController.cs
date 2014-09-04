@@ -16,8 +16,6 @@ namespace Visao360.Educacao.Controllers
 {
     public class TiposSalasController : BaseController
     {
-        //
-        // GET: /Funerarias/
         [Role(Roles = "Administrador")]
         public ActionResult Index(string searchString)
         {
@@ -42,6 +40,10 @@ namespace Visao360.Educacao.Controllers
             }
 
             IEnumerable<ItemStringVO> listaSimNao = EDUListasBuilder.BuildListaSimNao();
+
+            //////////////////////////////////////
+            /// REFATORAR
+            //////////////////////////////////////
             Session["ListaSimNao"] = listaSimNao;
 
 
@@ -114,7 +116,7 @@ namespace Visao360.Educacao.Controllers
 
                 dao.Delete(o);
 
-                TempData["mensagem"] = string.Format("Tipo de Sala \"{0}\" excluído com sucesso", descricao);
+                this.FlashMessage(string.Format("Tipo de Sala \"{0}\" excluído com sucesso", descricao));
                 return RedirectToAction("Index");
             }
             TipoSala model = dao.GetById(id);
