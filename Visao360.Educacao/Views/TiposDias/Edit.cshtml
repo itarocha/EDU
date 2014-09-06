@@ -8,11 +8,12 @@
     .cores-ul {
         width:175px;
         /*height:22px;*/
-        float:left;
+        /*float:left;*/
         display:table;
     }
     .cores-li {
         width: 25px;
+        height:30px;
         display:block;
         float:left;
         border:solid 1px #808080;
@@ -140,6 +141,7 @@
             var tabelaCores = $('#tabelacores');
             var zul = ul.clone().appendTo(tabelaCores);
 
+            
             $.each(cores, function (i) {
                 var zli = li.clone()
                 .data('bg', cores[i].Bg)
@@ -147,7 +149,7 @@
                 .addClass("thecs")
                 .appendTo(zul);
 
-                p.clone().text("X")
+                p.clone().html("&nbsp;")
                 .css('background', cores[i].Bg)
                 .css('color', cores[i].Fg)
                 .appendTo(zli);
@@ -155,6 +157,7 @@
                 $("<option value='" + cores[i].Bg + "'>" + cores[i].Bg + "</option>")
                 .appendTo('#colorselect');
             });
+            
 
             $('.thecs').on('click', colorClick);
         }
@@ -192,15 +195,9 @@
             }
         });
         function processarFiguras(data) {
-            /*
-            var ul = $("<ul class=cores-ul/>");
-            var li = $("<li class=cores-li/>");
-            var p = $("<p/>");
-            var tabelaCores = $('#tabelacores');
-            var zul = ul.clone().appendTo(tabelaCores);
-            */
             // Veja o icosel!!!
             var thespan = $("<span class='glyphicon icosel'></span>");
+            
             $.each(data, function (i) {
                 // Dia, Cor
                 var lugar = $("#tabelafiguras");
@@ -267,53 +264,46 @@
         </div>
     </div>
 }
-            <!-- Formulário -->
-            <div id="dialog-form" title="Seleção de Cor">
-	            <!--
-	            <p class="validateTips">All form fields are required.</p>
-	            -->
-	            <p id="monitor"></p>
-	            <form>
-		            <div id="tabs">
-		              <ul>
-		                <li><a href="#tabs-1">Seleção de Cor</a></li>
-		                <li><a href="#tabs-2">Seleção de Cor</a></li>
-		              </ul>
-		              <div id="tabs-1">
-				            <p>Selecione abaixo a cor do tipo do dia</p>
-				            <div style="margin-top:20px; height:250px;">
-					            <div id="tabelacores" style="width:200px;"></div>
-					            <div id="amostra" style="margin-left:10px; width:200px; height:230px; text-align:center;  float:left; border:solid 1px #808080;">
-						            <p style="padding-top:80px;">amostra</p>
-					            </div>
-				            </div>
-				            <input type="hidden" name="numeroDia" id="numeroDia" >
-				            <input type="hidden" name="inputBG" id="inputBG" >
-				            <input type="hidden" name="inputFG" id="inputFG" >
-				
-				
-				            <!--
-				            <label for="email">Email</label>
-				            <input type="text" name="email" id="email" value="jane@smith.com" class="text ui-widget-content ui-corner-all">
-				            <label for="password">Password</label>
-				            <input type="password" name="password" id="password" value="xxxxxxx" class="text ui-widget-content ui-corner-all">
-				            -->
-				            <!-- Allow form submission with keyboard without duplicating the dialog button -->
-				            <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-		              </div>
+<!-- Formulário -->
+<div id="dialog-form" title="Seleção de Cor">
+	<!--
+	<p class="validateTips">All form fields are required.</p>
+	-->
+	<p id="monitor"></p>
+	<form>
+		<div id="tabs">
+		    <ul>
+		    <li><a href="#tabs-1">Seleção de Cor</a></li>
+		    <li><a href="#tabs-2">Seleção de Imagem</a></li>
+		    </ul>
+		    <div id="tabs-1">
+				<p>Selecione abaixo a cor do tipo do dia</p>
+				<div id="tabelacores2" style="width:400px; height:230px;">
+                    <div id="tabelacores" style="width:210px; float:left;">
+                    </div>
+					<div id="amostra" style="float:left; width:190px; height:210px; text-align:center; border:solid 1px #808080;">
+						<p style="padding-top:80px;">amostra</p>
+					</div>
+				</div>
+				<input type="hidden" name="numeroDia" id="numeroDia" >
+				<input type="hidden" name="inputBG" id="inputBG" >
+				<input type="hidden" name="inputFG" id="inputFG" >
+				<!-- Allow form submission with keyboard without duplicating the dialog button -->
+				<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+		    </div>
 
                      
-		              <div id="tabs-2">
-		  	            Clique sobre uma ou mais figuras para adicionar
-		  	            <div id="tabelafiguras" style="width:400px;height:200px;font-size:14pt;overflow:auto;border:solid 1px #808080;">
-		  	            </div>
-		  	            Clique sobre as figuras abaixo para remover
-		  	            <div id="barra" style="width:400px;height:50px;font-size:14pt;background:#fff;overflow:auto;border:solid 1px #808080;">
-		                </div>
-		              </div>
+		    <div id="tabs-2">
+		  	Clique sobre uma ou mais figuras para adicionar
+		  	<div id="tabelafiguras" style="width:400px;height:200px;font-size:14pt;overflow:auto;border:solid 1px #808080;">
+		  	</div>
+		  	Clique sobre as figuras abaixo para remover
+		  	<div id="barra" style="width:400px;height:50px;font-size:14pt;background:#fff;overflow:auto;border:solid 1px #808080;">
+		    </div>
+		    </div>
                         
-                   </div>
-	            </form>
-            </div>
+        </div>
+	</form>
+</div>
 
 
