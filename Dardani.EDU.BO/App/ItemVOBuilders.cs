@@ -85,6 +85,19 @@ namespace Dardani.EDU.BO.App
         }
 
 
+        public IEnumerable<ItemVO> BuildListaTipoDia()
+        {
+
+            IEnumerable<TipoDia> lista = Session.QueryOver<TipoDia>().OrderBy(x => x.Descricao).Asc.List();
+            List<ItemVO> retorno = new List<ItemVO>();
+            foreach (var x in lista)
+            {
+                retorno.Add(new ItemVO { Id = x.Id, Descricao = x.Descricao });
+            }
+            return retorno;
+        }
+
+
         public IEnumerable<ItemVO> BuildListaEscola()
         {
 

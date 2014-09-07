@@ -114,9 +114,12 @@ namespace Visao360.Educacao.Models
 
     public class EnvioCalendario
     {
-        public int Mes { get; set; }
-        public int Dia { get; set; }
-        public string Evento { get; set; }
+        public int CalendarioId { get; set; }
+        public int AnoId { get; set; }
+        public int MesId { get; set; }
+        public int DiaId { get; set; }
+        public int TipoDiaId { get; set; }
+        public int[] TiposEventos { get; set; }
     }
 
     public class Estilo

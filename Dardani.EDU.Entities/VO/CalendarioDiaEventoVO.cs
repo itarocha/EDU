@@ -29,6 +29,7 @@ namespace Dardani.EDU.Entities.VO
         [Display(Name = "Data do Evento")]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [ConverterEntidade]
         public virtual DateTime DataEvento { get; set; } 
     }
 }

@@ -6,24 +6,8 @@
 
 <style>
     #monitor {font-size:12pt; font-weight:bold;}
-	/*
-    label, input { display:block; }
-	
-	#monitor {font-size:12pt; font-weight:bold;}
-	input.text { margin-bottom:12px; width:95%; padding: .4em; }
-	fieldset { padding:0; border:0; margin-top:25px; }
-	h1 { font-size: 1.2em; margin: .6em 0; }
-	div#users-contain { width: 350px; margin: 20px 0; }
-	div#users-contain table { margin: 1em 0; border-collapse: collapse; width: 100%; }
-	div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
-	.ui-dialog .ui-state-error { padding: .3em; }
-	.validateTips { border: 1px solid transparent; padding: 0.3em; }
-    */
-
     .cores-ul {
         width:175px;
-        /*height:22px;*/
-        /*float:left;*/
         display:table;
     }
     .cores-li {
@@ -43,9 +27,17 @@
         text-align:center;
     }
 
+    .icosel {
+        font-size:12pt;
+    }
     .icosel:hover{
         background: #f00;
         color: #fff;
+    }
+    .selecionavel:hover{
+        background: #f00;
+        color: #fff;
+        cursor:pointer;
     }
 
 
@@ -61,10 +53,8 @@
         height:100px;
         float:left;
         display:table;
-        /*font-size:0;*/
 	}
 	
-    /*
 	.coluna-li { 
 		width: 160px;
 	    display:block;
@@ -83,44 +73,6 @@
 	
 	.coluna-li p.dia {
 		margin:0;
-		text-align:right;
-		font-size: 12pt;
-		font-weight:bold;
-		color: #111;
-	}
-	
-	.coluna-li.cabdia{
-		background: #ddd;
-	}
-	
-	.coluna-li p.pcabdia {
-		margin: 10px;
-		text-align:center;
-		font-size: 12pt;
-		font-weight:bold;
-		color: #555;
-	}
-    */
-	.coluna-li { 
-		width: 160px;
-	    display:block;
-	    float:left;
-	    border:solid 1px #808080;
-	    cursor:pointer;
-	    position:relative;
-	    overflow:hidden;
-	    transition:all ease 0.35s;
-	    /*font-size:12px;*/
-	}
-
-	.coluna-li p{
-		margin:0;
-		padding: 5px 5px 5px 3px;
-	}
-	
-	.coluna-li p.dia {
-		margin:0;
-		/*padding: 5px 5px 5px 3px;*/
 		text-align:right;
 		font-size: 12pt;
 		font-weight:bold;
@@ -142,12 +94,9 @@
 	.figuras{
 		height:70px;
 		font-size: 1.2em;
-		/*margin: 5px;*/
 	}
-	
 
 	.a100{
-		/*min-height: 70px;*/
 	}
 	
 	.a50{
@@ -183,38 +132,44 @@
 	}
 	
 	.check { 
-        /*background:#b6ff00;*/ 
 	}
 	
 	.cabecalhoCalendario {
 		padding: 10px;
-		/*text-align:center;*/
 		font-size: 12pt;
 		font-weight:bold;
 		color: #555;
-		/*background: #ffff00;*/
 	}
 </style>
 
 <script type="text/javascript">
-$(function() {
+    var arr_eventos = [10,20];
+
+$(function () {
 
     $("#tabs").tabs();
 
-	// Prepara dados para envio
+    // Prepara dados para envio
+    /*
 	function getInformacao(){
-		var nomeClasse = $('#name').val();
-		var numeroDia = $('#numeroDia').val();
-		
-		var retorno = { Mes: @Model.Mes, Dia: numeroDia, Evento : nomeClasse };
+	    var calendarioId = $('#CalendarioId').val();
+	    var anoId = $('#Ano').val();
+	    var mesId = $('#Mes').val();
+	    var diaId = $('#diaId').val();
+	    var tipoDiaId = 1;
+	    var retorno = { CalendarioId: calendarioId, MesId: mesId, DiaId: diaId, TipoDiaId: tipoDiaId };
 		return retorno;
 	}	
-
+    */
 	var alvo;
     var ful = $("<ul class=fila-ul>");
     var fli = $("<li class=coluna-li><input type=checkbox><p/><li/>");
     var n = 0;
+    var calendarioId = $('#CalendarioId').val();
+    var anoId = $('#Ano').val();
+    var mesId = $('#Mes').val();
 
+    /*
     // Função que desabilita o botão para assentos ocupadas
     $('.coluna-li').each(function () {
         if ($(this).data('title') == 'ocupado') {
@@ -222,61 +177,38 @@ $(function() {
             $(this).find('.input-check').prop('disabled', true).prop('checked', false);
         };
     });
+    */
+    var dialog, form;
 
- 	var dialog, form;
-	
-	function ___marcarDia(){
-		var info = getInformacao();
-		var json = JSON.stringify(info); // funfou
-		var classe = $('#name').val();
-			
-		dialog.dialog("close");
-			
-		$(alvo).data('classe',classe);
-			
-		$('.coluna-li').each(function () {
-	        if ($(this).data('classe') != null) {
-	            classe = $(this).data('classe');
-	            $(this).removeClass('amarelo');
-	            $(this).removeClass('verde');
-	            $(this).removeClass('azul');
-	            $(this).removeClass('vermelho');
-	            $(this).addClass(classe);
-	        };
-        });
-			
-		var nomeClasse = $('#name').val();
-		var numeroDia = $('#numeroDia').val();
-		var theMesAtual = 105; //@Model.MesAnterior;
 
-	    var envio = { Mes: theMesAtual, NumeroDia: numeroDia, NomeClasse : nomeClasse };
+    function carregarTiposDias() {
+        //var disciplina_id = $('#TipoDiaId').val();
+        //sigla = $('#DisciplinaId option:selected').text();
 
+        $.getJSON("/Calendarios/GetTiposDias", {  },
+           function (fooList) {
+               var options = '';
+               $.each(fooList, function (i, foo) {
+                   options += "<option value='" + foo.Id + "'>"
+                      + foo.Descricao + "</option>";
+               });
+               $('#TheTipoDiaId').removeAttr('disabled').html(options);
+           });
+        $('#TheTipoDiaId').on('change', tipoDiaChange);
+        //tipoDiaChange();
+    }
+
+    carregarTiposDias();
+
+	function gravarDados(){
+	    //var info = getInformacao();
+	    //var json = JSON.stringify(info); // funfou
 			
-		$.ajax({
-			url: '/Calendarios/EventosPost',
-		    type: 'POST',
-		    dataType: 'json',
-		    data: json,
-		    contentType: 'application/json; charset=utf-8',
-		    success: function(dados){
-		        processarRetorno(dados);
-		    }
-		});			
-
-		dialog.dialog("close");
-	}
-	
-
-    
-	function marcarDia(){
-	    var info = getInformacao();
-	    var json = JSON.stringify(info); // funfou
-			
-	    var classe = $('#name').val();
+	    ///////////var classe = $('#name').val();
 			
 	    dialog.dialog("close");
 			
-	    $(alvo).data('classe',classe);
+	    //////////////$(alvo).data('classe',classe);
 			
 	    $('.coluna-li').each(function () {
 	        if ($(this).data('classe') != null) {
@@ -289,12 +221,24 @@ $(function() {
 	            $(this).addClass(classe);
 	        };
 	    });
-	    var nomeClasse = $('#name').val();
-	    var numeroDia = $('#numeroDia').val();
-	    var theMesAtual = @Model.Mes;
-            
-			
-	    var envio = { Mes: theMesAtual, NumeroDia: numeroDia, NomeClasse : nomeClasse };
+	    //var calendarioId = $('#CalendarioId').val();
+	    //var anoId = $('#Ano').val();
+	    //var mesId = $('#Mes').val();
+	    var diaId = $('#diaId').val();
+	    var tdId = $('#TipoDiaId').val();
+
+	    alert("TipoDiaId = "+tdId);
+
+	    var te = Array();
+	    $('.evento_adicionado').each(function () {
+	        te.push($(this).data('tipo_evento_id'));
+	        //alert();
+	    });
+	    //alert(te);
+
+	    //alert("Ano = " + xanoId + " Mes = " + mesId);
+	    var envio = { CalendarioId: calendarioId, AnoId: anoId, MesId: mesId, DiaId: diaId, TipoDiaId: tdId, TiposEventos: te };
+	    var json = JSON.stringify(envio);
 			
 		$.ajax({
 		    url: '/Calendarios/EventosPost',
@@ -307,20 +251,6 @@ $(function() {
 			}
 		});			
     }
-    
-    /*
-    function ___processarRetorno(data){
-        $.each(data, function(i) {
-            // Dia, Cor
-            var nome = "#xli"+data[i].Dia;
-            $("#xli-"+data[i].Dia).addClass("amarelo");
-        	
-        	
-            ////alert("processando Dados: "+ data[i].Cor + );
-            //alert(data[index].TEST2);
-        });
-    }
-    */
 
 
     function processarRetorno(data){
@@ -332,11 +262,10 @@ $(function() {
         var livro = $("<span class='glyphicon glyphicon-book'></span>");
 	
         $.each(data, function(i) {
-            $("#xli-"+data[i].Dia).addClass("vermelho");
-
+            //$("#xli-"+data[i].Dia).css('background-color',data[i].Cor); // .addClass("vermelho");
 
             var lugar = $("#xli-"+data[i].Dia);
-            lugar.css('background-color',data[i].Bg);
+            lugar.css('background-color', data[i].Cor);
             var fig = lugar.find('.figuras');
             fig.css('color',data[i].Fg);
             thespan.clone().addClass('glyphicon-comment').css('padding','2px').appendTo(fig);
@@ -348,8 +277,6 @@ $(function() {
             livro.clone().css('padding','2px').appendTo(fig);
         });
     }
-
-
 	
 	dialog = $( "#dialog-form" ).dialog({
 		autoOpen: false,
@@ -357,7 +284,7 @@ $(function() {
 		width: 500,
 		modal: true,
 		buttons: {
-			"Criar Evento": marcarDia,
+			"Criar Evento": gravarDados,
 			"Cancelar": function(){
 				dialog.dialog("close");
 			}
@@ -372,7 +299,7 @@ $(function() {
 	form = dialog.find( "form" ).on( "submit", function( event ) {
 		event.preventDefault();
 	});
-		
+
     // Cores para seleção !!!
 	$.ajax({
 	    url: '/Home/GetCores',
@@ -408,14 +335,21 @@ $(function() {
 	        $("<option value='" + cores[i].Bg + "'>" + cores[i].Bg + "</option>")
             .appendTo('#colorselect');
 	    });
-            
 
 	    $('.thecs').on('click', colorClick);
-	}
+    }
+
+
+
 
 	function colorselectChange() {
 	    var cor = $(this).val();
 	    $('#amostracor').css('background', cor);
+	}
+
+	function tipoDiaChange() {
+	    var tipoDia = $(this).val();
+	    $('#TipoDiaId').val(tipoDia);
 	}
 
 	function colorClick(event) {
@@ -437,7 +371,7 @@ $(function() {
 
     // Figuras para seleção !!!
 	$.ajax({
-	    url: '/Home/GetFiguras',
+	    url: '/Calendarios/GetListaTipoEvento',
 	    type: 'GET',
 	    dataType: 'json',
 	    contentType: 'application/json; charset=utf-8',
@@ -448,23 +382,127 @@ $(function() {
 	function processarFiguras(data) {
 	    // Veja o icosel!!!
 	    var thespan = $("<span class='glyphicon icosel'></span>");
-            
+	    var div = $("<div></div>");
+
 	    $.each(data, function (i) {
-	        // Dia, Cor
+            // Id, Descricao, Simbolo
 	        var lugar = $("#tabelafiguras");
-	        //lugar.css('background-color',data[i].Bg);
-	        //var fig = lugar.find('.figuras');
-	        //fig.css('color',data[i].Fg);
+	        var simbolo = data[i].Simbolo;
+	        var id = data[i].Id;
+
+	        var thediv = div.clone()
+                .data('simbolo', simbolo)
+                .data('tipo_evento_id', id)
+                .text(data[i].Descricao).css('font-size', '10pt')
+                .addClass('selecionavel')
+                .css('padding', '4px')
+                .css('border', '1px solid #bbb')
+                .css('margin', '4px');
+
+	        thediv.appendTo(lugar);
+
+
 	        thespan.clone()
-            .addClass(data[i].Descricao)
-            .css('padding', '4px')
-            .css('border', '1px solid #bbb')
-            .css('margin', '4px')
-            .appendTo(lugar);
+                .addClass(data[i].Simbolo)
+                .data('tipo_evento_id', id)
+                .data('simbolo', simbolo)
+                //.data('simbolo', data[i].Simbolo)
+                .css('padding', '4px')
+                .prependTo(thediv);
 	    });
-	    $('.icosel').on("click", function (event) {
-	        $(this).clone().appendTo($('#barra'));
+
+        /*
+	    $('.merda').on("click", function (event) {
+	        //event.preventDefault();
+	        $(this).css('border', '5px blue solid');
+	        //alert("Hello");
+	        //alert($(this).data('tipo_evento_id'));
 	    });
+        */
+
+
+	    function evento_adicionadoClick(event) {
+	        event.preventDefault();
+	        alert("clicou na merda: " + $(this).data('tipo_evento_id'));
+
+	        // Pega os dados de background e foreground em "data-bg" e "data-fg"
+	        //var corbg = $(this).data('bg');
+	        //var corfg = $(this).data('fg');
+
+	    }
+
+	    $('.selecionavel').on("click", function (event) {
+	        // Pegar o attribute data-simbolo ou algo como
+	        var simbolo = $(this).data('simbolo');
+	        var tipo_evento_id = $(this).data('tipo_evento_id');
+
+            // TODO:
+	        // Você pode verificar se houver algum data.tipo_evento_id == tipo_evento_id para não repetir!
+	        var xdiv = $("<div style='float:left'/>")
+                .clone()
+                .addClass("evento_adicionado")
+	            .data('nome', "itamar")
+                .data('tipo_evento_id', tipo_evento_id);
+
+	        var myspan = thespan.clone()
+                .data('simbolo', simbolo)
+                .addClass(simbolo)
+                //.text(simbolo).css('font-size', '10pt')
+                .css('padding', '4px')
+                .css('border', '1px solid #bbb')
+                .css('margin', '4px')
+	        .appendTo(xdiv);
+
+	        //thediv.data("nome", "itamar");
+            /*
+	        span.clone()
+                .addClass(simbolo)
+                //.data('tipo_evento_id', id)
+                //.data('simbolo', simbolo)
+                //.data('simbolo', data[i].Simbolo)
+                .css('padding', '4px')
+                .appendTo('#eventos_selecionados');
+            */
+
+	        xdiv.appendTo('#eventos_selecionados');
+
+	        xdiv.on('click', evento_adicionadoClick);
+
+
+            /*
+	        var adicionado = div.clone()
+                .addClass(classe)
+                .data('tipo_evento_id', tipo_evento_id)
+                .addClass("evento_adicionado")
+                .css('padding', '4px');
+            */
+            //adicionado.data("the_id","20").appendTo('#eventos_selecionados');
+
+
+            /*
+	        var xid = "";
+	        $.each($('.evento_adicionado'), function (k, _amm) {
+	            //xid = elemento.data('nome');
+	            alert(_amm.data('itamar'));
+	        });
+            */
+	        /*
+            var array = [2, 5, 9];
+            var index = array.indexOf(5);
+            
+            if (index > -1) {
+                array.splice(index, 1);
+            }            
+            */
+
+	        
+	        //alert(classe);
+
+	        //$(this).clone().appendTo($('#eventos_selecionados'));
+	    });
+
+
+
 	    /*
         $.each(cores, function(i) {
         var zli = li.clone()
@@ -487,17 +525,30 @@ $(function() {
     // ????
     $('.data-valida').click(function (event) {
 		var dia = $(this).data('dia');
-		$("#numeroDia").val(dia);
+		$("#diaId").val(dia);
 		var target = event.target;
 		$('#monitor').text('Eventos do dia '+dia); // Manda o dia
 		
 		dialog.title = "TESTE";
-		dialog.dialog( "open" );
+		dialog.dialog("open");
+
+		$("#eventos_selecionados").empty();
+        // TODO: incluir os eventos desse dia para $("#eventos_selecionados") !!!
 		
 		alvo = $(this);
     });
 	
-	
+    // Renderiza os eventos do mês    
+    $.ajax({
+        url: '/Calendarios/GetEventosMes',
+        type: 'GET',
+        dataType: 'json',
+        data: { CalendarioId: calendarioId, AnoId: anoId, MesId: mesId },
+        contentType: 'application/json; charset=utf-8',
+        success: function (dados) {
+            processarRetorno(dados);
+        }
+    });
 
  });
 </script>
@@ -539,29 +590,29 @@ $(function() {
     <div class="row">
 		<div class="col-md-12" id="area">
 			<ul class="fila-ul">
-			<li class="coluna-li cabdia"><p class="pcabdia">DOM</p></li>
-			<li class="coluna-li cabdia"><p class="pcabdia">SEG</p></li>
-			<li class="coluna-li cabdia"><p class="pcabdia">TER</p></li>
-			<li class="coluna-li cabdia"><p class="pcabdia">QUA</p></li>
-			<li class="coluna-li cabdia"><p class="pcabdia">QUI</p></li>
-			<li class="coluna-li cabdia"><p class="pcabdia">SEX</p></li>
-			<li class="coluna-li cabdia"><p class="pcabdia">SÁB</p></li>
+			    <li class="coluna-li cabdia"><p class="pcabdia">DOM</p></li>
+			    <li class="coluna-li cabdia"><p class="pcabdia">SEG</p></li>
+			    <li class="coluna-li cabdia"><p class="pcabdia">TER</p></li>
+			    <li class="coluna-li cabdia"><p class="pcabdia">QUA</p></li>
+			    <li class="coluna-li cabdia"><p class="pcabdia">QUI</p></li>
+			    <li class="coluna-li cabdia"><p class="pcabdia">SEX</p></li>
+			    <li class="coluna-li cabdia"><p class="pcabdia">SÁB</p></li>
 			
    @foreach (Visao360.Educacao.Models.DataCalendario d in Model.ListaDias)
    {
        if (d.Dia != 0)
        {
-					<li class="coluna-li data-valida" id="xli-@d.Dia" data-dia="@d.Dia">
-					<p class="dia a100">@d.Dia</p>
-                        <div class="figuras"></div>
-					</li>
+			    <li class="coluna-li data-valida" id="xli-@d.Dia" data-dia="@d.Dia">
+			    <p class="dia a100">@d.Dia</p>
+                    <div class="figuras"></div>
+			    </li>
        }
        else
        {
-					<li class="coluna-li">
-					    <p class="dia a100 cinza">&nbsp;</p>
-                        <div class="figuras cinza"></div>
-					</li>
+			    <li class="coluna-li">
+				    <p class="dia a100 cinza">&nbsp;</p>
+                    <div class="figuras cinza"></div>
+			    </li>
        }
    }
 			</ul>
@@ -571,6 +622,10 @@ $(function() {
     _Html.HiddenFor(model => model.Id)
     _Html.HiddenFor(model => model.EscolaId)
     -->
+    @Html.HiddenFor(model => model.Mes)
+    @Html.HiddenFor(model => model.Ano)
+    @Html.HiddenFor(model => model.CalendarioId)
+    <input type="hidden" name="TipoDiaId" id="TipoDiaId" >
 }
 
 
@@ -591,11 +646,15 @@ $(function() {
 	<form>
 		<div id="tabs">
 		    <ul>
-		    <li><a href="#tabs-1">Seleção de Cor</a></li>
-		    <li><a href="#tabs-2">Seleção de Imagem</a></li>
+		    <li><a href="#tabs-1">Seleção de Tipo de Dia</a></li>
+		    <li><a href="#tabs-2">Seleção de Eventos</a></li>
 		    </ul>
 		    <div id="tabs-1">
-				<p>Selecione abaixo a cor do tipo do dia</p>
+				<p>Selecione abaixo o Tipo do Dia</p>
+
+                <select id="TheTipoDiaId" name="TheTipoDiaId" class="input-select f-left"></select>
+
+
 				<div id="tabelacores2" style="width:400px; height:230px;">
                     <div id="tabelacores" style="width:210px; float:left;">
                     </div>
@@ -605,18 +664,18 @@ $(function() {
 				</div>
 				<input type="hidden" name="inputBG" id="inputBG" >
 				<input type="hidden" name="inputFG" id="inputFG" >
-                <input type="hidden" name="numeroDia" id="numeroDia" >
+                <input type="hidden" name="diaId" id="diaId" >
 				<!-- Allow form submission with keyboard without duplicating the dialog button -->
 				<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
 		    </div>
 
                      
 		    <div id="tabs-2">
-		  	Clique sobre uma ou mais figuras para adicionar
+		  	<p>Clique sobre os Eventos para adicionar</p>
 		  	<div id="tabelafiguras" style="width:400px;height:200px;font-size:14pt;overflow:auto;border:solid 1px #808080;">
 		  	</div>
-		  	Clique sobre as figuras abaixo para remover
-		  	<div id="barra" style="width:400px;height:50px;font-size:14pt;background:#fff;overflow:auto;border:solid 1px #808080;">
+		  	<p>Clique sobre as figuras abaixo para remover</p>
+		  	<div id="eventos_selecionados" style="width:400px;height:50px;font-size:14pt;background:#fff;overflow:auto;border:solid 1px #808080;">
 		    </div>
 		    </div>
                         

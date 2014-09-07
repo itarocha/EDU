@@ -86,6 +86,11 @@ namespace Visao360.Educacao.Helpers
             return BuildLista(ItemVOBuilders.Instance.BuildListaTurno());
         }
 
+        public static IEnumerable<SelectListItem> ListaTipoDia()
+        {
+            return BuildLista(ItemVOBuilders.Instance.BuildListaTipoDia());
+        }
+
         public static IEnumerable<SelectListItem> ListaDisciplinaEducacenso()
         {
             return BuildLista(ItemVOBuilders.Instance.BuidListaDisciplinaEducacenso());

@@ -24,11 +24,12 @@ namespace Dardani.EDU.Entities.VO
 
         public virtual string TipoDiaCor { get; set; } 
         
-        public virtual int TipoDiaFlagLetivo { get; set; }
+        public virtual string TipoDiaFlagLetivo { get; set; }
 
         [Display(Name = "Data do Evento")]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [ConverterEntidade]
         public virtual DateTime DataEvento { get; set; } 
     }
 }

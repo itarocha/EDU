@@ -14,6 +14,7 @@ using Dardani.EDU.Entities.VO;
 using Petra.Util.Model;
 using Petra.Util.Funcoes;
 using Petra.DAO.Util;
+using Dardani.EDU.BO.App;
 
 namespace Visao360.Educacao.Controllers
 {
@@ -165,6 +166,9 @@ namespace Visao360.Educacao.Controllers
 
             ViewBag.EscolaId = e.EscolaId;
 
+
+            //ViewBag.ListaSituacaoFuncionamento = ComboBuilder.ListaTipoDia();
+
             Calendario cal = new CalendarioDAO().GetById(calendarioId);
             ViewBag.Calendario = cal;
 
@@ -178,27 +182,110 @@ namespace Visao360.Educacao.Controllers
             return View(calendario);
         }
 
+        [Role(Roles = "Administrador,Visitante")]
+        public JsonResult GetTiposDias()
+        {
+            IEnumerable<ItemVO> lista = ItemVOBuilders.Instance.BuildListaTipoDia();
+            return Json(lista, JsonRequestBehavior.AllowGet);
+        }
+
+
         [HttpPost]
+        [Persistencia]
         public JsonResult EventosPost(EnvioCalendario data)
         {
+            // Veja  data.TiposEventos int[]
+            
 
-            int id = /*data.NumeroDia + */data.Mes;
+            CalendarioDiaDAO cdao = new CalendarioDiaDAO();
+            DateTime dt = new DateTime(data.AnoId, data.MesId, data.DiaId);
 
+            CalendarioDia toDelete = cdao.GetByCalendarioAndDia(data.CalendarioId, dt);
+            if (toDelete != null) {
+                cdao.Delete(toDelete);
+            }
+
+
+
+            // Excluir tipo de dia da data
+
+            // Incluir tipo de dia na data
+            CalendarioDia toSave = new CalendarioDia();
+            CalendarioDiaVO model = new CalendarioDiaVO() { CalendarioId = data.CalendarioId, DataEvento = dt, TipoDiaId = data.TipoDiaId };
+            Conversor.Converter(model, toSave, NHibernateBase.Session);
+            cdao.SaveOrUpdate(toSave, toSave.Id);
+
+
+            // Tipos de Eventos
+            CalendarioDiaEventoDAO cedao = new CalendarioDiaEventoDAO();
+
+            // Limpar Todos pela Data
+            IEnumerable<CalendarioDiaEvento> listaToDelete = cedao.GetListagemByCalendarioAndData(data.CalendarioId, dt);
+            if (listaToDelete != null)
+            {
+                foreach(CalendarioDiaEvento xis in listaToDelete){
+                    cedao.Delete(xis);
+                }
+            }
+
+
+            if (data.TiposEventos != null)
+            {
+                foreach (int tipoEventoId in data.TiposEventos)
+                {
+                    CalendarioDiaEvento cde = new CalendarioDiaEvento();
+
+                    CalendarioDiaEventoVO cdevo = new CalendarioDiaEventoVO() { CalendarioId = data.CalendarioId, DataEvento = dt, TipoEventoId = tipoEventoId };
+                    Conversor.Converter(cdevo, cde, NHibernateBase.Session);
+                    cedao.SaveOrUpdate(cde, cde.Id);
+                }
+            }
+
+            int id = /*data.NumeroDia + */data.MesId;
+
+            return GetEventosMes(data.CalendarioId, data.AnoId, data.MesId);
+            /*
             List<Estilo> fooList = new List<Estilo>();
 
-            fooList.Add(new Estilo { Dia = 3, Cor = "#f0f" });
-            fooList.Add(new Estilo { Dia = 8, Cor = "#f00" });
-            fooList.Add(new Estilo { Dia = 10, Cor = "#ff0" });
-            fooList.Add(new Estilo { Dia = 17, Cor = "#f0f" });
-            fooList.Add(new Estilo { Dia = 20, Cor = "#f0f" });
-            fooList.Add(new Estilo { Dia = 22, Cor = "#0ff" });
-            fooList.Add(new Estilo { Dia = 23, Cor = "#f00" });
-            fooList.Add(new Estilo { Dia = 28, Cor = "#ff0" });
+            // Isso vai virar função. Vai virar também retorno json!!!
+            DateTime dtIni = new DateTime(data.AnoId, data.MesId, 1);
+            DateTime dtFim = dtIni.AddMonths(1).AddDays(-1);
 
-            //return Json(fooList.Where(foo => foo.FooId == FooId).ToList(),JsonRequestBehavior.AllowGet);
+            IEnumerable<CalendarioDiaVO> lista = cdao.GetByListagemByCalendarioAndPeriodo(data.CalendarioId, dtIni, dtFim);
+            foreach (CalendarioDiaVO cd in lista) {
+                fooList.Add(new Estilo { Dia = cd.DataEvento.Day, Cor = cd.TipoDiaCor });
+            }
 
             return Json(fooList, JsonRequestBehavior.AllowGet);
-        }		
+            */
+        }
+
+        public JsonResult GetEventosMes(int CalendarioId, int AnoId, int MesId) {
+            List<Estilo> fooList = new List<Estilo>();
+
+            // Isso vai virar função. Vai virar também retorno json!!!
+            DateTime dtIni = new DateTime(AnoId, MesId, 1);
+            DateTime dtFim = dtIni.AddMonths(1).AddDays(-1);
+
+            CalendarioDiaDAO cdao = new CalendarioDiaDAO();
+            IEnumerable<CalendarioDiaVO> lista = cdao.GetByListagemByCalendarioAndPeriodo(CalendarioId, dtIni, dtFim);
+            foreach (CalendarioDiaVO cd in lista)
+            {
+                fooList.Add(new Estilo { Dia = cd.DataEvento.Day, Cor = cd.TipoDiaCor });
+            }
+
+            return Json(fooList, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetListaTipoEvento()
+        {
+
+            TipoEventoDAO tedao = new TipoEventoDAO();
+
+            IEnumerable<TipoEvento> lista = tedao.GetListagem();
+
+            return Json(lista, JsonRequestBehavior.AllowGet);
+        }
 
     }
 }

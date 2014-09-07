@@ -17,11 +17,20 @@ namespace Dardani.EDU.BO.NH
         {
             IEnumerable<CalendarioDiaEvento> lista = Session.QueryOver<CalendarioDiaEvento>()
                 .OrderBy(x => x.DataEvento).Asc.List();
-            
+            return lista;
+        }
+
+        public IEnumerable<CalendarioDiaEvento> GetListagemByCalendarioAndData(int calendarioId, DateTime dataIni)
+        {
+            IEnumerable<CalendarioDiaEvento> lista = Session.QueryOver<CalendarioDiaEvento>()
+                .Where(x => x.Calendario.Id == calendarioId)
+                .And(x => x.DataEvento == dataIni)
+                .OrderBy(x => x.DataEvento).Asc.List();
             return lista;
         }
         
-        public IEnumerable<CalendarioDiaEventoVO> GetByListagemByCalendarioAndPeriodo(int calendarioId, DateTime dataIni, DateTime dataFim)
+
+        public IEnumerable<CalendarioDiaEventoVO> GetListagemVOByCalendarioAndPeriodo(int calendarioId, DateTime dataIni, DateTime dataFim)
         {
         	IEnumerable<CalendarioDiaEventoVO> model =
         		Session.CreateQuery(
