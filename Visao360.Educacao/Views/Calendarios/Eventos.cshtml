@@ -6,29 +6,16 @@
 
 <style>
     #monitor {font-size:12pt; font-weight:bold;}
-    .cores-ul {
-        width:175px;
-        display:table;
+    .ico { 
+        font-size:12pt; 
+        padding:4px;
+        margin:4px;
     }
-    .cores-li {
-        width: 25px;
-        height:30px;
-        display:block;
-        float:left;
-        border:solid 1px #808080;
-        cursor:pointer;
-        position:relative;
-        overflow:hidden;
-        transition:all ease 0.35s;
-    }
-    .cores-li p{
-        margin:0;
-        padding: 5px 5px 5px 5px;
-        text-align:center;
-    }
-
-    .icosel {
-        font-size:12pt;
+    .icosel { 
+        font-size:12pt; 
+        padding:4px;
+        border:1px solid #bbb;
+        margin:4px;
     }
     .icosel:hover{
         background: #f00;
@@ -39,22 +26,18 @@
         color: #fff;
         cursor:pointer;
     }
-
-
 	ul, li {
 	    padding:0;
 	    margin:0;
 	    margin-top:-1px;
 	    list-style:none;
 	}
-	
 	.fila-ul { 
         width:1150px;
         height:100px;
         float:left;
         display:table;
 	}
-	
 	.coluna-li { 
 		width: 160px;
 	    display:block;
@@ -65,12 +48,10 @@
 	    overflow:hidden;
 	    transition:all ease 0.35s;
 	}
-
 	.coluna-li p{
 		margin:0;
 		padding: 5px 5px 5px 3px;
 	}
-	
 	.coluna-li p.dia {
 		margin:0;
 		text-align:right;
@@ -78,11 +59,7 @@
 		font-weight:bold;
 		color: #111;
 	}
-	
-	.coluna-li.cabdia{
-		background: #ddd;
-	}
-	
+	.coluna-li.cabdia{ background: #ddd; }
 	.coluna-li p.pcabdia {
 		margin: 10px;
 		text-align:center;
@@ -90,19 +67,12 @@
 		font-weight:bold;
 		color: #555;
 	}
-	
 	.figuras{
 		height:70px;
 		font-size: 1.2em;
 	}
-
-	.a100{
-	}
-	
-	.a50{
-		height:50px;
-	}
-	
+	.a100{}
+	.a50{height:50px;}
 	.input-check { 
         display:block;
         opacity:.0;
@@ -110,30 +80,8 @@
         margin:0;
         height:1px;
 	}
-
-	.cinza { 
-        background:#aaa;
-	}
-	
-	.verde {
-		background:lime;
-	}
-	
-	.amarelo {
-		background:yellow;
-	}
-	
-	.azul {
-		background:#CCE9FF;
-	}
-	
-	.vermelho {
-		background:#f00;
-	}
-	
-	.check { 
-	}
-	
+	.cinza {background:#aaa;}
+	.check { }
 	.cabecalhoCalendario {
 		padding: 10px;
 		font-size: 12pt;
@@ -143,48 +91,19 @@
 </style>
 
 <script type="text/javascript">
-    var arr_eventos = [10,20];
 
-$(function () {
+    $(function () {
+        var thespanFiguras = $("<span class='glyphicon icosel'></span>");
+        var spanFigurasLite = $("<span class='glyphicon ico'></span>");
 
-    $("#tabs").tabs();
-
-    // Prepara dados para envio
-    /*
-	function getInformacao(){
-	    var calendarioId = $('#CalendarioId').val();
-	    var anoId = $('#Ano').val();
-	    var mesId = $('#Mes').val();
-	    var diaId = $('#diaId').val();
-	    var tipoDiaId = 1;
-	    var retorno = { CalendarioId: calendarioId, MesId: mesId, DiaId: diaId, TipoDiaId: tipoDiaId };
-		return retorno;
-	}	
-    */
-	var alvo;
-    var ful = $("<ul class=fila-ul>");
-    var fli = $("<li class=coluna-li><input type=checkbox><p/><li/>");
-    var n = 0;
     var calendarioId = $('#CalendarioId').val();
     var anoId = $('#Ano').val();
     var mesId = $('#Mes').val();
 
-    /*
-    // Função que desabilita o botão para assentos ocupadas
-    $('.coluna-li').each(function () {
-        if ($(this).data('title') == 'ocupado') {
-            $(this).addClass('cinza');
-            $(this).find('.input-check').prop('disabled', true).prop('checked', false);
-        };
-    });
-    */
     var dialog, form;
 
-
+    // Carrega Tipos de Dias para o combo
     function carregarTiposDias() {
-        //var disciplina_id = $('#TipoDiaId').val();
-        //sigla = $('#DisciplinaId option:selected').text();
-
         $.getJSON("/Calendarios/GetTiposDias", {  },
            function (fooList) {
                var options = '';
@@ -194,49 +113,26 @@ $(function () {
                });
                $('#TheTipoDiaId').removeAttr('disabled').html(options);
            });
-        $('#TheTipoDiaId').on('change', tipoDiaChange);
-        //tipoDiaChange();
     }
 
-    carregarTiposDias();
-
+    // Ao confirmar gravação de dados
 	function gravarDados(){
-	    //var info = getInformacao();
-	    //var json = JSON.stringify(info); // funfou
-			
-	    ///////////var classe = $('#name').val();
-			
 	    dialog.dialog("close");
-			
-	    //////////////$(alvo).data('classe',classe);
 			
 	    $('.coluna-li').each(function () {
 	        if ($(this).data('classe') != null) {
 	            classe = $(this).data('classe');
-	            $(this).removeClass('amarelo');
-	            $(this).removeClass('verde');
-	            $(this).removeClass('azul');
-	            $(this).removeClass('vermelho');
-	                
 	            $(this).addClass(classe);
 	        };
 	    });
-	    //var calendarioId = $('#CalendarioId').val();
-	    //var anoId = $('#Ano').val();
-	    //var mesId = $('#Mes').val();
 	    var diaId = $('#diaId').val();
 	    var tdId = $('#TipoDiaId').val();
-
-	    alert("TipoDiaId = "+tdId);
 
 	    var te = Array();
 	    $('.evento_adicionado').each(function () {
 	        te.push($(this).data('tipo_evento_id'));
-	        //alert();
 	    });
-	    //alert(te);
 
-	    //alert("Ano = " + xanoId + " Mes = " + mesId);
 	    var envio = { CalendarioId: calendarioId, AnoId: anoId, MesId: mesId, DiaId: diaId, TipoDiaId: tdId, TiposEventos: te };
 	    var json = JSON.stringify(envio);
 			
@@ -252,32 +148,37 @@ $(function () {
 		});			
     }
 
+    // Ao retornar dados
+	function processarRetorno(dados){
+	    var tiposDias = dados.ListaEstiloTipoDia;
+	    var tiposEventos = dados.ListaEstiloTipoEvento;
 
-    function processarRetorno(data){
-        var thespan = $("<span class='glyphicon'></span>");
-        var estrela = $("<span class='glyphicon glyphicon-star'></span>");
-        var hora = $("<span class='glyphicon glyphicon-time'></span>");
-        var coracao = $("<span class='glyphicon glyphicon-heart'></span>");
-        var figura = $("<span class='glyphicon glyphicon-picture'></span>");
-        var livro = $("<span class='glyphicon glyphicon-book'></span>");
-	
-        $.each(data, function(i) {
-            //$("#xli-"+data[i].Dia).css('background-color',data[i].Cor); // .addClass("vermelho");
+        // Remove todas as figuras do calendário
+	    $('.figuras').empty();
 
-            var lugar = $("#xli-"+data[i].Dia);
-            lugar.css('background-color', data[i].Cor);
-            var fig = lugar.find('.figuras');
-            fig.css('color',data[i].Fg);
-            thespan.clone().addClass('glyphicon-comment').css('padding','2px').appendTo(fig);
-        	
-            estrela.clone().css('padding','2px').appendTo(fig);
-            hora.clone().css('padding','2px').appendTo(fig);
-            coracao.clone().css('padding','2px').appendTo(fig);
-            figura.clone().css('padding','2px').appendTo(fig);
-            livro.clone().css('padding','2px').appendTo(fig);
+	    $.each(tiposEventos, function (i) {
+	        // lugar virou diaAlvo
+	        var dia = tiposEventos[i].Dia;
+	        var simbolo = tiposEventos[i].Simbolo;
+	        var tipoDiaId = tiposDias[i].TipoDiaId;
+	        var diaAlvo = $("#xli-" + dia);
+	        var fig = diaAlvo.find('.figuras');
+	        spanFigurasLite.clone().addClass(simbolo).appendTo(fig);
+	    });
+
+	    $.each(tiposDias, function(i) {
+	        // lugar virou diaAlvo
+	        var dia = tiposDias[i].Dia;
+	        var cor = tiposDias[i].Cor;
+	        var tipoDiaId = tiposDias[i].TipoDiaId;
+
+	        var diaAlvo = $("#xli-" + dia);
+	        diaAlvo.css('background-color', cor);
+            diaAlvo.data('tipoDiaId', tipoDiaId);
         });
     }
 	
+    // Configura formulário
 	dialog = $( "#dialog-form" ).dialog({
 		autoOpen: false,
 		height: 550,
@@ -291,101 +192,60 @@ $(function () {
 		},
 		close: function() {
 			form[ 0 ].reset();
-			//allFields.removeClass( "ui-state-error" );
 		}
 	});
 			
-		
 	form = dialog.find( "form" ).on( "submit", function( event ) {
 		event.preventDefault();
 	});
 
-    // Cores para seleção !!!
-	$.ajax({
-	    url: '/Home/GetCores',
-	    type: 'GET',
-	    dataType: 'json',
-	    contentType: 'application/json; charset=utf-8',
-	    success: function (dados) {
-	        processarCores(dados);
-	    }
-	});
-
-	function processarCores(cores) {
-	    var ul = $("<ul class=cores-ul/>");
-	    var li = $("<li class=cores-li/>");
-	    var p = $("<p/>");
-
-	    var tabelaCores = $('#tabelacores');
-	    var zul = ul.clone().appendTo(tabelaCores);
-
-            
-	    $.each(cores, function (i) {
-	        var zli = li.clone()
-            .data('bg', cores[i].Bg)
-            .data('fg', cores[i].Fg)
-            .addClass("thecs")
-            .appendTo(zul);
-
-	        p.clone().html("&nbsp;")
-            .css('background', cores[i].Bg)
-            .css('color', cores[i].Fg)
-            .appendTo(zli);
-
-	        $("<option value='" + cores[i].Bg + "'>" + cores[i].Bg + "</option>")
-            .appendTo('#colorselect');
-	    });
-
-	    $('.thecs').on('click', colorClick);
-    }
-
-
-
-
-	function colorselectChange() {
-	    var cor = $(this).val();
-	    $('#amostracor').css('background', cor);
-	}
-
+    // Evento ao mudar Tipo de Dia
 	function tipoDiaChange() {
 	    var tipoDia = $(this).val();
 	    $('#TipoDiaId').val(tipoDia);
 	}
 
-	function colorClick(event) {
-	    event.preventDefault();
-
-	    // Pega os dados de background e foreground em "data-bg" e "data-fg"
-	    var corbg = $(this).data('bg');
-	    var corfg = $(this).data('fg');
-
-	    // Visualização prévia
-	    $('#amostra').css('background', corbg);
-	    $('#amostra').css('color', corfg);
-
-	    //$('#name').val(corbg);
-	    // Seta os campos
-	    $('#inputBG').val(corbg);
-	    $('#inputFG').val(corfg);
+    // Figuras para seleção !!!
+	function CarregarTiposEventos() {
+	    $.ajax({
+	        url: '/Calendarios/GetListaTipoEvento',
+	        type: 'GET',
+	        dataType: 'json',
+	        contentType: 'application/json; charset=utf-8',
+	        success: function (dados) {
+	            processarFiguras(dados);
+	        }
+	    });
 	}
 
-    // Figuras para seleção !!!
-	$.ajax({
-	    url: '/Calendarios/GetListaTipoEvento',
-	    type: 'GET',
-	    dataType: 'json',
-	    contentType: 'application/json; charset=utf-8',
-	    success: function (dados) {
-	        processarFiguras(dados);
-	    }
-	});
+	function selClick(event) {
+	    // Pegar o attribute data-simbolo ou algo como
+	    var simbolo = $(this).data('simbolo');
+	    var tipo_evento_id = $(this).data('tipo_evento_id');
+
+	    // TODO:
+	    // Você pode verificar se houver algum data.tipo_evento_id == tipo_evento_id para não repetir!
+	    var xdiv = $("<div style='float:left'/>")
+            .clone()
+            .addClass("evento_adicionado")
+            .data('nome', "itamar")
+            .data('tipo_evento_id', tipo_evento_id);
+
+	    var myspan = thespanFiguras.clone()
+            .data('simbolo', simbolo)
+            .addClass(simbolo)
+            .appendTo(xdiv);
+	    xdiv.appendTo('#eventos_selecionados');
+	    xdiv.on('click', removerSelecionadoClick);
+	}
+
+    // Carregar figuras
 	function processarFiguras(data) {
 	    // Veja o icosel!!!
-	    var thespan = $("<span class='glyphicon icosel'></span>");
 	    var div = $("<div></div>");
 
 	    $.each(data, function (i) {
-            // Id, Descricao, Simbolo
+	        // Id, Descricao, Simbolo
 	        var lugar = $("#tabelafiguras");
 	        var simbolo = data[i].Simbolo;
 	        var id = data[i].Id;
@@ -398,134 +258,39 @@ $(function () {
                 .css('padding', '4px')
                 .css('border', '1px solid #bbb')
                 .css('margin', '4px');
-
 	        thediv.appendTo(lugar);
-
-
-	        thespan.clone()
+	        thespanFiguras.clone()
                 .addClass(data[i].Simbolo)
                 .data('tipo_evento_id', id)
                 .data('simbolo', simbolo)
-                //.data('simbolo', data[i].Simbolo)
-                .css('padding', '4px')
+                //.css('padding', '4px')
                 .prependTo(thediv);
+	        thediv.on('click', selClick);
 	    });
-
-        /*
-	    $('.merda').on("click", function (event) {
-	        //event.preventDefault();
-	        $(this).css('border', '5px blue solid');
-	        //alert("Hello");
-	        //alert($(this).data('tipo_evento_id'));
-	    });
-        */
-
-
-	    function evento_adicionadoClick(event) {
-	        event.preventDefault();
-	        alert("clicou na merda: " + $(this).data('tipo_evento_id'));
-
-	        // Pega os dados de background e foreground em "data-bg" e "data-fg"
-	        //var corbg = $(this).data('bg');
-	        //var corfg = $(this).data('fg');
-
-	    }
-
-	    $('.selecionavel').on("click", function (event) {
-	        // Pegar o attribute data-simbolo ou algo como
-	        var simbolo = $(this).data('simbolo');
-	        var tipo_evento_id = $(this).data('tipo_evento_id');
-
-            // TODO:
-	        // Você pode verificar se houver algum data.tipo_evento_id == tipo_evento_id para não repetir!
-	        var xdiv = $("<div style='float:left'/>")
-                .clone()
-                .addClass("evento_adicionado")
-	            .data('nome', "itamar")
-                .data('tipo_evento_id', tipo_evento_id);
-
-	        var myspan = thespan.clone()
-                .data('simbolo', simbolo)
-                .addClass(simbolo)
-                //.text(simbolo).css('font-size', '10pt')
-                .css('padding', '4px')
-                .css('border', '1px solid #bbb')
-                .css('margin', '4px')
-	        .appendTo(xdiv);
-
-	        //thediv.data("nome", "itamar");
-            /*
-	        span.clone()
-                .addClass(simbolo)
-                //.data('tipo_evento_id', id)
-                //.data('simbolo', simbolo)
-                //.data('simbolo', data[i].Simbolo)
-                .css('padding', '4px')
-                .appendTo('#eventos_selecionados');
-            */
-
-	        xdiv.appendTo('#eventos_selecionados');
-
-	        xdiv.on('click', evento_adicionadoClick);
-
-
-            /*
-	        var adicionado = div.clone()
-                .addClass(classe)
-                .data('tipo_evento_id', tipo_evento_id)
-                .addClass("evento_adicionado")
-                .css('padding', '4px');
-            */
-            //adicionado.data("the_id","20").appendTo('#eventos_selecionados');
-
-
-            /*
-	        var xid = "";
-	        $.each($('.evento_adicionado'), function (k, _amm) {
-	            //xid = elemento.data('nome');
-	            alert(_amm.data('itamar'));
-	        });
-            */
-	        /*
-            var array = [2, 5, 9];
-            var index = array.indexOf(5);
-            
-            if (index > -1) {
-                array.splice(index, 1);
-            }            
-            */
-
-	        
-	        //alert(classe);
-
-	        //$(this).clone().appendTo($('#eventos_selecionados'));
-	    });
-
-
-
-	    /*
-        $.each(cores, function(i) {
-        var zli = li.clone()
-        .data('bg',data[i].Bg)
-        .data('fg',data[i].Fg)
-        .addClass("thecs")
-        .appendTo(zul);
-        p.clone().text("X")
-        .css('background',data[i].Bg)
-        .css('color',data[i].Fg)
-        .appendTo(zli);
-        $("<option value='"+data[i].Bg+"'>"+ data[i].Bg +"</option>")
-        .appendTo('#colorselect');
-        });
-        */
-	    //////$('.thecs').on('click',colorClick);
+	}
+    // Ao clicar em evento adicionado, remover
+	function removerSelecionadoClick(event) {
+	    event.preventDefault();
+	    $(this).remove();
 	}
 
+	////////$('.selecionavel').on('click', selecionavelClick);
 
     // ????
     $('.data-valida').click(function (event) {
-		var dia = $(this).data('dia');
-		$("#diaId").val(dia);
+        var dia = $(this).data('dia');
+        var tipoDiaId = $(this).data('tipoDiaId');
+        
+
+        if (tipoDiaId != undefined) {
+            $('#TheTipoDiaId').val(tipoDiaId);
+        }
+
+        $("#diaId").val(dia);
+
+		var tdId = $('#TheTipoDiaId').val();
+		$('#TipoDiaId').val(tdId);
+
 		var target = event.target;
 		$('#monitor').text('Eventos do dia '+dia); // Manda o dia
 		
@@ -535,7 +300,7 @@ $(function () {
 		$("#eventos_selecionados").empty();
         // TODO: incluir os eventos desse dia para $("#eventos_selecionados") !!!
 		
-		alvo = $(this);
+		//////////alvo = $(this);
     });
 	
     // Renderiza os eventos do mês    
@@ -550,6 +315,10 @@ $(function () {
         }
     });
 
+    CarregarTiposEventos();
+    carregarTiposDias();
+    $('#TheTipoDiaId').on('change', tipoDiaChange);
+
  });
 </script>
 
@@ -557,7 +326,6 @@ $(function () {
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(false)
-
 
 	<div class="row">
 		<div class="col-md-12 cabecalhoCalendario">
@@ -568,7 +336,6 @@ $(function () {
 			<a href="/Calendarios/@Model.CalendarioId/Eventos/@Model.MesPosterior" class="btn btn-warning">Próximo</a>
 		</div>
 	</div>
-    
     
 	<div class="row">
         <div class="col-md-12 btn-group">
@@ -618,18 +385,11 @@ $(function () {
 			</ul>
 		</div>
 	</div>
-    <!--
-    _Html.HiddenFor(model => model.Id)
-    _Html.HiddenFor(model => model.EscolaId)
-    -->
     @Html.HiddenFor(model => model.Mes)
     @Html.HiddenFor(model => model.Ano)
     @Html.HiddenFor(model => model.CalendarioId)
     <input type="hidden" name="TipoDiaId" id="TipoDiaId" >
 }
-
-
-
 
 <!-- Formulário -->
 <div id="_dialog-form" title="Editar Eventos do Dia">
@@ -644,43 +404,19 @@ $(function () {
 	-->
 	<p id="monitor"></p>
 	<form>
-		<div id="tabs">
-		    <ul>
-		    <li><a href="#tabs-1">Seleção de Tipo de Dia</a></li>
-		    <li><a href="#tabs-2">Seleção de Eventos</a></li>
-		    </ul>
-		    <div id="tabs-1">
-				<p>Selecione abaixo o Tipo do Dia</p>
+		<div id="tabs-1">
+			<p>Selecione abaixo o Tipo do Dia</p>
+            <select id="TheTipoDiaId" name="TheTipoDiaId" class="input-select f-left"></select>
 
-                <select id="TheTipoDiaId" name="TheTipoDiaId" class="input-select f-left"></select>
-
-
-				<div id="tabelacores2" style="width:400px; height:230px;">
-                    <div id="tabelacores" style="width:210px; float:left;">
-                    </div>
-					<div id="amostra" style="float:left; width:190px; height:210px; text-align:center; border:solid 1px #808080;">
-						<p style="padding-top:80px;">amostra</p>
-					</div>
-				</div>
-				<input type="hidden" name="inputBG" id="inputBG" >
-				<input type="hidden" name="inputFG" id="inputFG" >
-                <input type="hidden" name="diaId" id="diaId" >
-				<!-- Allow form submission with keyboard without duplicating the dialog button -->
-				<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-		    </div>
-
-                     
-		    <div id="tabs-2">
 		  	<p>Clique sobre os Eventos para adicionar</p>
-		  	<div id="tabelafiguras" style="width:400px;height:200px;font-size:14pt;overflow:auto;border:solid 1px #808080;">
+		  	<div id="tabelafiguras" style="height:200px;font-size:14pt;overflow:auto;border:solid 1px #808080;">
 		  	</div>
 		  	<p>Clique sobre as figuras abaixo para remover</p>
-		  	<div id="eventos_selecionados" style="width:400px;height:50px;font-size:14pt;background:#fff;overflow:auto;border:solid 1px #808080;">
+		  	<div id="eventos_selecionados" style="height:70px;font-size:14pt;background:#fff;overflow:auto;border:solid 1px #808080;">
 		    </div>
-		    </div>
-                        
-        </div>
+            <input type="hidden" name="diaId" id="diaId" >
+			<!-- Allow form submission with keyboard without duplicating the dialog button -->
+			<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+		</div>
 	</form>
 </div>
-
-

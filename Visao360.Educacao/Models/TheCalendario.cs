@@ -122,10 +122,21 @@ namespace Visao360.Educacao.Models
         public int[] TiposEventos { get; set; }
     }
 
-    public class Estilo
+    public class CalendarioMes {
+        public List<EstiloTipoDia> ListaEstiloTipoDia { get; set; }
+        public List<EstiloTipoEvento> ListaEstiloTipoEvento { get; set; }
+    }
+
+    public class EstiloTipoDia
     {
         public int Dia { get; set; }
+        public int TipoDiaId { get; set; }
         public string Cor { get; set; }
     }
 
+    public class EstiloTipoEvento
+    {
+        public int Dia { get; set; }
+        public string Simbolo { get; set; }
+    }
 }

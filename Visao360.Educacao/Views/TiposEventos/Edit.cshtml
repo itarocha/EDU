@@ -5,30 +5,11 @@
 }
 
 <style>
-    .cores-ul {
-        width:175px;
-        /*height:22px;*/
-        /*float:left;*/
-        display:table;
-    }
-    .cores-li {
-        width: 25px;
-        height:30px;
-        display:block;
-        float:left;
-        border:solid 1px #808080;
-        cursor:pointer;
-        position:relative;
-        overflow:hidden;
-        transition:all ease 0.35s;
-        /*font-size:12px;*/
-    }
-    .cores-li p{
-        margin:0;
-        padding: 5px 5px 5px 5px;
+    .ico {
         text-align:center;
+        font-size:2em;
+        padding:2px;
     }
-
     .icosel:hover{
         background: #f00;
         color: #fff;
@@ -38,10 +19,8 @@
 <script type="text/javascript">
     $(function () {
         var dialog, form;
-
+        
         $("#Descricao").focus();
-
-        $("#tabs").tabs();
 
         $(".btnSelSimbolo").on("click", function (event) {
             dialog.dialog("open");
@@ -54,8 +33,14 @@
             return retorno;
         }
         function selecionarSimbolo() {
-            $("#divcor").css('background', $('#amostra').css('background'));
-            $("#Simbolo").val($('#amostra').css('background'));
+            var simbolo = $('#simboloPre').val();
+            //alert(simbolo);
+            $("#Simbolo").val(simbolo);
+            
+            $('#divSimbolo').empty();
+            $('#spanSimbolo').removeAttr('class');
+            $('#spanSimbolo').addClass('ico').addClass('glyphicon').addClass(simbolo);
+            //$('<span id="spanSimbolo" class="glyphicon ico">').addClass(simbolo).appendTo($('#divsimbolo'));
 
             /*
             if ($('#name').val() != ""){
@@ -122,6 +107,7 @@
             /////////addUser();
         });
 
+        /*
         // Cores para seleção !!!
         $.ajax({
             url: '/Home/GetCores',
@@ -132,7 +118,7 @@
                 processarCores(dados);
             }
         });
-
+        
         function processarCores(cores) {
             var ul = $("<ul class=cores-ul/>");
             var li = $("<li class=cores-li/>");
@@ -161,7 +147,7 @@
 
             $('.thecs').on('click', colorClick);
         }
-
+        
         function colorselectChange() {
             var cor = $(this).val();
             $('#amostracor').css('background', cor);
@@ -183,6 +169,7 @@
             $('#inputBG').val(corbg);
             $('#inputFG').val(corfg);
         }
+        */
 
         // Figuras para seleção !!!
         $.ajax({
@@ -206,12 +193,20 @@
                 //fig.css('color',data[i].Fg);
                 thespan.clone()
                 .addClass(data[i].Descricao)
-                .css('padding', '4px')
-                .css('border', '1px solid #bbb')
-                .css('margin', '4px')
-                .appendTo(lugar);
+                    .data('simbolo', data[i].Descricao)
+                    .css('padding', '4px')
+                    .css('border', '1px solid #bbb')
+                    .css('margin', '4px')
+                    .appendTo(lugar);
             });
             $('.icosel').on("click", function (event) {
+                $('#barra').empty();
+                var simbolo = $(this).data('simbolo');
+
+                //alert("OUAAAA " + $(this).data('simbolo'));
+                $('#simboloPre').val($(this).data('simbolo'));
+
+
                 $(this).clone().appendTo($('#barra'));
             });
             /*
@@ -247,7 +242,7 @@
         </div>
         <div class="col-md-4">
             <label class="input-label f-left">@Html.LabelFor(model => model.Simbolo):</label>
-            <div id="divcor" style="width:100%; border:1px solid #d3d3d3; height:2em; margin-bottom:5px; background:@Model.Simbolo">&nbsp;</div>
+            <div id="divsimbolo" style="width:100%; border:1px solid #d3d3d3; height:2.5em; text-align:center; margin-bottom:5px;"><span id="spanSimbolo" class="glyphicon ico @Model.Simbolo"></span></div>
             <input type="button" id="btnSelSimbolo" name="btnSelSimbolo" value="Selecinar" class="btn btn-default btnSelSimbolo" />
         </div>
         <div class="col-md-4">
@@ -256,7 +251,9 @@
         </div>
     </div>
     @Html.HiddenFor(model => model.Id)
-    @Html.HiddenFor(model => model.Simbolo)
+    @Html.HiddenFor(model => model.Simbolo, new { @class = "input-text-normal f-left" })
+    <input type="hidden" name="simboloPre" id="simboloPre"/>
+    
     <div class="row">
         <div class="col-md-12 pt-20">
             <input type="submit" value="Gravar" class="btn btn-success" />
@@ -269,39 +266,14 @@
 	<!--
 	<p class="validateTips">All form fields are required.</p>
 	-->
-	<p id="monitor"></p>
 	<form>
-		<div id="tabs">
-		    <ul>
-		    <li><a href="#tabs-1">Seleção de Cor</a></li>
-		    <li><a href="#tabs-2">Seleção de Imagem</a></li>
-		    </ul>
-		    <div id="tabs-1">
-				<p>Selecione abaixo a cor do tipo do dia</p>
-				<div id="tabelacores2" style="width:400px; height:230px;">
-                    <div id="tabelacores" style="width:210px; float:left;">
-                    </div>
-					<div id="amostra" style="float:left; width:190px; height:210px; text-align:center; border:solid 1px #808080;">
-						<p style="padding-top:80px;">amostra</p>
-					</div>
-				</div>
-				<input type="hidden" name="numeroDia" id="numeroDia" >
-				<input type="hidden" name="inputBG" id="inputBG" >
-				<input type="hidden" name="inputFG" id="inputFG" >
-				<!-- Allow form submission with keyboard without duplicating the dialog button -->
-				<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-		    </div>
-
-                     
-		    <div id="tabs-2">
+        <div id="tabs-2">
 		  	Clique sobre uma ou mais figuras para adicionar
-		  	<div id="tabelafiguras" style="width:400px;height:200px;font-size:14pt;overflow:auto;border:solid 1px #808080;">
+		  	<div id="tabelafiguras" style="height:300px;font-size:14pt;overflow:auto;border:solid 1px #808080;">
 		  	</div>
-		  	Clique sobre as figuras abaixo para remover
-		  	<div id="barra" style="width:400px;height:50px;font-size:14pt;background:#fff;overflow:auto;border:solid 1px #808080;">
-		    </div>
-		    </div>
-                        
+		  	Abaixo a imagem selecionada
+		  	<div id="barra" style="height:60px;font-size:30pt;text-align:center; background:#fff;overflow:auto;border:solid 1px #808080;">
+            </div>
         </div>
 	</form>
 </div>

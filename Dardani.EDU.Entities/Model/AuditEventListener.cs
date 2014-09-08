@@ -25,8 +25,8 @@ namespace Dardani.EDU.Entities.Model
             foreach (PropertyInfo piOrigem in t.GetProperties())
             {
 
-
-                if ((piOrigem.PropertyType == typeof(string)) && (piOrigem.CanWrite))
+                // Gambiarra provisória. Somente se for Simbolo, mas haverá um Attribute para definir se deve ou não upper
+                if ((piOrigem.PropertyType == typeof(string)) && (piOrigem.CanWrite) && (piOrigem.Name != "Simbolo") /*(piOrigem.Attributes)*/ )
                 {
                     Type tipo = piOrigem.GetType();
 

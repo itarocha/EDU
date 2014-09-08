@@ -205,8 +205,6 @@ namespace Visao360.Educacao.Controllers
                 cdao.Delete(toDelete);
             }
 
-
-
             // Excluir tipo de dia da data
 
             // Incluir tipo de dia na data
@@ -214,7 +212,6 @@ namespace Visao360.Educacao.Controllers
             CalendarioDiaVO model = new CalendarioDiaVO() { CalendarioId = data.CalendarioId, DataEvento = dt, TipoDiaId = data.TipoDiaId };
             Conversor.Converter(model, toSave, NHibernateBase.Session);
             cdao.SaveOrUpdate(toSave, toSave.Id);
-
 
             // Tipos de Eventos
             CalendarioDiaEventoDAO cedao = new CalendarioDiaEventoDAO();
@@ -227,7 +224,6 @@ namespace Visao360.Educacao.Controllers
                     cedao.Delete(xis);
                 }
             }
-
 
             if (data.TiposEventos != null)
             {
@@ -244,37 +240,37 @@ namespace Visao360.Educacao.Controllers
             int id = /*data.NumeroDia + */data.MesId;
 
             return GetEventosMes(data.CalendarioId, data.AnoId, data.MesId);
-            /*
-            List<Estilo> fooList = new List<Estilo>();
-
-            // Isso vai virar função. Vai virar também retorno json!!!
-            DateTime dtIni = new DateTime(data.AnoId, data.MesId, 1);
-            DateTime dtFim = dtIni.AddMonths(1).AddDays(-1);
-
-            IEnumerable<CalendarioDiaVO> lista = cdao.GetByListagemByCalendarioAndPeriodo(data.CalendarioId, dtIni, dtFim);
-            foreach (CalendarioDiaVO cd in lista) {
-                fooList.Add(new Estilo { Dia = cd.DataEvento.Day, Cor = cd.TipoDiaCor });
-            }
-
-            return Json(fooList, JsonRequestBehavior.AllowGet);
-            */
         }
 
         public JsonResult GetEventosMes(int CalendarioId, int AnoId, int MesId) {
-            List<Estilo> fooList = new List<Estilo>();
+            CalendarioMes cm = new CalendarioMes();
+
 
             // Isso vai virar função. Vai virar também retorno json!!!
             DateTime dtIni = new DateTime(AnoId, MesId, 1);
             DateTime dtFim = dtIni.AddMonths(1).AddDays(-1);
 
+            // Tipos de Dias do Calendário
+            List<EstiloTipoDia> listaEstiloTipoDia = new List<EstiloTipoDia>();
             CalendarioDiaDAO cdao = new CalendarioDiaDAO();
             IEnumerable<CalendarioDiaVO> lista = cdao.GetByListagemByCalendarioAndPeriodo(CalendarioId, dtIni, dtFim);
             foreach (CalendarioDiaVO cd in lista)
             {
-                fooList.Add(new Estilo { Dia = cd.DataEvento.Day, Cor = cd.TipoDiaCor });
+                listaEstiloTipoDia.Add(new EstiloTipoDia { Dia = cd.DataEvento.Day, Cor = cd.TipoDiaCor, TipoDiaId = cd.TipoDiaId });
             }
+            cm.ListaEstiloTipoDia = listaEstiloTipoDia;
 
-            return Json(fooList, JsonRequestBehavior.AllowGet);
+            // Tipos de Eventos do Calendário
+            List<EstiloTipoEvento> listaEstiloTipoEvento = new List<EstiloTipoEvento>();
+            CalendarioDiaEventoDAO cedao = new CalendarioDiaEventoDAO();
+            IEnumerable<CalendarioDiaEventoVO> lista2 = cedao.GetListagemVOByCalendarioAndPeriodo(CalendarioId, dtIni, dtFim);
+            foreach (CalendarioDiaEventoVO cde in lista2)
+            {
+                listaEstiloTipoEvento.Add(new EstiloTipoEvento { Dia = cde.DataEvento.Day, Simbolo = cde.TipoEventoSimbolo });
+            }
+            cm.ListaEstiloTipoEvento = listaEstiloTipoEvento;
+
+            return Json(cm, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetListaTipoEvento()
