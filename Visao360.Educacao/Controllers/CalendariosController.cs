@@ -266,7 +266,7 @@ namespace Visao360.Educacao.Controllers
             IEnumerable<CalendarioDiaEventoVO> lista2 = cedao.GetListagemVOByCalendarioAndPeriodo(CalendarioId, dtIni, dtFim);
             foreach (CalendarioDiaEventoVO cde in lista2)
             {
-                listaEstiloTipoEvento.Add(new EstiloTipoEvento { Dia = cde.DataEvento.Day, Simbolo = cde.TipoEventoSimbolo });
+                listaEstiloTipoEvento.Add(new EstiloTipoEvento { Dia = cde.DataEvento.Day, TipoEventoId = cde.TipoEventoId, Simbolo = cde.TipoEventoSimbolo });
             }
             cm.ListaEstiloTipoEvento = listaEstiloTipoEvento;
 

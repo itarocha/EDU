@@ -16,6 +16,7 @@ namespace Dardani.EDU.Entities.Mapping
             Id(x => x.Id).GeneratedBy.Native().Column("ID_TIPO_DIA");
             Map(x => x.Descricao).Column("DS_TIPO_DIA").Length(64).Not.Nullable();
             Map(x => x.Cor).Column("DS_COR").Length(16).Not.Nullable();
+            Map(x => x.CorLetra).Column("DS_COR_LETRA").Length(16).Not.Nullable();
             Map(x => x.FlagLetivo).Column("FL_LETIVO").Length(1).Not.Nullable();
         }
     }

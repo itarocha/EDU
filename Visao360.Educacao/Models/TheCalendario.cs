@@ -137,6 +137,7 @@ namespace Visao360.Educacao.Models
     public class EstiloTipoEvento
     {
         public int Dia { get; set; }
+        public int TipoEventoId { get; set; }
         public string Simbolo { get; set; }
     }
 }

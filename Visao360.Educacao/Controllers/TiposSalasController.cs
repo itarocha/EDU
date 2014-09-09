@@ -41,15 +41,17 @@ namespace Visao360.Educacao.Controllers
 
             IEnumerable<ItemStringVO> listaSimNao = EDUListasBuilder.BuildListaSimNao();
 
-            //////////////////////////////////////
-            /// REFATORAR
-            //////////////////////////////////////
-            Session["ListaSimNao"] = listaSimNao;
-
+            EnviarViewBagEdit();
 
             ViewBag.Acao = novo ? "Novo Tipo de Sala" : "Editar Tipo de Sala";
             return View(model);
         }
+
+        private void EnviarViewBagEdit()
+        {
+            ViewBag.ListaSimNao = ComboBuilder.ListaSimNao();
+        }
+
 
         [HttpPost, ActionName("Edit")]
         [Role(Roles = "Administrador")]
@@ -73,7 +75,7 @@ namespace Visao360.Educacao.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.Acao = novo ? "Novo Tipo de Sala" : "Editar Tipo de Sala";
-
+                EnviarViewBagEdit();
                 return View(model);
             }
 

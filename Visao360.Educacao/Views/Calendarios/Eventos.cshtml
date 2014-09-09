@@ -128,10 +128,13 @@
 	    var diaId = $('#diaId').val();
 	    var tdId = $('#TipoDiaId').val();
 
+        // Monta array com os eventos adicionados na caixa eventos_selecionados    
 	    var te = Array();
-	    $('.evento_adicionado').each(function () {
+	    $('#eventos_selecionados > .evento_adicionado').each(function () {
 	        te.push($(this).data('tipo_evento_id'));
 	    });
+
+	    //alert('incluindo os seguintes:'+te);
 
 	    var envio = { CalendarioId: calendarioId, AnoId: anoId, MesId: mesId, DiaId: diaId, TipoDiaId: tdId, TiposEventos: te };
 	    var json = JSON.stringify(envio);
@@ -160,10 +163,33 @@
 	        // lugar virou diaAlvo
 	        var dia = tiposEventos[i].Dia;
 	        var simbolo = tiposEventos[i].Simbolo;
-	        var tipoDiaId = tiposDias[i].TipoDiaId;
+	        //var tipoDiaId = tiposDias[i].TipoDiaId;
+	        var tipoEventoId = tiposEventos[i].TipoEventoId;
+
+
 	        var diaAlvo = $("#xli-" + dia);
 	        var fig = diaAlvo.find('.figuras');
-	        spanFigurasLite.clone().addClass(simbolo).appendTo(fig);
+
+	        var theDiv = $('<div style="float:left;"/>')
+                            .clone()
+                            .data('simbolo', simbolo)
+                            .data('tipo_evento_id', tipoEventoId)
+                            .addClass('evento_adicionado');
+            /*
+	        var thediv = div.clone()
+                .data('simbolo', simbolo)
+                .data('tipo_evento_id', id)
+            */
+
+
+	        spanFigurasLite.clone()
+                .addClass(simbolo)
+                //.css('font-size','28pt')
+                //.data('simbolo', simbolo)
+                .appendTo(theDiv);
+
+	        theDiv.appendTo(fig);
+
 	    });
 
 	    $.each(tiposDias, function(i) {
@@ -213,34 +239,13 @@
 	        dataType: 'json',
 	        contentType: 'application/json; charset=utf-8',
 	        success: function (dados) {
-	            processarFiguras(dados);
+	            displayFigurasCarregadas(dados);
 	        }
 	    });
 	}
 
-	function selClick(event) {
-	    // Pegar o attribute data-simbolo ou algo como
-	    var simbolo = $(this).data('simbolo');
-	    var tipo_evento_id = $(this).data('tipo_evento_id');
-
-	    // TODO:
-	    // Você pode verificar se houver algum data.tipo_evento_id == tipo_evento_id para não repetir!
-	    var xdiv = $("<div style='float:left'/>")
-            .clone()
-            .addClass("evento_adicionado")
-            .data('nome', "itamar")
-            .data('tipo_evento_id', tipo_evento_id);
-
-	    var myspan = thespanFiguras.clone()
-            .data('simbolo', simbolo)
-            .addClass(simbolo)
-            .appendTo(xdiv);
-	    xdiv.appendTo('#eventos_selecionados');
-	    xdiv.on('click', removerSelecionadoClick);
-	}
-
-    // Carregar figuras
-	function processarFiguras(data) {
+    // Mostrar lista de figuras
+	function displayFigurasCarregadas(data) {
 	    // Veja o icosel!!!
 	    var div = $("<div></div>");
 
@@ -263,29 +268,84 @@
                 .addClass(data[i].Simbolo)
                 .data('tipo_evento_id', id)
                 .data('simbolo', simbolo)
-                //.css('padding', '4px')
                 .prependTo(thediv);
 	        thediv.on('click', selClick);
 	    });
 	}
+
+	function selClick(event) {
+	    // Pegar o attribute data-simbolo ou algo como
+	    var simbolo = $(this).data('simbolo');
+	    var tipo_evento_id = $(this).data('tipo_evento_id');
+	    var lista = $('#eventos_selecionados').find('div > span');
+
+	    var existe = false;
+	    lista.each(function () {
+	        if ($(this).data('simbolo') == simbolo) {
+	            //alert('JÁ EXISTE SIMBOLO');
+	            existe = true;
+	        };
+	    });
+        
+	    if (!existe) {
+	        var xdiv = $("<div style='float:left'/>")
+                .clone()
+                .addClass("evento_adicionado")
+                .data('nome', "itamar")
+                .data('tipo_evento_id', tipo_evento_id);
+
+	        var myspan = thespanFiguras.clone()
+                .data('simbolo', simbolo)
+                .addClass(simbolo)
+                .appendTo(xdiv);
+
+	        xdiv.appendTo('#eventos_selecionados');
+	        xdiv.on('click', removerSelecionadoClick);
+	    }
+	}
+
+
     // Ao clicar em evento adicionado, remover
 	function removerSelecionadoClick(event) {
 	    event.preventDefault();
 	    $(this).remove();
 	}
 
-	////////$('.selecionavel').on('click', selecionavelClick);
-
-    // ????
-    $('.data-valida').click(function (event) {
+    // Ao clicar no dia
+	$('.data-valida').click(function (event) {
         var dia = $(this).data('dia');
         var tipoDiaId = $(this).data('tipoDiaId');
-        
+
+        var diaAlvo = $("#xli-" + dia);
+        // Limpa a caixa dos eventos selecionados
+        $("#eventos_selecionados").empty();
+
+        // Se houver simbolos na figura, mostra todos eles no diálogo
+        var icones = diaAlvo.find('.figuras > .evento_adicionado');
+        $.each(icones, function () {
+            var _simbolo = $(this).data('simbolo');
+            var _tipo_evento_id = $(this).data('tipo_evento_id');
+
+            if ( (_simbolo != null) && (_tipo_evento_id != null) ) {
+
+                var xdiv = $("<div style='float:left'/>")
+                    .clone()
+                    .addClass("evento_adicionado")
+                    .data('nome', "itamar")
+                    .data('tipo_evento_id', _tipo_evento_id);
+
+                var myspan = thespanFiguras.clone()
+                    .data('simbolo', _simbolo)
+                    .addClass(_simbolo)
+                    .appendTo(xdiv);
+                xdiv.appendTo('#eventos_selecionados');
+                xdiv.on('click', removerSelecionadoClick);
+            };
+        });
 
         if (tipoDiaId != undefined) {
             $('#TheTipoDiaId').val(tipoDiaId);
         }
-
         $("#diaId").val(dia);
 
 		var tdId = $('#TheTipoDiaId').val();
@@ -294,13 +354,10 @@
 		var target = event.target;
 		$('#monitor').text('Eventos do dia '+dia); // Manda o dia
 		
-		dialog.title = "TESTE";
+		//dialog.title = "TESTE";
 		dialog.dialog("open");
 
-		$("#eventos_selecionados").empty();
-        // TODO: incluir os eventos desse dia para $("#eventos_selecionados") !!!
-		
-		//////////alvo = $(this);
+		////////////$("#eventos_selecionados").empty();
     });
 	
     // Renderiza os eventos do mês    

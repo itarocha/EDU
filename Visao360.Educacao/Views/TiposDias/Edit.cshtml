@@ -7,8 +7,6 @@
 <style>
     .cores-ul {
         width:175px;
-        /*height:22px;*/
-        /*float:left;*/
         display:table;
     }
     .cores-li {
@@ -21,22 +19,19 @@
         position:relative;
         overflow:hidden;
         transition:all ease 0.35s;
-        /*font-size:12px;*/
     }
     .cores-li p{
         margin:0;
         padding: 5px 5px 5px 5px;
         text-align:center;
     }
-
-    .icosel:hover{
-        background: #f00;
-        color: #fff;
-    }
 </style>
 
 <script type="text/javascript">
     $(function () {
+        var COR_BK;
+        var COR_FG;
+
         var dialog, form;
 
         $("#Descricao").focus();
@@ -44,93 +39,62 @@
         $("#tabs").tabs();
 
         $(".btnSelCor").on("click", function (event) {
+            $('#amostra').css('background',$("#Cor").val());
+            $('#amostra').css('color', $("#CorLetra").val());
             dialog.dialog("open");
         });
         
+        /*
         function getInformacao(){
             var corBG = $('#inputBG').val();
             var numeroDia = $('#numeroDia').val();
             var retorno = { Mes:6, Dia: numeroDia, Evento : corBG };
             return retorno;
         }
-
-        /*
-        var hexDigits = new Array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f");
-
-        //Function to convert hex format to a rgb color
-        function rgb2hex(rgb) {
-            rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
-            return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
-        }
-
-        function hex(x) {
-            return isNaN(x) ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
-        }
         */
+        /*
         function rgb2hex(rgb) {
             rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
+
+            alert(rgb);
+
             return (rgb && rgb.length === 4) ? "#" +
              ("0" + parseInt(rgb[1], 10).toString(16)).slice(-2) +
              ("0" + parseInt(rgb[2], 10).toString(16)).slice(-2) +
              ("0" + parseInt(rgb[3], 10).toString(16)).slice(-2) : '';
         }
+        */
 
         function selecionarCor() {
-            var corSelecionada = $('#amostra').css('background');
+            //var corBK = $('#amostra').css('background');
+            //var corFG = $('#amostra').css('color');
+            //var corFG = COR_FG; //$('#inputBG').val();
+            //var corBK = COR_BK; //$('#inputBG').val();
+            //$('#inputFG').val(corfg);
 
-            $("#divcor").css('background', corSelecionada);
+            //var corHexBK = rgb2hex(corBK);
+            //var corHexFG = rgb2hex(corFG);
 
-            var corHex = rgb2hex(corSelecionada);
+            //alert("FG " + corHexFG);
+            //alert("BK " + corHexBK);
 
-            $("#Cor").val(corHex);
-            alert("A cor da cor é " + $("#Cor").val());
 
-            /*
-            if ($('#name').val() != ""){
-                var info = getInformacao();
-                var json = JSON.stringify(info); // funfou
-                dialog.dialog("close");
-                $.ajax({
-                    url: '/Home/CalendarioPost',
-                    type: 'POST',
-                    dataType: 'json',
-                    data: json,
-                    contentType: 'application/json; charset=utf-8',
-                    success: function(dados){
-                        processarRetorno(dados);
-                    }
-                });	
-            }
-            */
+            $("#divcor").css('background', COR_BK);
+
+            $("#Cor").val(COR_BK);
+            $("#CorLetra").val(COR_FG);
+
+            //$("#Cor").val(corHexBK);
+            //$("#CorLetra").val(corHexFG);
+
+            //alert("A cor da cor fg " + $("#CorLetra").val());
+            //alert("A cor da corbk " + $("#Cor").val());
             dialog.dialog("close");
         }
-        function processarRetorno(data){
-            var imagens = [	"glyphicon-comment",
-            "glyphicon-star",
-            "glyphicon-time",
-            "glyphicon-heart",
-            "glyphicon-picture",
-            "glyphicon-book"];
-            var thespan = $("<span class='glyphicon'></span>");
-            $.each(data, function(i) {
-                // Dia, Cor
-                var lugar = $("#xli-"+data[i].Dia);
-                lugar.css('background-color',data[i].Bg);
-                var fig = lugar.find('.figuras');
-                fig.css('color',data[i].Fg);
-                for (var x = 0; x < imagens.length; x++){
-                    thespan.clone()
-                    .addClass(imagens[x])
-                    .css('padding','2px')
-                    .appendTo(fig);
-                }
-            });
-        }
-
         dialog = $("#dialog-form").dialog({
             autoOpen: false,
-            height: 550,
-            width: 500,
+            height: 400,
+            width: 450,
             modal: true,
             buttons: {
                 "Selecionar": selecionarCor,
@@ -139,8 +103,7 @@
                 }
             },
             close: function () {
-                form[0].reset();
-                //allFields.removeClass( "ui-state-error" );
+                //form[0].reset();
             }
         });
 
@@ -168,8 +131,6 @@
 
             var tabelaCores = $('#tabelacores');
             var zul = ul.clone().appendTo(tabelaCores);
-
-            
             $.each(cores, function (i) {
                 var zli = li.clone()
                 .data('bg', cores[i].Bg)
@@ -185,8 +146,6 @@
                 $("<option value='" + cores[i].Bg + "'>" + cores[i].Bg + "</option>")
                 .appendTo('#colorselect');
             });
-            
-
             $('.thecs').on('click', colorClick);
         }
 
@@ -202,64 +161,23 @@
             var corbg = $(this).data('bg');
             var corfg = $(this).data('fg');
 
+            COR_BK = $(this).data('bg');
+            COR_FG = $(this).data('fg');
+
+            //alert('cor selecionada: ' + corbg);
+            //$("#divcor").css('background', corbg);
+
+            //$('#inputBG').val(corbg);
+            //$('#inputFG').val(corfg);
+
             // Visualização prévia
             $('#amostra').css('background', corbg);
             $('#amostra').css('color', corfg);
 
+
             //$('#name').val(corbg);
             // Seta os campos
-            $('#inputBG').val(corbg);
-            $('#inputFG').val(corfg);
         }
-
-        // Figuras para seleção !!!
-        $.ajax({
-            url: '/Home/GetFiguras',
-            type: 'GET',
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            success: function (dados) {
-                processarFiguras(dados);
-            }
-        });
-        function processarFiguras(data) {
-            // Veja o icosel!!!
-            var thespan = $("<span class='glyphicon icosel'></span>");
-            
-            $.each(data, function (i) {
-                // Dia, Cor
-                var lugar = $("#tabelafiguras");
-                //lugar.css('background-color',data[i].Bg);
-                //var fig = lugar.find('.figuras');
-                //fig.css('color',data[i].Fg);
-                thespan.clone()
-                .addClass(data[i].Descricao)
-                .css('padding', '4px')
-                .css('border', '1px solid #bbb')
-                .css('margin', '4px')
-                .appendTo(lugar);
-            });
-            $('.icosel').on("click", function (event) {
-                $(this).clone().appendTo($('#barra'));
-            });
-            /*
-            $.each(cores, function(i) {
-            var zli = li.clone()
-            .data('bg',data[i].Bg)
-            .data('fg',data[i].Fg)
-            .addClass("thecs")
-            .appendTo(zul);
-            p.clone().text("X")
-            .css('background',data[i].Bg)
-            .css('color',data[i].Fg)
-            .appendTo(zli);
-            $("<option value='"+data[i].Bg+"'>"+ data[i].Bg +"</option>")
-            .appendTo('#colorselect');
-            });
-            */
-            //////$('.thecs').on('click',colorClick);
-        }
-
     });
 </script>
 
@@ -276,7 +194,7 @@
         <div class="col-md-4">
             <label class="input-label f-left">@Html.LabelFor(model => model.Cor):</label>
             <div id="divcor" style="width:100%; border:1px solid #d3d3d3; height:2em; margin-bottom:5px; background:@Model.Cor">&nbsp;</div>
-            <input type="button" id="btnSelCor" name="btnSelCor" value="Selecinar Cor" class="btn btn-default btnSelCor" />
+            <input type="button" id="btnSelCor" name="btnSelCor" value="Selecoinar Cor" class="btn btn-default btnSelCor" />
         </div>
         <div class="col-md-4">
             <label class="input-label f-left">@Html.LabelFor(model => model.FlagLetivo):</label>
@@ -285,6 +203,9 @@
     </div>
     @Html.HiddenFor(model => model.Id)
     @Html.HiddenFor(model => model.Cor)
+    @Html.HiddenFor(model => model.CorLetra)
+    <input type="hidden" name="inputBG" id="inputBG" >
+	<input type="hidden" name="inputFG" id="inputFG" >
     <div class="row">
         <div class="col-md-12 pt-20">
             <input type="submit" value="Gravar" class="btn btn-success" />
@@ -299,38 +220,19 @@
 	-->
 	<p id="monitor"></p>
 	<form>
-		<div id="tabs">
-		    <ul>
-		    <li><a href="#tabs-1">Seleção de Cor</a></li>
-		    <li><a href="#tabs-2">Seleção de Imagem</a></li>
-		    </ul>
-		    <div id="tabs-1">
-				<p>Selecione abaixo a cor do tipo do dia</p>
-				<div id="tabelacores2" style="width:400px; height:230px;">
-                    <div id="tabelacores" style="width:210px; float:left;">
-                    </div>
-					<div id="amostra" style="float:left; width:190px; height:210px; text-align:center; border:solid 1px #808080;">
-						<p style="padding-top:80px;">amostra</p>
-					</div>
+		<div id="tabs-1">
+			<p>Selecione abaixo a cor do Tipo do dia</p>
+			<div id="tabelacores2" style="width:400px; height:230px;">
+                <div id="tabelacores" style="width:210px; float:left;">
+                </div>
+				<div id="amostra" style="float:left; width:190px; height:210px; text-align:center; border:solid 1px #808080;">
+					<p style="padding-top:80px;">amostra</p>
 				</div>
-				<input type="hidden" name="numeroDia" id="numeroDia" >
-				<input type="hidden" name="inputBG" id="inputBG" >
-				<input type="hidden" name="inputFG" id="inputFG" >
-				<!-- Allow form submission with keyboard without duplicating the dialog button -->
-				<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-		    </div>
-
-                     
-		    <div id="tabs-2">
-		  	Clique sobre uma ou mais figuras para adicionar
-		  	<div id="tabelafiguras" style="width:400px;height:200px;font-size:14pt;overflow:auto;border:solid 1px #808080;">
-		  	</div>
-		  	Clique sobre as figuras abaixo para remover
-		  	<div id="barra" style="width:400px;height:50px;font-size:14pt;background:#fff;overflow:auto;border:solid 1px #808080;">
-		    </div>
-		    </div>
-                        
-        </div>
+			</div>
+			<input type="hidden" name="numeroDia" id="numeroDia" >
+			<!-- Allow form submission with keyboard without duplicating the dialog button -->
+			<input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+		</div>
 	</form>
 </div>
 

@@ -2862,7 +2862,7 @@
     <Content Include="Views\Turmas\Disciplinas.cshtml" />
     <Content Include="Views\Turmas\_ListagemAlunos.cshtml" />
     <Content Include="Views\Turmas\Alunos.cshtml" />
-    <Content Include="Views\Shared\_LayoutPrincipal.cshtml" />
+    <Content Include="Views\Shared\_LayoutPrincipalAlternativo.cshtml" />
     <Content Include="Views\Shared\_Modelo.cshtml" />
     <Content Include="Views\Escolas\DadosEducacionais.cshtml" />
     <Content Include="Views\Alunos\Documentacao.cshtml" />
@@ -2912,7 +2912,7 @@
     <Content Include="Views\TiposEventos\Delete.cshtml" />
     <Content Include="Views\TiposEventos\Edit.cshtml" />
     <Content Include="Views\TiposEventos\Index.cshtml" />
-    <Content Include="Views\Shared\_LayoutPrincipalOriginal.cshtml" />
+    <Content Include="Views\Shared\_LayoutPrincipal.cshtml" />
     <Content Include="Views\Horarios\_Listagem.cshtml" />
     <Content Include="Views\Horarios\_ListagemPeriodos.cshtml" />
     <Content Include="Views\Horarios\Delete.cshtml" />

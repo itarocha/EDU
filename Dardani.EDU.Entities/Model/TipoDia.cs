@@ -24,5 +24,14 @@ namespace Dardani.EDU.Entities.Model
         [Required(ErrorMessage = "Cor precisa ser preenchida.")]
         [Display(Name = "Cor")]
         public virtual string Cor { get; set; }
+
+        [Required(ErrorMessage = "Cor da Letra precisa ser preenchida.")]
+        [Display(Name = "CorLetra")]
+        public virtual string CorLetra { get; set; }
+
+        public TipoDia() {
+            Cor = "#FFFF00";
+            CorLetra = "#000000";
+        }
     }
 }

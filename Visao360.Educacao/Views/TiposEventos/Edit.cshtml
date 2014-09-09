@@ -10,6 +10,11 @@
         font-size:2em;
         padding:2px;
     }
+    .icosel {
+        padding : 4px;
+        border : 1px solid #bbb;
+        margin : 4px;
+    }
     .icosel:hover{
         background: #f00;
         color: #fff;
@@ -19,10 +24,20 @@
 <script type="text/javascript">
     $(function () {
         var dialog, form;
+        var thespan = $("<span class='glyphicon icosel'></span>");
         
         $("#Descricao").focus();
 
         $(".btnSelSimbolo").on("click", function (event) {
+            var lugar = $("#tabelafiguras");
+            var simbolo = $('#Simbolo').val();
+            if (simbolo != "") {
+                $('#barra').empty();
+                thespan.clone()
+                .addClass(simbolo)
+                    .data('simbolo', simbolo)
+                    .appendTo($('#barra'));
+            }
             dialog.dialog("open");
         });
 
@@ -34,33 +49,14 @@
         }
         function selecionarSimbolo() {
             var simbolo = $('#simboloPre').val();
-            //alert(simbolo);
             $("#Simbolo").val(simbolo);
-            
             $('#divSimbolo').empty();
             $('#spanSimbolo').removeAttr('class');
             $('#spanSimbolo').addClass('ico').addClass('glyphicon').addClass(simbolo);
-            //$('<span id="spanSimbolo" class="glyphicon ico">').addClass(simbolo).appendTo($('#divsimbolo'));
 
-            /*
-            if ($('#name').val() != ""){
-                var info = getInformacao();
-                var json = JSON.stringify(info); // funfou
-                dialog.dialog("close");
-                $.ajax({
-                    url: '/Home/CalendarioPost',
-                    type: 'POST',
-                    dataType: 'json',
-                    data: json,
-                    contentType: 'application/json; charset=utf-8',
-                    success: function(dados){
-                        processarRetorno(dados);
-                    }
-                });	
-            }
-            */
             dialog.dialog("close");
         }
+        /*
         function processarRetorno(data) {
             var imagens = ["glyphicon-comment",
             "glyphicon-star",
@@ -83,7 +79,7 @@
                 }
             });
         }
-
+        */
         dialog = $("#dialog-form").dialog({
             autoOpen: false,
             height: 550,
@@ -102,74 +98,10 @@
         });
 
         form = dialog.find("form").on("submit",
-        function (event) {
-            event.preventDefault();
+            function (event) {
+                event.preventDefault();
             /////////addUser();
-        });
-
-        /*
-        // Cores para seleção !!!
-        $.ajax({
-            url: '/Home/GetCores',
-            type: 'GET',
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            success: function (dados) {
-                processarCores(dados);
-            }
-        });
-        
-        function processarCores(cores) {
-            var ul = $("<ul class=cores-ul/>");
-            var li = $("<li class=cores-li/>");
-            var p = $("<p/>");
-
-            var tabelaCores = $('#tabelacores');
-            var zul = ul.clone().appendTo(tabelaCores);
-
-
-            $.each(cores, function (i) {
-                var zli = li.clone()
-                .data('bg', cores[i].Bg)
-                .data('fg', cores[i].Fg)
-                .addClass("thecs")
-                .appendTo(zul);
-
-                p.clone().html("&nbsp;")
-                .css('background', cores[i].Bg)
-                .css('color', cores[i].Fg)
-                .appendTo(zli);
-
-                $("<option value='" + cores[i].Bg + "'>" + cores[i].Bg + "</option>")
-                .appendTo('#colorselect');
             });
-
-
-            $('.thecs').on('click', colorClick);
-        }
-        
-        function colorselectChange() {
-            var cor = $(this).val();
-            $('#amostracor').css('background', cor);
-        }
-
-        function colorClick(event) {
-            event.preventDefault();
-
-            // Pega os dados de background e foreground em "data-bg" e "data-fg"
-            var corbg = $(this).data('bg');
-            var corfg = $(this).data('fg');
-
-            // Visualização prévia
-            $('#amostra').css('background', corbg);
-            $('#amostra').css('color', corfg);
-
-            //$('#name').val(corbg);
-            // Seta os campos
-            $('#inputBG').val(corbg);
-            $('#inputFG').val(corfg);
-        }
-        */
 
         // Figuras para seleção !!!
         $.ajax({
@@ -183,48 +115,29 @@
         });
         function processarFiguras(data) {
             // Veja o icosel!!!
-            var thespan = $("<span class='glyphicon icosel'></span>");
+            //var thespan = $("<span class='glyphicon icosel'></span>");
 
             $.each(data, function (i) {
-                // Dia, Cor
                 var lugar = $("#tabelafiguras");
-                //lugar.css('background-color',data[i].Bg);
-                //var fig = lugar.find('.figuras');
-                //fig.css('color',data[i].Fg);
+
                 thespan.clone()
                 .addClass(data[i].Descricao)
                     .data('simbolo', data[i].Descricao)
-                    .css('padding', '4px')
-                    .css('border', '1px solid #bbb')
-                    .css('margin', '4px')
+
+                    //.css('padding', '4px')
+                    //.css('border', '1px solid #bbb')
+                    //.css('margin', '4px')
+
+
                     .appendTo(lugar);
             });
             $('.icosel').on("click", function (event) {
+                //alert("Aqui???");
                 $('#barra').empty();
                 var simbolo = $(this).data('simbolo');
-
-                //alert("OUAAAA " + $(this).data('simbolo'));
                 $('#simboloPre').val($(this).data('simbolo'));
-
-
                 $(this).clone().appendTo($('#barra'));
             });
-            /*
-            $.each(cores, function(i) {
-            var zli = li.clone()
-            .data('bg',data[i].Bg)
-            .data('fg',data[i].Fg)
-            .addClass("thecs")
-            .appendTo(zul);
-            p.clone().text("X")
-            .css('background',data[i].Bg)
-            .css('color',data[i].Fg)
-            .appendTo(zli);
-            $("<option value='"+data[i].Bg+"'>"+ data[i].Bg +"</option>")
-            .appendTo('#colorselect');
-            });
-            */
-            //////$('.thecs').on('click',colorClick);
         }
 
     });

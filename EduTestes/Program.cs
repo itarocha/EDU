@@ -32,6 +32,7 @@ namespace EduTestes
         static void Main(string[] args)
         {
             LoadNHibernateCfg(true);
+            /*
             using (ISession session = NHibernateBase.OpenSession())
             {
                 using (ITransaction transaction = session.BeginTransaction())
@@ -47,8 +48,9 @@ namespace EduTestes
                     transaction.Commit();
                 }
             }
+            */
 
-            //PopularTabelasBasicas();
+            PopularTabelasBasicas();
             //PopularOutrasTabelas();
             //CarregarArquivo();
 
