@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Petra.Util.Attributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace Dardani.EDU.Entities.Model
 
         [Required(ErrorMessage = "Símbolo precisa ser preenchida.")]
         [StringLength(32)]
+        [ManterCase]
         [Display(Name = "Símbolo")]
         public virtual string Simbolo { get; set; }
 

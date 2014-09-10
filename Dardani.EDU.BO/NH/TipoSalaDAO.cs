@@ -30,6 +30,25 @@ namespace Dardani.EDU.BO.NH
             return lista;
         }
 
+        public bool PossuiSala(int id) {
+            Int64 qtd = Session.CreateQuery("SELECT count(distinct tb.Id) as qtd " +
+                                            "FROM Sala as tb " +
+                                            "WHERE tb.TipoSala.Id = :id ")
+                       .SetParameter("id", id)
+                       .UniqueResult<Int64>();
+            return (qtd > 0);
+        }
+
+        public bool PodeExcluir(int id, out string mensagemRetorno)
+        {
+            mensagemRetorno = "";
+            if (this.PossuiSala(id))
+            {
+                mensagemRetorno = "Existem Salas com esse Tipo de Sala";
+                return false;
+            }
+            return true;
+        }
 
     }
 }

@@ -37,7 +37,9 @@ namespace Dardani.EDU.Entities.Model
             Type t = origem.GetType();
             foreach (PropertyInfo piOrigem in t.GetProperties())
             {
-                if (piOrigem.GetType().Equals( typeof(String) )) {
+                //piOrigem.Attributes.
+
+                if ( piOrigem.GetType().Equals(typeof(String))   ) {
 
                     Type tipo = piOrigem.GetType();
 

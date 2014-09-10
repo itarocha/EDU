@@ -32,21 +32,43 @@ namespace Dardani.EDU.BO.NH
             return lista;
         }
 
-        public IEnumerable<ItemVO> BuidListaItemVO()
+        public bool PossuiHorarioPeriodo(int id)
         {
-            /*
-            IEnumerable<PeriodoAula> lista = Session.QueryOver<PeriodoAula>().OrderBy(x => x.Descricao).Asc.List();
-            List<ItemVO> retorno = new List<ItemVO>();
-            foreach (var x in lista)
-            {
-                retorno.Add(new ItemVO { Id = x.Id, Descricao = x.Descricao });
-            }
-            return retorno;
-            */
-
-            return null;
+            Int64 qtd = Session.CreateQuery("SELECT count(distinct tb.Id) as qtd " +
+                                            "FROM HorarioPeriodo as tb " +
+                                            "WHERE tb.PeriodoAula.Id = :id ")
+                       .SetParameter("id", id)
+                       .UniqueResult<Int64>();
+            return (qtd > 0);
         }
-
+        /*
+        public bool PossuiTurnoPeriodo(int id)
+        {
+            Int64 qtd = Session.CreateQuery("SELECT count(distinct tb.Id) as qtd " +
+                                            "FROM TurnoPeriodo as tb " +
+                                            "WHERE tb.PeriodoAula.Id = :id ")
+                       .SetParameter("id", id)
+                       .UniqueResult<Int64>();
+            return (qtd > 0);
+        }
+        */
+        public bool PodeExcluir(int id, out string mensagemRetorno)
+        {
+            mensagemRetorno = "";
+            if (this.PossuiHorarioPeriodo(id))
+            {
+                mensagemRetorno = "Período está sendo utilizado em Horários";
+                return false;
+            }
+            /*
+            if (this.PossuiTurnoPeriodo(id))
+            {
+                mensagemRetorno = "Período está sendo utilizado em Turnos";
+                return false;
+            }
+             */ 
+            return true;
+        }
 
     }
 }

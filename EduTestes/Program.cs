@@ -32,11 +32,16 @@ namespace EduTestes
         static void Main(string[] args)
         {
             LoadNHibernateCfg(true);
-            /*
             using (ISession session = NHibernateBase.OpenSession())
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
+                    TipoDiaDAO tddao = new TipoDiaDAO();
+                    string msg;
+                    tddao.PodeExcluir(1, out msg);
+
+
+
                     int escolaId = 7;
                     int anoLetivoAno = 2013;
                     IEnumerable<TurmaVO> lista = new TurmaDAO().GetListagemByEscolaAno(escolaId, anoLetivoAno);
@@ -48,7 +53,6 @@ namespace EduTestes
                     transaction.Commit();
                 }
             }
-            */
 
             PopularTabelasBasicas();
             //PopularOutrasTabelas();

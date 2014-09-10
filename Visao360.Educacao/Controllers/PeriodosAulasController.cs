@@ -47,17 +47,12 @@ namespace Visao360.Educacao.Controllers
         public ActionResult EditConfirmed(PeriodoAula model)
         {
             Boolean novo = (model.Id == 0);
-
+            PeriodoAulaDAO dao = new PeriodoAulaDAO();
             if (!novo)
             {
-                /*
-                int maximoSepultados = new PeriodoAulaDAO().GetMaximoSepultadosPorPeriodoAulaId(model.Id);
-                if (maximoSepultados > model.Vagas)
-                {
-                    ModelState.AddModelError("PeriodoAulaId", String.Format("Existem Lotes com esse tipo que possuem sepultados com quantidade superior " +
-                        "ao digitado abaixo. Sepultados: {0}, Vagas: {1}", maximoSepultados, model.Vagas));
+                if (dao.PossuiHorarioPeriodo(model.Id)) {
+                    ModelState.AddModelError("Id", "Período de Aula não pode ser alterado porque já está sendo utilizado.");
                 }
-                 */
             }
 
             if (!ModelState.IsValid)
@@ -67,7 +62,7 @@ namespace Visao360.Educacao.Controllers
                 return View(model);
             }
 
-            PeriodoAulaDAO dao = new PeriodoAulaDAO();
+            
             dao.SaveOrUpdate(model, model.Id);
             return RedirectToAction("Index");
         }
@@ -90,23 +85,22 @@ namespace Visao360.Educacao.Controllers
         [Persistencia]
         public ActionResult DeleteConfirmed(int id)
         {
-            /*
-            bool existe = new LoteDAO().ExisteLotePorPeriodoAulaId(id);
-
-            if (existe)
+            string mensagemRetorno;
+            bool pode = new PeriodoAulaDAO().PodeExcluir(id, out mensagemRetorno);
+            if (!pode)
             {
-                ModelState.AddModelError("Id", "Existem Lotes para esse Tipo de Lote. Exclusão não permitida.");
+                ModelState.AddModelError("Id", mensagemRetorno);
             }
-            */
+
             PeriodoAulaDAO dao = new PeriodoAulaDAO();
             if (ModelState.IsValid)
             {
                 PeriodoAula o = dao.GetById(id);
-                string descricao = "REFATORAR"; // o.Descricao;
+                string descricao = o.HoraInicio + " - "+o.HoraTermino;
 
                 dao.Delete(o);
 
-                this.FlashMessage(string.Format("Período de Aula \"{0}\" excluído com sucesso", descricao));
+                this.FlashMessage(string.Format("Período \"{0}\" excluído com sucesso", descricao));
                 return RedirectToAction("Index");
             }
             PeriodoAula model = dao.GetById(id);

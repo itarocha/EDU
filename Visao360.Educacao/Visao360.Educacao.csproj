@@ -2862,7 +2862,7 @@
     <Content Include="Views\Turmas\Disciplinas.cshtml" />
     <Content Include="Views\Turmas\_ListagemAlunos.cshtml" />
     <Content Include="Views\Turmas\Alunos.cshtml" />
-    <Content Include="Views\Shared\_LayoutPrincipalAlternativo.cshtml" />
+    <Content Include="Views\Shared\_LayoutAlternativo.cshtml" />
     <Content Include="Views\Shared\_Modelo.cshtml" />
     <Content Include="Views\Escolas\DadosEducacionais.cshtml" />
     <Content Include="Views\Alunos\Documentacao.cshtml" />
@@ -2881,7 +2881,6 @@
     <Content Include="Views\Alunos\Novo.cshtml" />
     <Content Include="Views\Profissionais\Disciplinas.cshtml" />
     <Content Include="Views\PeriodosAulas\_Listagem.cshtml" />
-    <Content Include="Views\PeriodosAulas\Delete.cshtml" />
     <Content Include="Views\PeriodosAulas\Edit.cshtml" />
     <Content Include="Views\PeriodosAulas\Index.cshtml" />
     <Content Include="Views\Matrizes\__Index.cshtml" />
@@ -2920,6 +2919,7 @@
     <Content Include="Views\Horarios\PeriodoEdit.cshtml" />
     <Content Include="Views\Horarios\Periodos.cshtml" />
     <Content Include="Views\Horarios\Index.cshtml" />
+    <Content Include="Views\PeriodosAulas\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

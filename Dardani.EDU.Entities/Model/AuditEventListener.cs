@@ -1,4 +1,5 @@
 ﻿using NHibernate.Event;
+using Petra.Util.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,9 +25,10 @@ namespace Dardani.EDU.Entities.Model
             Type t = origem.GetType();
             foreach (PropertyInfo piOrigem in t.GetProperties())
             {
-
+                // Se contiver o Attribute ManterCase, não faz nada
+                object[] manter = piOrigem.GetCustomAttributes(typeof(ManterCaseAttribute), false);
                 // Gambiarra provisória. Somente se for Simbolo, mas haverá um Attribute para definir se deve ou não upper
-                if ((piOrigem.PropertyType == typeof(string)) && (piOrigem.CanWrite) && (piOrigem.Name != "Simbolo") /*(piOrigem.Attributes)*/ )
+                if ((piOrigem.PropertyType == typeof(string)) && (piOrigem.CanWrite) && (manter.Length == 0) )
                 {
                     Type tipo = piOrigem.GetType();
 

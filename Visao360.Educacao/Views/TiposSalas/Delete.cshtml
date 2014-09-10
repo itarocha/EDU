@@ -1,38 +1,31 @@
 ﻿@model Dardani.EDU.Entities.Model.TipoSala
 
 @{
-    ViewBag.Title = "Confirmar Exclusão";
+    ViewBag.Title = "Exclusão de Tipo de Sala";
 }
 
-<h3>Deseja realmente excluir o Tipo de Sala abaixo?</h3>
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
     @Html.ValidationSummary(false)
-    <fieldset>
-        <legend>Detalhes</legend>
-        <table style="width:100%;">
-            <tr>
-                <td style="width:100px;">
-                    <div class="editor-label">@Html.LabelFor(model => model.Descricao)</div>
-                </td>
-                <td>
-                    <div class="editor-field">@Html.DisplayFor(model => model.Descricao)</div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="editor-label">@Html.LabelFor(model => model.FlagSalaAula)</div>
-                </td>
-                <td>
-                    <div class="editor-field">@Html.DisplayFor(model => model.FlagSalaAula)</div>
-                </td>
-            <tr>
-        </table>
-        @Html.HiddenFor(model => model.Id)
-        <p>
-            <input type="submit" value="Confirmar" />
-        </p>
-    </fieldset>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-danger">Deseja realmente excluir o Tipo de Sala abaixo?</div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <label class="input-label f-left">@Html.LabelFor(model => model.Descricao):</label>
+            <h4>@Html.DisplayFor(model => model.Descricao, new { @class = "input-text f-left" })</h4>
+        </div>
+    </div>
+    @Html.HiddenFor(model => model.Id)
+    <div class="row">
+        <div class="col-md-12 pt-20">
+            <input type="submit" value="Excluir" class="btn btn-danger" />
+            @Html.ActionLink("Voltar", "Index", "TiposSalas", null, new { @class = "btn btn-default" })
+        </div>
+    </div>
 }
-<div>
-    @Html.ActionLink("Voltar a Lista", "Index", "TiposSalas", null, new { @class="links_big"})
-</div>

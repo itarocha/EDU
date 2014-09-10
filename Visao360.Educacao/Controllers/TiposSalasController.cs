@@ -102,14 +102,13 @@ namespace Visao360.Educacao.Controllers
         [Persistencia]
         public ActionResult DeleteConfirmed(int id)
         {
-            /*
-            bool existe = new LoteDAO().ExisteLotePorTipoSalaId(id);
-
-            if (existe)
+            string mensagemRetorno;
+            bool pode = new TipoSalaDAO().PodeExcluir(id, out mensagemRetorno);
+            if (!pode)
             {
-                ModelState.AddModelError("Id", "Existem Lotes para esse Tipo de Lote. Exclusão não permitida.");
+                ModelState.AddModelError("Id", mensagemRetorno);
             }
-            */
+
             TipoSalaDAO dao = new TipoSalaDAO();
             if (ModelState.IsValid)
             {
