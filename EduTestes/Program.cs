@@ -116,20 +116,14 @@ namespace EduTestes
 
         private static void ConstroiSchema(Configuration config)
         {
-            // delete the existing db on each run
-
-            //if (File.Exists(DbFile))
-            //    File.Delete(DbFile);
-
-            // this NHibernate tool takes a configuration (with mapping info in)
-            // and exports a database schema from it
-            ///////////new SchemaExport(config).Create(true, true);
-
             new SchemaUpdate(config).Execute(false, true);
         }
 
 
         private static void CarregarArquivo() {
+
+            string local = @"d:\pessoal\educacao\arquivos";
+            //string local = @"E:\projetos_dardani\repositorio_classes\patro";
 
             AnoLetivo anoLetivo = new AnoLetivo() { Ano = 2013, FlagStatus = "S" };
             using (ISession session = NHibernateBase.OpenSession())
@@ -138,15 +132,12 @@ namespace EduTestes
                 {
                     AnoLetivoDAO aldao = new AnoLetivoDAO();
                     aldao.Add( anoLetivo );
-
                     transaction.Commit();
                 }
             }
 
-
-
             int i = 0;
-            foreach (string line in File.ReadAllLines(@"E:\projetos_dardani\repositorio_classes\patro\patro.txt"))
+            foreach (string line in File.ReadAllLines(local+@"\patro.txt"))
             {
                 //string[] parts = line.Split(',');
                 string[] resultsArray = line.Split('|');
@@ -208,7 +199,6 @@ namespace EduTestes
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
-
                     string[] campos = line.Split('|');
                     Escola e = new Escola();
                     e.CodigoINEP = campos[1];
@@ -386,11 +376,7 @@ namespace EduTestes
                         LinguaIndigena li = new LinguaIndigenaDAO().GetByValorEducacenso(codigo);
                         edu.LinguaIndigena = li;
                         edudao.Add(edu);
-
-
                     } // Escola não nula
-
-
 
                     transaction.Commit();
                 } // end transaction
@@ -414,7 +400,6 @@ namespace EduTestes
 
                     TurnoDAO turnodao = new TurnoDAO();
                     HorarioDAO hdao = new HorarioDAO();
-
 
                     InfraestruturaItemDAO iedao = new InfraestruturaItemDAO();
                     EscolaInfraestruturaItemDAO eidao = new EscolaInfraestruturaItemDAO();
@@ -464,7 +449,6 @@ namespace EduTestes
                         TipoAtendimento ta = tadao.GetByValorEducacenso(ita);
                         t.TipoAtendimento = ta;
 
-
                         t.FlagPrograma = campos[17] == "1" ? "S" : "N";
 
                         int imod = 0;
@@ -512,7 +496,6 @@ namespace EduTestes
 
                     p.EmailResponsavel = campos[5];
                     
-                    
                     p.NumeroNIS = campos[6];
 
                     short _d = 0;
@@ -540,12 +523,10 @@ namespace EduTestes
                     TipoNacionalidade tn = new TipoNacionalidadeDAO().GetByValorEducacenso(x);
                     p.TipoNacionalidade = tn;
 
-
                     int ipais = 0;
                     int.TryParse(campos[12], out ipais);
                     Pais pais = new PaisDAO().GetByValorEducacenso(ipais);
                     p.PaisOrigem = pais;
-
 
                     int iuf = 0;
                     int.TryParse(campos[13], out iuf);
@@ -598,7 +579,6 @@ namespace EduTestes
 
                     if (p.Documentacao == null)
                     {
-
                         PessoaDocumentacao pd = new PessoaDocumentacao();
 
                         pd.Pessoa = p;
@@ -606,12 +586,10 @@ namespace EduTestes
                         pd.CPFNumero = campos[4];
 
                         new PessoaDocumentacaoDAO().Add(pd);
-
                     }
 
                     if (p.Endereco == null)
                     {
-
                         PessoaEndereco pe = new PessoaEndereco();
                         pe.Pessoa = p;
 
@@ -684,20 +662,14 @@ namespace EduTestes
                             }
                             i++;
                         }
-
-
                         // Adicionar Vínculo a Turma
                         //new PessoaDocumentacaoDAO().Add(pd);
-
                     }
-
-
                     transaction.Commit();
                 } // end transaction
             } // end session
         }
         */
-
 
         // Alunos...
         private static void Carregar60(string line)
@@ -737,11 +709,9 @@ namespace EduTestes
                     p.NomeMae = campos[10];
                     p.NomePai = campos[11];
 
-
                     int.TryParse(campos[12], out x);
                     TipoNacionalidade tn = new TipoNacionalidadeDAO().GetByValorEducacenso(x);
                     p.TipoNacionalidade = tn;
-
                     
                     int ipais = 0;
                     int.TryParse(campos[13], out ipais);
@@ -781,7 +751,6 @@ namespace EduTestes
                         }
                     }
 
-
                     // RecursoINEP
                     RecursoINEPDAO ridao = new RecursoINEPDAO();
                     PessoaRecursoINEPDAO prdao = new PessoaRecursoINEPDAO();
@@ -819,7 +788,6 @@ namespace EduTestes
 
                     if (p.Documentacao == null)
                     {
-
                         PessoaDocumentacao pd = new PessoaDocumentacao();
 
                         pd.Pessoa = p;
@@ -831,7 +799,6 @@ namespace EduTestes
                         int.TryParse(campos[7], out iuf);
                         Estado uf = new EstadoDAO().GetByValorEducacenso(iuf);
                         pd.RGUF = uf;
-
 
                         short _d = 0;
                         short _m = 0;
@@ -878,12 +845,10 @@ namespace EduTestes
                         pd.DocumentoEstrangeiroNumero = campos[20];
 
                         new PessoaDocumentacaoDAO().Add(pd);
-
                     }
 
                     if (p.Endereco == null)
                     {
-
                         PessoaEndereco pe = new PessoaEndereco();
                         pe.Pessoa = p;
 
@@ -968,7 +933,6 @@ namespace EduTestes
                         }
                     }
 
-
                     transaction.Commit();
                 } // end transaction
             } // end session
@@ -976,20 +940,20 @@ namespace EduTestes
 
         private static void PopularOutrasTabelas()
         {
+            string local = @"D:\pessoal\educacao\arquivos";
+            //string local = "";
+            //con = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=E:\projetos_dardani\repositorio_classes\patro\TBUF.XLS;Extended Properties='Excel 8.0;HDR=Yes;'";
             string con = "";
             //int intcod = 0;
             short shortcod = 0;
-
             
             // Estados
-            con = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=E:\projetos_dardani\repositorio_classes\patro\TBUF.XLS;Extended Properties='Excel 8.0;HDR=Yes;'";
+            con = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source="+local+@"\TBUF.XLS;Extended Properties='Excel 8.0;HDR=Yes;'";
             using(OleDbConnection connection = new OleDbConnection(con))
             {
-                connection.Open();
-                
                 //OleDbCommand cmd = new OleDbCommand("CREATE TABLE [TB02] ([Column1] string, [Column2] string)", connection);
                 //cmd.ExecuteNonQuery();
-                
+                connection.Open();
                 
                 OleDbCommand command = new OleDbCommand("select * from [PLAN1$]", connection); 
                 using(OleDbDataReader dr = command.ExecuteReader())
@@ -1021,16 +985,11 @@ namespace EduTestes
                  
             }
             
-
-            
             // Municípios
-            string conMun = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=E:\projetos_dardani\repositorio_classes\patro\TBMUNICIPIO.XLS;Extended Properties='Excel 8.0;HDR=Yes;'";
+            string conMun = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + local + @"\TBMUNICIPIO.XLS;Extended Properties='Excel 8.0;HDR=Yes;'";
             using (OleDbConnection connection = new OleDbConnection(conMun))
             {
                 connection.Open();
-                
-                //OleDbCommand cmd = new OleDbCommand("CREATE TABLE [TB02] ([Column1] string, [Column2] string)", connection);
-                //cmd.ExecuteNonQuery();
 
                 OleDbCommand command = new OleDbCommand("select * from [PLAN1$]", connection);
                 using (OleDbDataReader dr = command.ExecuteReader())
@@ -1065,17 +1024,12 @@ namespace EduTestes
                 }// end dr
 
             }
-            
 
             // Municípios
-            string conDis = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=E:\projetos_dardani\repositorio_classes\patro\TBDISCIPLINA.XLS;Extended Properties='Excel 8.0;HDR=Yes;'";
+            string conDis = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + local + @"\TBDISCIPLINA.XLS;Extended Properties='Excel 8.0;HDR=Yes;'";
             using (OleDbConnection connection = new OleDbConnection(conDis))
             {
                 connection.Open();
-                
-                //OleDbCommand cmd = new OleDbCommand("CREATE TABLE [TB02] ([Column1] string, [Column2] string)", connection);
-                //cmd.ExecuteNonQuery();
-                
 
                 OleDbCommand command = new OleDbCommand("select * from [PLAN1$]", connection);
                 using (OleDbDataReader dr = command.ExecuteReader())
@@ -1105,16 +1059,11 @@ namespace EduTestes
                 } // end dr
 
             }
-
-
-
             
             using (ISession session = NHibernateBase.OpenSession())
             {
                 using (ITransaction transaction = session.BeginTransaction())
                 {
-
-
                     transaction.Commit();
                 } // end transaction
             } // end session
@@ -1144,8 +1093,6 @@ namespace EduTestes
 
                     UsuarioAcessoDAO geruadao = new UsuarioAcessoDAO();
                     geruadao.Add(acesso);
-
-
 
 
                     RacaDAO gerrdao = new RacaDAO();
@@ -1285,7 +1232,6 @@ namespace EduTestes
                     acdao.Add(new AtividadeComplementar() { Descricao = "Não Exclusivamente", ValorEducacenso = 1, FlagPadrao = "N", FlagPossui = "S", FlagAtivo = "S" });
                     acdao.Add(new AtividadeComplementar() { Descricao = "Exclusivamente", ValorEducacenso = 2, FlagPadrao = "N", FlagPossui = "S", FlagAtivo = "S" });
 
-
                     LocalizacaoDiferenciadaDAO lddao = new LocalizacaoDiferenciadaDAO();
                     lddao.Add(new LocalizacaoDiferenciada() { Descricao = "Área de assentamento", ValorEducacenso = 1, FlagPadrao = "N", FlagPossui = "S", FlagAtivo = "S" });
                     lddao.Add(new LocalizacaoDiferenciada() { Descricao = "Terra indígena", ValorEducacenso = 2, FlagPadrao = "N", FlagPossui = "S", FlagAtivo = "S" });
@@ -1313,7 +1259,6 @@ namespace EduTestes
                     edao.Add(new Equipamento() { Descricao = "Fax", FlagAtivo = "S" });
                     edao.Add(new Equipamento() { Descricao = "Máquina fotográfica/Filmadora", FlagAtivo = "S" });
                     edao.Add(new Equipamento() { Descricao = "Computador", FlagAtivo = "S" });
-
 
                     TipoNacionalidadeDAO tndao = new TipoNacionalidadeDAO();
                     tndao.Add(new TipoNacionalidade() { Descricao = "Brasileira", ValorEducacenso = 1, FlagBrasileira = "S", FlagAtivo = "S", FlagPadrao = "S" });
@@ -1343,7 +1288,6 @@ namespace EduTestes
                     eedao.Add(new EscolarizacaoEspecial() { Descricao = "Em hospital", ValorEducacenso = 1, FlagRecebe = "S", FlagAtivo = "S", FlagPadrao = "N" });
                     eedao.Add(new EscolarizacaoEspecial() { Descricao = "Em domicílio", ValorEducacenso = 2, FlagRecebe = "S", FlagAtivo = "S", FlagPadrao = "N" });
                     eedao.Add(new EscolarizacaoEspecial() { Descricao = "Não recebe", ValorEducacenso = 3, FlagRecebe = "N", FlagAtivo = "S", FlagPadrao = "S" });
-                    
 
                     TransportePublicoDAO tpdao = new TransportePublicoDAO();
                     tpdao.Add(new TransportePublico() { Descricao = "Não Utiliza", ValorEducacenso = 0, FlagAtivo = "S", FlagUtiliza = "N", FlagPadrao = "N" });
@@ -2322,7 +2266,6 @@ namespace EduTestes
                     etescdao.Add(new EtapaEscola() { Descricao= "Ensino Fundamental", Modalidade=modEJA, ValorEducacenso=116, FlagAtivo="S"});
                     etescdao.Add(new EtapaEscola() { Descricao= "Ensino Fundamental - Projovem (urbano)", Modalidade=modEJA, ValorEducacenso=117, FlagAtivo="S"});
                     etescdao.Add(new EtapaEscola() { Descricao= "Ensino Médio", Modalidade=modEJA, ValorEducacenso=118, FlagAtivo="S"});
-
 
                     TipoAtendimentoDAO tatddao = new TipoAtendimentoDAO();
                     tatddao.Add(new TipoAtendimento() { Descricao = "Classe Hospitalar", ValorEducacenso = 1, FlagAtivo = "S" });
