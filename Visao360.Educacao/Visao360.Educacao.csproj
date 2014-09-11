@@ -2920,6 +2920,7 @@
     <Content Include="Views\Horarios\Periodos.cshtml" />
     <Content Include="Views\Horarios\Index.cshtml" />
     <Content Include="Views\PeriodosAulas\Delete.cshtml" />
+    <Content Include="Views\Horarios\PeriodoDelete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -95,14 +95,13 @@ namespace Visao360.Educacao.Controllers
         [Persistencia]
         public ActionResult DeleteConfirmed(int id)
         {
-            /*
-            bool existe = new LoteDAO().ExisteLotePorTurnoId(id);
-
-            if (existe)
+            string mensagemRetorno;
+            bool pode = new TurnoDAO().PodeExcluir(id, out mensagemRetorno);
+            if (!pode)
             {
-                ModelState.AddModelError("Id", "Existem Lotes para esse Tipo de Lote. Exclusão não permitida.");
+                ModelState.AddModelError("Id", mensagemRetorno);
             }
-            */
+
             TurnoDAO dao = new TurnoDAO();
             if (ModelState.IsValid)
             {
@@ -111,7 +110,7 @@ namespace Visao360.Educacao.Controllers
 
                 dao.Delete(o);
 
-                FlashMessage(string.Format("Turno \"{0}\" excluído com sucesso", descricao));
+                this.FlashMessage(string.Format("Turno \"{0}\" excluído com sucesso", descricao));
                 return RedirectToAction("Index");
             }
             Turno model = dao.GetById(id);

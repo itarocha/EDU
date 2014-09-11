@@ -19,8 +19,6 @@ namespace Visao360.Educacao.Controllers
 {
     public class HorariosController : BaseController
     {
-        //
-        // GET: /Funerarias/
         [Role(Roles = "Administrador")]
         public ActionResult Index(string searchString)
         {
@@ -66,7 +64,7 @@ namespace Visao360.Educacao.Controllers
                 EscolaSessao e = GerenciadorEscolaSessao.GetEscolaAtual();
             }
 
-            ViewBag.Acao = novo ? "Novo Horario" : "Editar Horario";
+            ViewBag.Acao = novo ? "Novo Horário" : "Editar Horário";
             return View(model);
         }
 
@@ -131,7 +129,7 @@ namespace Visao360.Educacao.Controllers
             }
             else
             {
-                model = dao.GetVOById(horarioId);
+                model = dao.GetVOById(periodoId);
                 if (model == null)
                 {
                     return HttpNotFound();
@@ -218,14 +216,13 @@ namespace Visao360.Educacao.Controllers
         [Persistencia]
         public ActionResult DeleteConfirmed(int id)
         {
-            /*
-            bool existe = new LoteDAO().ExisteLotePorHorarioId(id);
-
-            if (existe)
+            string mensagemRetorno;
+            bool pode = new HorarioDAO().PodeExcluir(id, out mensagemRetorno);
+            if (!pode)
             {
-                ModelState.AddModelError("Id", "Existem Lotes para esse Tipo de Lote. Exclusão não permitida.");
+                ModelState.AddModelError("Id", mensagemRetorno);
             }
-            */
+
             HorarioDAO dao = new HorarioDAO();
             if (ModelState.IsValid)
             {
@@ -234,12 +231,68 @@ namespace Visao360.Educacao.Controllers
 
                 dao.Delete(o);
 
-                this.FlashMessage(string.Format("Horario \"{0}\" excluído com sucesso", descricao));
+                this.FlashMessage(string.Format("Horário \"{0}\" excluído com sucesso", descricao));
                 return RedirectToAction("Index");
             }
             Horario model = dao.GetById(id);
             return View(model);
         }
+
+        [Role(Roles = "Administrador")]
+        public ActionResult PeriodoDelete(int horarioId, int periodoId = 0)
+        {
+            Boolean novo = (periodoId == 0);
+            HorarioPeriodoVO model = null;
+            HorarioPeriodoDAO dao = new HorarioPeriodoDAO();
+
+            if (novo)
+            {
+                model = new HorarioPeriodoVO();
+                model.HorarioId = horarioId;
+            }
+            else
+            {
+                model = dao.GetVOById(periodoId);
+                if (model == null)
+                {
+                    return HttpNotFound();
+                }
+            }
+
+            Horario Horario = new HorarioDAO().GetById(horarioId);
+            @ViewBag.Horario = Horario;
+
+            return View(model);
+        }
+
+        [HttpPost, ActionName("PeriodoDelete")]
+        [Role(Roles = "Administrador")]
+        [Persistencia]
+        public ActionResult PeriodoDeleteConfirmed(int horarioId, int periodoId = 0)
+        {
+            string mensagemRetorno;
+            /*
+            bool pode = new HorarioPeriodoDAO().PodeExcluir(id, out mensagemRetorno);
+            if (!pode)
+            {
+                ModelState.AddModelError("Id", mensagemRetorno);
+            }
+            */
+            HorarioPeriodoDAO dao = new HorarioPeriodoDAO();
+            if (ModelState.IsValid)
+            {
+                HorarioPeriodo o = dao.GetById(periodoId);
+                string descricao = o.PeriodoAula.HoraInicio + " - " + o.PeriodoAula.HoraTermino;
+
+                dao.Delete(o);
+
+                this.FlashMessage(string.Format("Período \"{0}\" excluído com sucesso", descricao));
+                return Redirect(String.Format("/PeriodosHorario/{0}", horarioId));
+            }
+            HorarioPeriodo model = dao.GetById(periodoId);
+            return View(model);
+        }
+
     }
 }
 

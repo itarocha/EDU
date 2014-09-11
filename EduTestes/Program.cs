@@ -32,6 +32,8 @@ namespace EduTestes
         static void Main(string[] args)
         {
             LoadNHibernateCfg(true);
+            
+            /*
             using (ISession session = NHibernateBase.OpenSession())
             {
                 using (ITransaction transaction = session.BeginTransaction())
@@ -40,23 +42,18 @@ namespace EduTestes
                     string msg;
                     tddao.PodeExcluir(1, out msg);
 
-
-
                     int escolaId = 7;
                     int anoLetivoAno = 2013;
                     IEnumerable<TurmaVO> lista = new TurmaDAO().GetListagemByEscolaAno(escolaId, anoLetivoAno);
                     
-                    //TurmaDAO tdao = new TurmaDAO();
-
-                    //IEnumerable<Turma> lista = tdao.GetByEscolaAnoAluno(1,1,76);
-
                     transaction.Commit();
                 }
             }
+            */
 
-            PopularTabelasBasicas();
+            //PopularTabelasBasicas();
             //PopularOutrasTabelas();
-            //CarregarArquivo();
+            CarregarArquivo();
 
             Console.WriteLine("oua......");
             Console.ReadLine();
@@ -441,7 +438,8 @@ namespace EduTestes
 
                         Turno trn = turnodao.GetById(1);
                         if (trn == null){
-                            trn = new Turno() { Descricao = "TURNO NÃO IDENTIFICADO"};
+                            trn = new Turno() { Descricao = "TURNO NÃO IDENTIFICADO" };
+                            turnodao.Add(trn);
                         }
                         t.Turno = trn;
 

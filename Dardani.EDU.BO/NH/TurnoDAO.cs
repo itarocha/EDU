@@ -47,19 +47,53 @@ namespace Dardani.EDU.BO.NH
         	TurnoVO model = Session.CreateQuery(
         		"SELECT "+
                 "t.Id as Id, "+
-                //"e.Id as EscolaId, "+
                 "t.Descricao as Descricao "+
-                //"t.Sequencia as Sequencia "+
         		"FROM Turno t "+
-        		//"INNER JOIN t.Escola e "+
         		"WHERE t.Id = :id")
         		.SetParameter("id",id)
         		.SetResultTransformer(Transformers.AliasToBean(typeof(TurnoVO)))
         		.UniqueResult<TurnoVO>();
-        	
         	return model;
-        	
         }
+
+        public bool PossuiEscolaTurno(int id)
+        {
+            Int64 qtd = 0;
+            qtd = Session.CreateQuery(  "SELECT count(distinct tb.Id) as qtd " +
+                                        "FROM EscolaTurno as tb " +
+                                        "WHERE tb.Turno.Id = :id ")
+                       .SetParameter("id", id)
+                       .UniqueResult<Int64>();
+            return (qtd > 0);
+        }
+
+        public bool PossuiTurma(int id)
+        {
+            Int64 qtd = 0;
+            qtd = Session.CreateQuery(  "SELECT count(distinct tb.Id) as qtd " +
+                                        "FROM Turma as tb " +
+                                        "WHERE tb.Turno.Id = :id ")
+                       .SetParameter("id", id)
+                       .UniqueResult<Int64>();
+            return (qtd > 0);
+        }
+
+        public bool PodeExcluir(int id, out string mensagemRetorno)
+        {
+            mensagemRetorno = "";
+            if (this.PossuiTurma(id))
+            {
+                mensagemRetorno = "Turno está sendo utilizado em Turmas";
+                return false;
+            }
+            if (this.PossuiEscolaTurno(id))
+            {
+                mensagemRetorno = "Existem Escolas que utilizam esse Turno";
+                return false;
+            }
+            return true;
+        }
+
 
     }
 }

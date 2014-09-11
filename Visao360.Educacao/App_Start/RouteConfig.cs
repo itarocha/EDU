@@ -65,6 +65,16 @@ namespace Visao360.Educacao
                 });
 
 
+            routes.MapRoute(
+                name: "PeriodoHorarioDelete",
+                url: "PeriodoHorario/{horarioId}/Delete/{periodoId}",
+                defaults: new
+                {
+                    controller = "Horarios",
+                    action = "PeriodoDelete",
+                    periodoId = UrlParameter.Optional
+                });
+
 
 
 

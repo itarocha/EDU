@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2013 for Web
-VisualStudioVersion = 12.0.30723.0
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dardani.EDU.Entities", "Dardani.EDU.Entities\Dardani.EDU.Entities.csproj", "{B2B6D703-511E-478B-BCBB-92B2887DDBAD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7B8105C9-2A48-4052-AB3D-C677E919A60A} = {7B8105C9-2A48-4052-AB3D-C677E919A60A}
+		{A19B0FD8-61BD-4ED4-ABA7-0DA82E64FC56} = {A19B0FD8-61BD-4ED4-ABA7-0DA82E64FC56}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduTestes", "EduTestes\EduTestes.csproj", "{43C63D7B-F1A0-4C40-9B34-D84EDB46E89D}"
 	ProjectSection(ProjectDependencies) = postProject

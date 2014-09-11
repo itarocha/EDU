@@ -69,7 +69,44 @@ namespace Dardani.EDU.BO.NH
         		.UniqueResult<HorarioVO>();
         	
         	return model;
-        	
+        }
+
+        public bool PossuiHorarioPeriodo(int id)
+        {
+
+            Int64 qtd = Session.CreateQuery("SELECT count(distinct tb.Id) as qtd " +
+                                            "FROM HorarioPeriodo as tb " +
+                                            "WHERE tb.Horario.Id = :id ")
+                       .SetParameter("id", id)
+                       .UniqueResult<Int64>();
+            return qtd > 0;
+        }
+
+        public bool PossuiTurma(int id)
+        {
+
+            Int64 qtd = Session.CreateQuery("SELECT count(distinct tb.Id) as qtd " +
+                                            "FROM Turma as tb " +
+                                            "WHERE tb.Horario.Id = :id ")
+                       .SetParameter("id", id)
+                       .UniqueResult<Int64>();
+            return qtd > 0;
+        }
+
+        public bool PodeExcluir(int id, out string mensagemRetorno)
+        {
+            mensagemRetorno = "";
+            if (this.PossuiHorarioPeriodo(id))
+            {
+                mensagemRetorno = "Horário possui Períodos";
+                return false;
+            }
+            if (this.PossuiTurma(id))
+            {
+                mensagemRetorno = "Horário está sendo utilizada em Turmas";
+                return false;
+            }
+            return true;
         }
 
     }

@@ -13,7 +13,8 @@
         grid.Column("DescricaoAbreviada",header:"Abreviatura", canSort:false),
         grid.Column("FlagAtivo",header:"Ativa?", canSort:false),
         grid.Column("",header:"Ações", format:@<text>
-                @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new{@class="btn btn-xs btn-info"}) 
+            @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new{@class="btn btn-xs btn-info"}) 
+            @Html.ActionLink("Excluir", "Delete", new { @item.Id }, new { @class = "btn btn-xs btn-danger"})
         </text>)
     }
 )

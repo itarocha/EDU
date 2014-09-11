@@ -40,6 +40,8 @@ namespace Dardani.EDU.BO.NH
                 "d.Descricao as Descricao, "+
                 "d.DescricaoAbreviada as DescricaoAbreviada, "+
                 "d.FlagAtivo as FlagAtivo, "+
+                "de.Id as DisciplinaEducacensoId, "+
+                "de.Descricao as DisciplinaEducacensoDescricao, " +
                 "de.ValorEducacenso as ValorEducacenso " +
                 "FROM Disciplina d "+
                 "INNER JOIN d.DisciplinaEducacenso de "+
@@ -61,6 +63,8 @@ namespace Dardani.EDU.BO.NH
                 "d.Descricao as Descricao, " +
                 "d.DescricaoAbreviada as DescricaoAbreviada, " +
                 "d.FlagAtivo as FlagAtivo, " +
+                "de.Id as DisciplinaEducacensoId, " +
+                "de.Descricao as DisciplinaEducacensoDescricao, " +
                 "de.ValorEducacenso as ValorEducacenso " +
                 "FROM Disciplina d " +
                 "INNER JOIN d.DisciplinaEducacenso de " +
@@ -70,6 +74,43 @@ namespace Dardani.EDU.BO.NH
             return model;
         }
 
+        public bool PossuiMatrizDisciplina(int id)
+        {
+
+            Int64 qtd = Session.CreateQuery("SELECT count(distinct tb.Id) as qtd " +
+                                            "FROM MatrizDisciplina as tb " +
+                                            "WHERE tb.Disciplina.Id = :id ")
+                       .SetParameter("id", id)
+                       .UniqueResult<Int64>();
+            return qtd > 0;
+        }
+
+        public bool PossuiTurmaHorario(int id)
+        {
+
+            Int64 qtd = Session.CreateQuery("SELECT count(distinct tb.Id) as qtd " +
+                                            "FROM TurmaHorario as tb " +
+                                            "WHERE tb.Disciplina.Id = :id ")
+                       .SetParameter("id", id)
+                       .UniqueResult<Int64>();
+            return qtd > 0;
+        }
+
+        public bool PodeExcluir(int id, out string mensagemRetorno)
+        {
+            mensagemRetorno = "";
+            if (this.PossuiMatrizDisciplina(id))
+            {
+                mensagemRetorno = "Disciplina está sendo utilizada em Matriz Curricular";
+                return false;
+            }
+            if (this.PossuiTurmaHorario(id))
+            {
+                mensagemRetorno = "Disciplina está sendo utilizada em Quadro de Horários";
+                return false;
+            }
+            return true;
+        }
 
     }
 }

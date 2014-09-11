@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Petra.Util.Attributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -16,18 +17,21 @@ namespace Dardani.EDU.Entities.Model
         [Required(ErrorMessage = "Identificação precisa ser preenchido")]
         [StringLength(32, MinimumLength = 5)]
         [Display(Name = "Identificação")]
+        [ManterCase]
         public virtual string NomeUsuario { get; set; }
 
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Senha de acesso precisa ser preenchida.")]
         [StringLength(32, MinimumLength = 5)]
         [Display(Name = "Senha")]
+        [ManterCase]
         public virtual string SenhaAcesso { get; set; }
 
         [DataType(DataType.EmailAddress)]
         [Required(ErrorMessage = "E-mail precisa ser preenchido.")]
         [StringLength(64, MinimumLength = 8)]
         [Display(Name = "E-mail")]
+        [ManterCase]
         public virtual string Email { get; set; }
 
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Petra.Util.Attributes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace Dardani.EDU.Entities.Model
         public virtual int Id { get; set; }
 
         [Required(ErrorMessage = "Nome precisa ser preenchido")]
+        [ManterCase]
         public virtual string Nome { get; set; }
 
         [Required(ErrorMessage = "Data de Nascimento precisa ser preenchido")]
@@ -32,6 +34,7 @@ namespace Dardani.EDU.Entities.Model
 
         [Required(ErrorMessage = "Nível precisa ser preenchido.")]
         [Display(Name = "Nível")]
+        [ManterCase]
         public virtual string Nivel { get; set; } // super, administrador, cliente
 
         [Required(ErrorMessage = "Ativo precisa ser preenchido.")]

@@ -3,14 +3,6 @@
 @{
     ViewBag.Title = ViewBag.Acao;
 
-    //List<Dardani.GER.Entities.Model.ItemVO> ListaCalendario = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaCalendario"];
-    //List<Dardani.GER.Entities.Model.ItemVO> ListaSala = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaSala"];
-    //List<Dardani.GER.Entities.Model.ItemVO> ListaTurno = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaTurno"];
-    //List<Dardani.GER.Entities.Model.ItemVO> ListaTipoAtendimento = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaTipoAtendimento"];
-    //List<Dardani.GER.Entities.Model.ItemVO> ListaModalidade = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaModalidade"];
-    //List<Dardani.GER.Entities.Model.ItemVO> ListaEtapa = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaEtapa"];
-    //List<Dardani.GER.Entities.Model.ItemStringVO> ListaSimNao = (List<Dardani.GER.Entities.Model.ItemStringVO>)Session["ListaSimNao"];
-
     String ckDom = Model.FlagDomingo == "S" ? "checked" : "";
     String ckSeg = Model.FlagSegunda == "S" ? "checked" : "";
     String ckTer = Model.FlagTerca == "S" ? "checked" : "";
@@ -22,7 +14,6 @@
 
 <script type="text/javascript">
     $(function() {
-        carregarEtapas();
         $("#Nome").focus();
        
 

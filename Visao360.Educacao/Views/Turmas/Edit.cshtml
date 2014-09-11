@@ -151,21 +151,21 @@
     </div>
     
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <label class="input-label f-left">@Html.LabelFor(model => model.TurnoId):</label>
             @Html.DropDownListFor(model => model.TurnoId, ViewBag.ListaTurno as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <label class="input-label f-left">@Html.LabelFor(model => model.HorarioId):</label>
             @Html.DropDownListFor(model => model.HorarioId, ViewBag.ListaHorario as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
-        </div>
-        <div class="col-md-4">
-            <label class="input-label f-left">@Html.LabelFor(model => model.TipoAtendimentoId):</label>
-            @Html.DropDownListFor(model => model.TipoAtendimentoId, ViewBag.ListaTipoAtendimento as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
         </div>
     </div>
 
     <div class="row">
+        <div class="col-md-6">
+            <label class="input-label f-left">@Html.LabelFor(model => model.TipoAtendimentoId):</label>
+            @Html.DropDownListFor(model => model.TipoAtendimentoId, ViewBag.ListaTipoAtendimento as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
+        </div>
         <div class="col-md-6">
             <label class="input-label f-left">Dias Com Aula:</label>
             @Html.DropDownListFor(model => model.FlagPrograma, ViewBag.ListaSimNao  as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })

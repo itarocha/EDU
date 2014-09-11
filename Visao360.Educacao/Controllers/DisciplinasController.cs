@@ -71,17 +71,15 @@ namespace Visao360.Educacao.Controllers
         public ActionResult EditConfirmed(DisciplinaVO model)
         {
             Boolean novo = (model.Id == 0);
-
+            DisciplinaDAO dao = new DisciplinaDAO();
             if (!novo)
             {
                 /*
-                int maximoSepultados = new EnsinoDAO().GetMaximoSepultadosPorEnsinoId(model.Id);
-                if (maximoSepultados > model.Vagas)
+                if (dao.PossuiMatrizDisciplina(model.Id))
                 {
-                    ModelState.AddModelError("EnsinoId", String.Format("Existem Lotes com esse tipo que possuem sepultados com quantidade superior " +
-                        "ao digitado abaixo. Sepultados: {0}, Vagas: {1}", maximoSepultados, model.Vagas));
+                    ModelState.AddModelError("Id", "Disciplina não pode ser alterada porque já está sendo utilizada.");
                 }
-                 */
+                 */ 
             }
 
             if (!ModelState.IsValid)
@@ -92,7 +90,6 @@ namespace Visao360.Educacao.Controllers
                 return View(model);
             }
 
-            DisciplinaDAO dao = new DisciplinaDAO();
             Disciplina toSave = novo ? new Disciplina() : dao.GetById(model.Id);
 
             Conversor.Converter(model, toSave, NHibernateBase.Session);
@@ -100,6 +97,46 @@ namespace Visao360.Educacao.Controllers
             
             return RedirectToAction("Index");
         }
+
+        public ActionResult Delete(int Id)
+        {
+            DisciplinaDAO dao = new DisciplinaDAO();
+            Disciplina model = dao.GetById(Id);
+
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            return View(model);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [Role(Roles = "Administrador")]
+        [Persistencia]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            string mensagemRetorno;
+            bool pode = new DisciplinaDAO().PodeExcluir(id, out mensagemRetorno);
+            if (!pode)
+            {
+                ModelState.AddModelError("Id", mensagemRetorno);
+            }
+
+            DisciplinaDAO dao = new DisciplinaDAO();
+            if (ModelState.IsValid)
+            {
+                Disciplina o = dao.GetById(id);
+                string descricao = o.Descricao;
+
+                dao.Delete(o);
+
+                this.FlashMessage(string.Format("Tipo de Evento \"{0}\" excluído com sucesso", descricao));
+                return RedirectToAction("Index");
+            }
+            Disciplina model = dao.GetById(id);
+            return View(model);
+        }
+
     }
 }
 
