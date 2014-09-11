@@ -28,20 +28,6 @@ namespace Visao360.Educacao.Controllers
                 return RedirectToAction("Selecionar", "Home");
             };
 
-
-            /*
-            EscolaSessao e = GerenciadorEscolaSessao.GetEscolaAtual();
-            int escolaId = (e == null) ? 0 : e.EscolaId;
-
-            // Se escola for 0, redirecionar para index de Escolas e enviar mensagem
-            if (escolaId == 0)
-            {
-                TempData["mensagem"] = "Para gerenciar Calendários é necessário tornar uma Escola Padrão";
-                return RedirectToAction("Selecionar", "Home"); // RedirectToAction("Index", controllerName: "Escolas");
-            }
-            */
-
-
             ViewBag.EscolaId = this.EscolaSessao.EscolaId;
             IEnumerable<Horario> lista = new HorarioDAO().GetListagemByEscolaId(EscolaSessao.EscolaId);
             if (Request.IsAjaxRequest())
@@ -147,11 +133,9 @@ namespace Visao360.Educacao.Controllers
 
         private void EnviarViewBagHorarios()
         {
-            EscolaSessao e = GerenciadorEscolaSessao.GetEscolaAtual();
-            int escolaId = (e == null) ? 0 : e.EscolaId;
+            ViewBag.EscolaId = this.EscolaSessao.EscolaId;
             ViewBag.ListaPeriodoAula = ComboBuilder.ListaPeriodoAula();
         }
-
 
         [HttpPost, ActionName("PeriodoEdit")]
         [Role(Roles = "Administrador")]

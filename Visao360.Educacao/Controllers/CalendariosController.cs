@@ -21,44 +21,35 @@ namespace Visao360.Educacao.Controllers
     public class CalendariosController : BaseController
     {
         [Role(Roles = "Administrador")]
+        [SelecionouFilial(MensagemErro = "Para gerenciar Calendários, selecione primeiro uma Escola Padrão.")]
         public ActionResult Index(string searchString)
         {
-            EscolaSessao e = GerenciadorEscolaSessao.GetEscolaAtual();
-            int escolaId = (e == null) ? 0 : e.EscolaId;
-
-            // Se escola for 0, redirecionar para index de Escolas e enviar mensagem
-            if (escolaId == 0)
-            {
-                this.FlashMessage("Para gerenciar Calendários é necessário tornar uma Escola Padrão");
-                return RedirectToAction("Selecionar","Home"); // RedirectToAction("Index", controllerName: "Escolas");
-            }
-
-            IEnumerable<Calendario> lista = new CalendarioDAO().GetListagemByEscolaAno(escolaId, e.AnoLetivoAno);
+            IEnumerable<Calendario> lista = new CalendarioDAO().GetListagemByEscolaAno(this.EscolaSessao.EscolaId, this.EscolaSessao.AnoLetivoAno);
             if (Request.IsAjaxRequest())
             {
                 return PartialView("_Listagem", lista);
             }
-            ViewBag.EscolaId = e.EscolaId;
+            ViewBag.EscolaId = this.EscolaSessao.EscolaId;
             return View(lista);
         }
 
         [Role(Roles = "Administrador")]
+        [SelecionouFilial(MensagemErro = "Para editar Calendários, selecione primeiro uma Escola Padrão.")]
         public ActionResult Edit(int id = 0)
         {
             Boolean novo = (id == 0);
-            EscolaSessao e = GerenciadorEscolaSessao.GetEscolaAtual();
             CalendarioVO model = null;
             CalendarioDAO dao = new CalendarioDAO();
 
             if (novo)
             {
                 model = new CalendarioVO();
-                model.AnoLetivoId = e.AnoLetivoId;
-                model.EscolaId = e.EscolaId;
+                model.AnoLetivoId = this.EscolaSessao.AnoLetivoId;
+                model.EscolaId = this.EscolaSessao.EscolaId;
             }
             else
             {
-                model = dao.GetCalendarioVO(id, e.EscolaId, e.AnoLetivoId);
+                model = dao.GetCalendarioVO(id, this.EscolaSessao.EscolaId, this.EscolaSessao.AnoLetivoId);
                 if (model == null)
                 {
                     return HttpNotFound();
@@ -101,9 +92,8 @@ namespace Visao360.Educacao.Controllers
             CalendarioDAO dao = new CalendarioDAO();
             Calendario toSave = novo ? new Calendario() : dao.GetById(model.Id);
 
-            EscolaSessao e = GerenciadorEscolaSessao.GetEscolaAtual();
-            model.EscolaId = e.EscolaId;
-            model.AnoLetivoId = e.AnoLetivoId;
+            model.EscolaId = this.EscolaSessao.EscolaId;
+            model.AnoLetivoId = this.EscolaSessao.AnoLetivoId;
 
             Conversor.Converter(model, toSave, NHibernateBase.Session);
             dao.SaveOrUpdate(toSave, toSave.Id);
@@ -112,6 +102,7 @@ namespace Visao360.Educacao.Controllers
         }
 
         [Role(Roles = "Administrador")]
+        [SelecionouFilial(MensagemErro = "Para excluir Calendários, selecione primeiro uma Escola Padrão.")]
         public ActionResult Delete(int Id)
         {
             CalendarioDAO dao = new CalendarioDAO();
@@ -152,32 +143,18 @@ namespace Visao360.Educacao.Controllers
             return View(model);
         }
 
-        public ActionResult Eventos(int calendarioId, int mesId) {
-
-            EscolaSessao e = GerenciadorEscolaSessao.GetEscolaAtual();
-            int escolaId = (e == null) ? 0 : e.EscolaId;
-
-            // Se escola for 0, redirecionar para index de Escolas e enviar mensagem
-            if (escolaId == 0)
-            {
-                this.FlashMessage("Para gerenciar Calendários é necessário tornar uma Escola Padrão");
-                return RedirectToAction("Selecionar", "Home"); // RedirectToAction("Index", controllerName: "Escolas");
-            }
-
-            ViewBag.EscolaId = e.EscolaId;
-
-
-            //ViewBag.ListaSituacaoFuncionamento = ComboBuilder.ListaTipoDia();
+        [SelecionouFilial(MensagemErro = "Para editar Eventos do Calendário, selecione primeiro uma Escola Padrão.")]
+        public ActionResult Eventos(int calendarioId, int mesId)
+        {
+            ViewBag.EscolaId = this.EscolaSessao.EscolaId;
 
             Calendario cal = new CalendarioDAO().GetById(calendarioId);
             ViewBag.Calendario = cal;
 
-            //IEnumerable<Calendario> lista = new CalendarioDAO().GetListagemByEscolaAno(escolaId, e.AnoLetivoAno);
-            
             // Na verdade, se calendário estiver fora do escopo, dá erro
             mesId = ((mesId <= 0) && (mesId >= 13)) ? 8 : mesId;
 
-            TheCalendario calendario = new TheCalendario(calendarioId, e.AnoLetivoAno, mesId);
+            TheCalendario calendario = new TheCalendario(calendarioId, this.EscolaSessao.AnoLetivoAno, mesId);
 
             return View(calendario);
         }
@@ -189,14 +166,11 @@ namespace Visao360.Educacao.Controllers
             return Json(lista, JsonRequestBehavior.AllowGet);
         }
 
-
         [HttpPost]
         [Persistencia]
         public JsonResult EventosPost(EnvioCalendario data)
         {
             // Veja  data.TiposEventos int[]
-            
-
             CalendarioDiaDAO cdao = new CalendarioDiaDAO();
             DateTime dt = new DateTime(data.AnoId, data.MesId, data.DiaId);
 
@@ -245,7 +219,6 @@ namespace Visao360.Educacao.Controllers
         public JsonResult GetEventosMes(int CalendarioId, int AnoId, int MesId) {
             CalendarioMes cm = new CalendarioMes();
 
-
             // Isso vai virar função. Vai virar também retorno json!!!
             DateTime dtIni = new DateTime(AnoId, MesId, 1);
             DateTime dtFim = dtIni.AddMonths(1).AddDays(-1);
@@ -275,11 +248,8 @@ namespace Visao360.Educacao.Controllers
 
         public JsonResult GetListaTipoEvento()
         {
-
             TipoEventoDAO tedao = new TipoEventoDAO();
-
             IEnumerable<TipoEvento> lista = tedao.GetListagem();
-
             return Json(lista, JsonRequestBehavior.AllowGet);
         }
 

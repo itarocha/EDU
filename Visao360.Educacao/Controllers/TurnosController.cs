@@ -20,13 +20,9 @@ namespace Visao360.Educacao.Controllers
     public class TurnosController : BaseController
     {
         [Role(Roles = "Administrador")]
+        [SelecionouFilial(MensagemErro="Para acessar Turnos, selecione primeiro uma Escola Padrão")]
         public ActionResult Index(string searchString)
         {
-            if (!ExisteEscolaSelecionada("Para acessar Calendários da Escola, selecione primeiro uma Escola Padrão"))
-            {
-                return RedirectToAction("Selecionar", "Home");
-            };
-
             ViewBag.EscolaId = EscolaSessao.EscolaId;
             IEnumerable<Turno> lista = new TurnoDAO().GetListagemByEscolaId(EscolaSessao.EscolaId);
             if (Request.IsAjaxRequest())
@@ -37,6 +33,7 @@ namespace Visao360.Educacao.Controllers
         }
 
         [Role(Roles = "Administrador")]
+        [SelecionouFilial(MensagemErro = "Para Editar Turno, selecione primeiro uma Escola Padrão")]
         public ActionResult Edit(int id = 0)
         {
             Boolean novo = (id == 0);
@@ -47,7 +44,6 @@ namespace Visao360.Educacao.Controllers
             }
             if (novo){
             }
-
             ViewBag.Acao = novo ? "Novo Turno" : "Editar Turno";
             return View(model);
         }
@@ -78,6 +74,7 @@ namespace Visao360.Educacao.Controllers
         }
 
         [Role(Roles = "Administrador")]
+        [SelecionouFilial(MensagemErro = "Para excluir Turno, selecione primeiro uma Escola Padrão")]
         public ActionResult Delete(int Id)
         {
             TurnoDAO dao = new TurnoDAO();
@@ -118,4 +115,3 @@ namespace Visao360.Educacao.Controllers
         }
     }
 }
-

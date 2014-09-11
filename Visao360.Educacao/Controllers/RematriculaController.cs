@@ -25,27 +25,8 @@ namespace Visao360.Educacao.Controllers
         public ActionResult Etapas(int modalidadeId)
         {
             IEnumerable<ItemVO> lista = ItemVOBuilders.Instance.BuildListaEtapa(modalidadeId);
-
-            /*
-            string html = "";
-            foreach (ItemVO i in lista)
-            {
-                html = html + "<option value='" + i.Id + "'>" + i.Descricao + "</option>";
-            }
-
-            return this.Content(html, "text/html", System.Text.Encoding.UTF8);
-            */
-
             return Json(lista, JsonRequestBehavior.AllowGet);
-
-
-            //return html;
-            //var retorno = Json(lista, JsonRequestBehavior.AllowGet);
-
-
-            //return retorno;
         }
-
 
         [Role(Roles = "Administrador,Visitante")]
         public ActionResult OldEtapas(int modalidadeId)
@@ -59,13 +40,6 @@ namespace Visao360.Educacao.Controllers
             }
 
             return this.Content(html, "text/html", System.Text.Encoding.UTF8);
-
-
-            //return html;
-            //var retorno = Json(lista, JsonRequestBehavior.AllowGet);
-
-
-            //return retorno;
         }
 
         /*
@@ -101,13 +75,15 @@ namespace Visao360.Educacao.Controllers
         }
 
         [Role(Roles = "Administrador")]
+        [SelecionouFilial(MensagemErro = "Para acessar Rematrícula, selecione primeiro uma Escola Padrão.")]
         public ActionResult Selecionar(int id = 0)
         {
+            /*
             if (!ExisteEscolaSelecionada("Para acessar Rematrícula, selecione primeiro uma Escola Padrão"))
             {
                 return RedirectToAction("Selecionar", "Home");
             };
-
+            */
             TurmaVO t = new TurmaDAO().GetVOById(id);
             RematriculaVO model = new RematriculaVO();
             if (t != null)
@@ -160,6 +136,5 @@ namespace Visao360.Educacao.Controllers
             }
             return Redirect(string.Format("/TurmaAlunos/{0}",model.TurmaDestinoId));
         }
-
     }
 }

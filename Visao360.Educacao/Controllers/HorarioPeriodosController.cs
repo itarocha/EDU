@@ -19,7 +19,6 @@ namespace Visao360.Educacao.Controllers
 {
     public class HorarioPeriodosController : BaseController
     {
-
         [Role(Roles = "Administrador")]
         public ActionResult Delete(int Id)
         {

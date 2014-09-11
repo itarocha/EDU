@@ -52,7 +52,6 @@ namespace Visao360.Educacao.Controllers
             ViewBag.ListaSimNao = ComboBuilder.ListaSimNao();
         }
 
-
         [HttpPost, ActionName("Edit")]
         [Role(Roles = "Administrador")]
         [Persistencia]
@@ -125,4 +124,3 @@ namespace Visao360.Educacao.Controllers
         }
     }
 }
-

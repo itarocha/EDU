@@ -195,6 +195,7 @@
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Filters\NHSessionAttribute.cs" />
     <Compile Include="Filters\PersistenciaAttribute.cs" />
+    <Compile Include="Filters\SelecionouFilialAttribute.cs" />
     <Compile Include="Filters\RoleAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

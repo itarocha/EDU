@@ -19,8 +19,6 @@ namespace Visao360.Educacao.Controllers
 {
     public class DisciplinasController : BaseController
     {
-        //
-        // GET: /Funerarias/
         [Role(Roles = "Administrador")]
         public ActionResult Index(string searchString)
         {
@@ -29,7 +27,6 @@ namespace Visao360.Educacao.Controllers
             {
                 return PartialView("_Listagem", lista);
             }
-            //ViewBag.EscolaId = e.EscolaId;
             return View(lista);
         }
 
@@ -136,7 +133,6 @@ namespace Visao360.Educacao.Controllers
             Disciplina model = dao.GetById(id);
             return View(model);
         }
-
     }
 }
 

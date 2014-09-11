@@ -40,14 +40,16 @@ namespace Visao360.Educacao.Controllers
         }
 
         // Já selecionado
+        [SelecionouFilial(MensagemErro = "Para gerenciar Matrizes, selecione primeiro uma Escola Padrão.")]
         public ActionResult Matriz(int modalidadeId, int etapaId)
         {
+            /*
             if (!ExisteEscolaSelecionada("Para acessar Matrizes, selecione primeiro uma Escola Padrão"))
             {
                 // Poderia ter uma espécie de AfterSelect para redirecionar para esta Url... vamos ver!
                 return RedirectToAction("Selecionar", "Home");
             };
-
+            */
             ViewData["modalidadeId"] = modalidadeId;
             ViewData["etapaId"] = etapaId;
 
@@ -91,19 +93,20 @@ namespace Visao360.Educacao.Controllers
         }
 
         // Já selecionado
+        [SelecionouFilial(MensagemErro = "Para acessar Disciplinas da Matriz, selecione primeiro uma Escola Padrão.")]
         public ActionResult MatrizDisciplina(int modalidadeId, int etapaId, int identificacao = 0)
         {
-
+            /*
             if (!ExisteEscolaSelecionada("Para acessar Disciplinas da Matriz, selecione primeiro uma Escola Padrão"))
             {
-                // Poderia ter uma espécie de AfterSelect para redirecionar para esta Url... vamos ver!
                 return RedirectToAction("Selecionar", "Home");
             };
+            */
 
             MatrizVO matrizVO = GetMatrizVO(modalidadeId, etapaId);
 
             if (matrizVO.Id == 0) {
-                TempData["mensagem"] = "É necesssário informar o cabeçalho da Matriz Curricular";
+                this.FlashMessage("É necesssário informar o cabeçalho da Matriz Curricular");
                 return Redirect(String.Format("/Matriz/{0}/{1}", modalidadeId, etapaId));
             }
 
@@ -194,6 +197,5 @@ namespace Visao360.Educacao.Controllers
             // Na verdade deve enviar para MatrizDisciplina/id/
             return Redirect(String.Format("/Matriz/{0}/{1}", matriz.ModalidadeId, matriz.EtapaId));
         }
-
     }
 }

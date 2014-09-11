@@ -62,7 +62,6 @@ namespace Visao360.Educacao.Controllers
                 return View(model);
             }
 
-            
             dao.SaveOrUpdate(model, model.Id);
             return RedirectToAction("Index");
         }

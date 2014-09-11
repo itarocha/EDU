@@ -5,7 +5,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Visao360.Educacao.Helpers;
-//using Visao360.Educacao.Models;
 
 namespace Visao360.Educacao.Filters
 {
@@ -17,8 +16,6 @@ namespace Visao360.Educacao.Filters
                 return false;
             
             // O nome do cara é: httpContext.User.Identity.Name;
-
-
             string nome = httpContext.User.Identity.Name;
             string userRole;
 

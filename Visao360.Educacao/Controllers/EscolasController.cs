@@ -21,7 +21,6 @@ namespace Visao360.Educacao.Controllers
 {
     public class EscolasController : BaseController
     {
-
         [Role(Roles = "Administrador")]
         public ActionResult Index(string searchString)
         {

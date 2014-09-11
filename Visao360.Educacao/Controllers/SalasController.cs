@@ -19,39 +19,10 @@ namespace Visao360.Educacao.Controllers
 {
     public class SalasController : BaseController
     {
-        /*
-        public class SomeActionResult : ViewResult
-        {
-            public override void ExecuteResult(ControllerContext context)
-            {
-                this.ViewName = "Teste";
-
-                base.ExecuteResult(context);
-            }
-        }
-
-        public SalasController()
-        {
-            if (!ExisteEscolaSelecionada("Para gerenciar Salas, selecione primeiro uma Escola Padrão"))
-            {
-                RedirectToAction("Selecionar", "Home");
-
-                SomeActionResult r = new SomeActionResult();
-
-
-                r.ExecuteResult(this.ControllerContext);
-            };
-        }
-        */
-
         [Role(Roles = "Administrador")]
+        [SelecionouFilial(MensagemErro = "Para gerenciar Salas, selecione primeiro uma Escola Padrão.")]
         public ActionResult Index(string searchString)
-        {
-            if (!ExisteEscolaSelecionada("Para gerenciar Salas, selecione primeiro uma Escola Padrão"))
-            {
-                return RedirectToAction("Selecionar", "Home");
-            }
-            
+        {   
             IEnumerable<Sala> lista = new SalaDAO().GetListagemByEscolaId(this.EscolaSessao.EscolaId);
             if (Request.IsAjaxRequest())
             {
@@ -61,13 +32,9 @@ namespace Visao360.Educacao.Controllers
         }
 
         [Role(Roles = "Administrador")]
+        [SelecionouFilial(MensagemErro = "Para Editar Salas, selecione primeiro uma Escola Padrão.")]
         public ActionResult Edit(int id = 0)
         {
-            if (!ExisteEscolaSelecionada("Para gerenciar Salas, selecione primeiro uma Escola Padrão"))
-            {
-                return RedirectToAction("Selecionar", "Home");
-            }
-
             Boolean novo = (id == 0);
             SalaVO model = null;
             SalaDAO dao = new SalaDAO();
@@ -123,15 +90,13 @@ namespace Visao360.Educacao.Controllers
             
             Conversor.Converter(model, toSave, NHibernateBase.Session);
 
-            //toSave.TipoSala = tdao.GetById(model.TipoSalaId);
-            //toSave.Escola = e;
-
             dao.SaveOrUpdate(toSave, toSave.Id);
 
             return RedirectToAction("Index");
         }
 
         [Role(Roles = "Administrador")]
+        [SelecionouFilial(MensagemErro = "Para excluir Salas, selecione primeiro uma Escola Padrão.")]
         public ActionResult Delete(int Id)
         {
             SalaDAO dao = new SalaDAO();
@@ -171,4 +136,3 @@ namespace Visao360.Educacao.Controllers
         }
     }
 }
-

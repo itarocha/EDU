@@ -21,14 +21,16 @@ namespace Visao360.Educacao.Controllers
     public class TurmasController : BaseController
     {
         [Role(Roles = "Administrador")]
+        [SelecionouFilial(MensagemErro = "Para acessar Turmas da Escola, selecione primeiro uma Escola Padrão.")]
         public ActionResult Index(string searchString)
         {
+            /*
             if (!ExisteEscolaSelecionada("Para acessar Turmas da Escola, selecione primeiro uma Escola Padrão"))
             {
                 // Poderia ter uma espécie de AfterSelect para redirecionar para esta Url... vamos ver!
                 return RedirectToAction("Selecionar", "Home");
             };
-
+            */
             // Modelo de seleção de Escola
             ViewBag.EscolaId = this.EscolaSessao.EscolaId;
 
@@ -46,27 +48,8 @@ namespace Visao360.Educacao.Controllers
         public ActionResult Etapas(int modalidadeId)
         {
             IEnumerable<ItemVO> lista = ItemVOBuilders.Instance.BuildListaEtapa(modalidadeId);
-
-            /*
-            string html = "";
-            foreach (ItemVO i in lista)
-            {
-                html = html + "<option value='" + i.Id + "'>" + i.Descricao + "</option>";
-            }
-
-            return this.Content(html, "text/html", System.Text.Encoding.UTF8);
-            */
-
             return Json(lista, JsonRequestBehavior.AllowGet);
-
-
-            //return html;
-            //var retorno = Json(lista, JsonRequestBehavior.AllowGet);
-
-
-            //return retorno;
         }
-
 
         [Role(Roles = "Administrador,Visitante")]
         public ActionResult ProfissionaisPorDisciplina(int disciplinaId)
@@ -86,13 +69,6 @@ namespace Visao360.Educacao.Controllers
             }
 
             return this.Content(html, "text/html", System.Text.Encoding.UTF8);
-
-
-            //return html;
-            //var retorno = Json(lista, JsonRequestBehavior.AllowGet);
-
-
-            //return retorno;
         }
 
         /*
@@ -132,6 +108,7 @@ namespace Visao360.Educacao.Controllers
         }
 
         [Role(Roles = "Administrador")]
+        [SelecionouFilial(MensagemErro = "Para acessar Quadro de Horários, selecione primeiro uma Escola Padrão.")]
         public ActionResult QuadroHorarios(int id = 0)
         {
             TurmaVO model = null;
@@ -168,15 +145,11 @@ namespace Visao360.Educacao.Controllers
 
             
             ViewBag.Turma = model;
-            //return View(q);
-
-
 
             EscolaSessao e = GerenciadorEscolaSessao.GetEscolaAtual();
 
             IEnumerable<SelectListItem> listaModalidade = ComboBuilder.ListaModalidade();
             ViewBag.ListaModalidade = listaModalidade;
-
 
             ViewBag.Acao = "Edição de Quadro de Horários";
 
@@ -184,8 +157,6 @@ namespace Visao360.Educacao.Controllers
             //ViewBag.Colunas = 8;
             //ViewBag.Cabecalho = Json(new String[] { "--", "DOM", "SEG", "TER", "QUA", "QUI", "SEX", "SAB" });
             //ViewBag.Cabecalho = new String[] { "--", "DOM", "SEG", "TER", "QUA", "QUI", "SEX", "SAB" };
-
-
             return View(q);
         }
 
@@ -233,9 +204,9 @@ namespace Visao360.Educacao.Controllers
             }
             return Redirect(string.Format("/Turmas/QuadroHorarios/{0}",r.TurmaId));
         }
-        
 
         [Role(Roles = "Administrador")]
+        [SelecionouFilial(MensagemErro = "Para Editar Turma, selecione primeiro uma Escola Padrão.")]
         public ActionResult Edit(int id = 0)
         {
             Boolean novo = (id == 0);
@@ -245,7 +216,7 @@ namespace Visao360.Educacao.Controllers
             if (novo)
             {
                 model = new TurmaVO();
-                model.EscolaId = GerenciadorEscolaSessao.GetEscolaAtual().EscolaId;
+                model.EscolaId = this.EscolaSessao.EscolaId;
             }
             else
             {
@@ -255,7 +226,6 @@ namespace Visao360.Educacao.Controllers
                     return HttpNotFound();
                 }
             }
-
             EnviarViewBagTurmas();
 
             ViewBag.Acao = novo ? "Nova Turma" : "Editar Turma";
@@ -313,6 +283,7 @@ namespace Visao360.Educacao.Controllers
         }
 
         [Role(Roles = "Administrador")]
+        [SelecionouFilial(MensagemErro = "Para Excluir Turma, selecione primeiro uma Escola Padrão.")]
         public ActionResult Delete(int Id)
         {
             TurmaDAO dao = new TurmaDAO();
@@ -352,6 +323,7 @@ namespace Visao360.Educacao.Controllers
         }
 
         [Role(Roles = "Administrador")]
+        [SelecionouFilial(MensagemErro = "Para acessar Horários de Turma, selecione primeiro uma Escola Padrão.")]
         public ActionResult Horarios(int turmaId)
         {
             TurmaDAO tdao = new TurmaDAO();
@@ -360,18 +332,16 @@ namespace Visao360.Educacao.Controllers
             {
                 return HttpNotFound();
             }
-            @ViewBag.TurmaId = turma.Id;
-           
-            EscolaSessao e = GerenciadorEscolaSessao.GetEscolaAtual();
-            int escolaId = (e == null) ? 0 : e.EscolaId;
+            ViewBag.TurmaId = turma.Id;
 
+            /*
             // Se escola for 0, redirecionar para index de Escolas e enviar mensagem
             if (escolaId == 0)
             {
                 FlashMessage("Para gerenciar Turmas é necessário tornar uma Escola Padrão");
                 return RedirectToAction("Selecionar","Home"); // RedirectToAction("Index", controllerName: "Escolas");
             }
-            
+            */
             //Busca de Matriz : 
             //turma.Turno.Id
             //turma.Modalidade.Id
@@ -379,13 +349,15 @@ namespace Visao360.Educacao.Controllers
             //e.AnoLetivoId
             
             MatrizDAO matrizDAO = new MatrizDAO();
-            MatrizVO matrizVO = matrizDAO.GetMatrizVOByAnoLetivoModalidadeEtapa(e.AnoLetivoId, turma.Modalidade.Id, turma.Etapa.Id);
-            @ViewBag.MatrizVO = matrizVO;
+            MatrizVO matrizVO = matrizDAO.GetMatrizVOByAnoLetivoModalidadeEtapa(this.EscolaSessao.AnoLetivoId, 
+                turma.Modalidade.Id, turma.Etapa.Id);
+            ViewBag.MatrizVO = matrizVO;
 
             return View(turma);
         }
 
         [Role(Roles = "Administrador")]
+        [SelecionouFilial(MensagemErro = "Para acessar Alunos da Turma, selecione primeiro uma Escola Padrão.")]
         public ActionResult Alunos(int turmaId)
         {
             TurmaDAO tdao = new TurmaDAO();
@@ -394,7 +366,7 @@ namespace Visao360.Educacao.Controllers
             {
                 return HttpNotFound();
             }
-            @ViewBag.Turma = turma;
+            ViewBag.Turma = turma;
 
             TurmaDAO dao = new TurmaDAO();
             Turma t = dao.GetById(turmaId);
@@ -410,4 +382,3 @@ namespace Visao360.Educacao.Controllers
         }
    }
 }
-

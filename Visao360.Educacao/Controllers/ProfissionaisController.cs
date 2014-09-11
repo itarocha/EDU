@@ -34,7 +34,6 @@ namespace Visao360.Educacao.Controllers
             {
                 return PartialView("_Listagem", lista);
             }
-
             return View(lista);
         }
 
@@ -246,7 +245,6 @@ namespace Visao360.Educacao.Controllers
             }
         }
 
-
         [Role(Roles = "Administrador")]
         public ActionResult Delete(int Id)
         {
@@ -330,8 +328,6 @@ namespace Visao360.Educacao.Controllers
             adao.GravarDisciplinas(model);
             return RedirectToAction("Index");
         }
-
-
     }
 }
 

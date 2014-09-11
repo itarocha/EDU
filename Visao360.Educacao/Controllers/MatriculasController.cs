@@ -76,8 +76,9 @@ namespace Visao360.Educacao.Controllers
         [Role(Roles = "Administrador")]
         public ActionResult Delete(int Id)
         {
-            SalaDAO dao = new SalaDAO();
-            Sala model = dao.GetById(Id);
+            // TODO
+            MatriculaDAO dao = new MatriculaDAO();
+            Matricula model = dao.GetById(Id);
 
             if (model == null)
             {
@@ -99,18 +100,18 @@ namespace Visao360.Educacao.Controllers
                 ModelState.AddModelError("Id", "Existem Lotes para esse Tipo de Lote. Exclusão não permitida.");
             }
             */
-            SalaDAO dao = new SalaDAO();
+            MatriculaDAO dao = new MatriculaDAO();
             if (ModelState.IsValid)
             {
-                Sala o = dao.GetById(id);
-                string descricao = o.Descricao;
+                Matricula o = dao.GetById(id);
+                string descricao = o.Pessoa.Nome;
 
                 dao.Delete(o);
 
-                FlashMessage(string.Format("Sala \"{0}\" excluída com sucesso", descricao));
+                FlashMessage(string.Format("Matrícula de \"{0}\" excluída com sucesso", descricao));
                 return RedirectToAction("Index");
             }
-            Sala model = dao.GetById(id);
+            Matricula model = dao.GetById(id);
             return View(model);
         }
     }
