@@ -51,9 +51,9 @@ namespace EduTestes
             }
             */
 
-            //PopularTabelasBasicas();
-            //PopularOutrasTabelas();
-            CarregarArquivo();
+            PopularTabelasBasicas();
+            PopularOutrasTabelas();
+            //CarregarArquivo();
 
             Console.WriteLine("oua......");
             Console.ReadLine();

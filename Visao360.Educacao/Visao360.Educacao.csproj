@@ -297,6 +297,7 @@
     </Content>
     <EmbeddedResource Include="hibernate.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="hibernate.mssql2008.xml" />
     <Content Include="hibernate.mysql.cfg.xml" />
