@@ -24,13 +24,6 @@ namespace Visao360.Educacao.Controllers
         [SelecionouFilial(MensagemErro = "Para acessar Turmas da Escola, selecione primeiro uma Escola Padrão.")]
         public ActionResult Index(string searchString)
         {
-            /*
-            if (!ExisteEscolaSelecionada("Para acessar Turmas da Escola, selecione primeiro uma Escola Padrão"))
-            {
-                // Poderia ter uma espécie de AfterSelect para redirecionar para esta Url... vamos ver!
-                return RedirectToAction("Selecionar", "Home");
-            };
-            */
             // Modelo de seleção de Escola
             ViewBag.EscolaId = this.EscolaSessao.EscolaId;
 
@@ -62,35 +55,13 @@ namespace Visao360.Educacao.Controllers
         public ActionResult OldEtapas(int modalidadeId)
         {
             IEnumerable<ItemVO> lista = ItemVOBuilders.Instance.BuildListaEtapa(modalidadeId);
-
             string html = "";
             foreach(ItemVO i in lista){
                 html = html + "<option value='" + i.Id + "'>" + i.Descricao + "</option>";
             }
-
             return this.Content(html, "text/html", System.Text.Encoding.UTF8);
         }
 
-        /*
-        public function ajaxbuscavagasAction() {
-            // Inicia conexao com o banco de dados 
-            $this->noRender();
-            if ($this->_getParam('cod_vaga_empresa') != '') {
-                $rsVaga = $this->buscaVagas($this->_getParam('cod_vaga_empresa'));
-                if (count($rsVaga) > 0) {
-                    $html = '<option value="">Selecione uma opção ...</option>';
-                    foreach ($rsVaga as $value) {
-                        $html .= '<option value="' . $value['cod_vaga'] . '">' . $value['tit_vaga'] . '</option>';
-                    }
-                } else {
-                    $html = '<option value="">Nenhum registro encontrado!</option>';
-                }
-            } else {
-                $html = '<option value="">Selecione uma opção ...</option>';
-            }
-            echo $html;
-        }
-        */
         [Role(Roles = "Administrador")]
         public ActionResult View(int id = 0)
         {
@@ -240,6 +211,7 @@ namespace Visao360.Educacao.Controllers
             ViewBag.ListaTurno = ComboBuilder.ListaTurno(); // Deverá ser apenas os da escola!!!!!!!! e.EscolaId
             ViewBag.ListaHorario = ComboBuilder.ListaHorario();
             ViewBag.ListaModalidade = ComboBuilder.ListaModalidade();
+            ViewBag.ListaEtapa = ComboBuilder.ListaEtapa();
             ViewBag.ListaTipoAtendimento = ComboBuilder.ListaTipoAtendimento();
             ViewBag.ListaSimNao = ComboBuilder.ListaSimNao();
         }

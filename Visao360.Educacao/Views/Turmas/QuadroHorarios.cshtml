@@ -174,39 +174,6 @@
             }
         });
         
-		/*
-        $('.celula').each(function () {
-            if ($(this).data("pode") == false) {
-                $(this).css({
-                    "background": "#888"
-                });
-            }
-        });
-
-        $('.celula').click(function () {
-            if ($(this).data("pode") != false) {
-                if ($(this).data("dono") == null) {
-                    $(this).css({
-                        "background": "blue"
-                    });
-                    $(this).data("dono", "sim");
-                } else {
-                    $(this).css({
-                        "background": "yellow"
-                    });
-                    $(this).removeData("dono");
-                }
-            }
-
-        });
-        */
-        /*
-        $('.celula').mouseleave(function(){
-            $(this).css({
-                "background": "yellow"
-            });
-        });
-        */
         $('#PessoaId').change(function () {
             limparTudo();
         });
@@ -216,6 +183,22 @@
             carregarProfissionais();
             limparTudo();
         });
+
+        function carregarProfissionais() {
+            var disciplina_id = $('#DisciplinaId').val();
+            sigla = $('#DisciplinaId option:selected').text();
+
+            $.getJSON("/Turmas/ProfissionaisPorDisciplina", { disciplinaId: disciplina_id },
+               function (lista) {
+                   var options = '';
+                   $.each(lista, function (i, item) {
+                       options  += "<option value='"
+                                + item.Id + "'>"
+                                + item.Descricao + "</option>";
+                   });
+                   $('#PessoaId').removeAttr('disabled').html(options);
+               });
+        }
 
         function limparTudo() {
             $('.input-check').prop('checked', false);
@@ -227,32 +210,6 @@
             $('.coluna-li').find('.titulo_disciplina_old').show();
             $('.coluna-li').find('.nome_professor_old').show();
         }
-
-        function carregarProfissionais() {
-            var disciplina_id = $('#DisciplinaId').val();
-            sigla = $('#DisciplinaId option:selected').text();
-
-            $.getJSON("/Turmas/ProfissionaisPorDisciplina", { disciplinaId: disciplina_id },
-               function (fooList) {
-                   var options = '';
-                   $.each(fooList, function (i, foo) {
-                       options += "<option value='" + foo.Id + "'>"
-                          + foo.Descricao + "</option>";
-                   });
-                   $('#PessoaId').removeAttr('disabled').html(options);
-               });
-        }
-
-
-        // Solo teste
-        /*
-        $('.coluna-li').each(function () {
-            if ($(this).data('title') != 'ocupado') {
-                pmatold.clone().appendTo($(this));
-                ppesold.clone().appendTo($(this));
-            };
-        });
-        */
 
     });
 </script>

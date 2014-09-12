@@ -56,30 +56,7 @@
 
             dialog.dialog("close");
         }
-        /*
-        function processarRetorno(data) {
-            var imagens = ["glyphicon-comment",
-            "glyphicon-star",
-            "glyphicon-time",
-            "glyphicon-heart",
-            "glyphicon-picture",
-            "glyphicon-book"];
-            var thespan = $("<span class='glyphicon'></span>");
-            $.each(data, function (i) {
-                // Dia, Cor
-                var lugar = $("#xli-" + data[i].Dia);
-                lugar.css('background-color', data[i].Bg);
-                var fig = lugar.find('.figuras');
-                fig.css('color', data[i].Fg);
-                for (var x = 0; x < imagens.length; x++) {
-                    thespan.clone()
-                    .addClass(imagens[x])
-                    .css('padding', '2px')
-                    .appendTo(fig);
-                }
-            });
-        }
-        */
+
         dialog = $("#dialog-form").dialog({
             autoOpen: false,
             height: 550,
@@ -100,7 +77,6 @@
         form = dialog.find("form").on("submit",
             function (event) {
                 event.preventDefault();
-            /////////addUser();
             });
 
         // Figuras para seleção !!!
@@ -123,12 +99,6 @@
                 thespan.clone()
                 .addClass(data[i].Descricao)
                     .data('simbolo', data[i].Descricao)
-
-                    //.css('padding', '4px')
-                    //.css('border', '1px solid #bbb')
-                    //.css('margin', '4px')
-
-
                     .appendTo(lugar);
             });
             $('.icosel').on("click", function (event) {

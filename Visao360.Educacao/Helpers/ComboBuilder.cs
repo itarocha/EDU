@@ -76,6 +76,11 @@ namespace Visao360.Educacao.Helpers
             return BuildLista(ItemVOBuilders.Instance.BuildListaModalidade());
         }
 
+        public static IEnumerable<SelectListItem> ListaEtapa(int modalidadeId = 0)
+        {
+            return BuildLista(ItemVOBuilders.Instance.BuildListaEtapa()/*.BuildListaEtapa(modalidadeId)*/);
+        }
+
         public static IEnumerable<SelectListItem> ListaPeriodoAula()
         {
             return BuildLista(ItemVOBuilders.Instance.BuildListaPeriodoAula());
@@ -194,7 +199,7 @@ namespace Visao360.Educacao.Helpers
 
         public static IEnumerable<SelectListItem> ListaUF()
         {
-            return BuildLista(ItemVOBuilders.Instance.BuildListaEduUF());
+            return BuildLista(ItemVOBuilders.Instance.BuildListaUF());
         }
 
         public static IEnumerable<SelectListItem> ListaCidade()

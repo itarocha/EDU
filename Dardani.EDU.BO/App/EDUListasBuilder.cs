@@ -61,16 +61,6 @@ namespace Dardani.EDU.BO.App
             return lista;
         }
 
-
-
-
-
-
-
-
-
-
-
         public static IEnumerable<ItemStringVO> BuildListaControleFrequencia()
         {
             List<ItemStringVO> lista = new List<ItemStringVO>();

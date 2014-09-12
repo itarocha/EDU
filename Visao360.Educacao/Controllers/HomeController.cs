@@ -1,4 +1,5 @@
 ﻿using Dardani.EDU.BO.App;
+using Petra.Util.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -329,5 +330,16 @@ namespace Visao360.Educacao.Controllers
             return Json(lst,JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult GetListaUF()
+        {
+            IEnumerable<ItemVO> lista = ItemVOBuilders.Instance.BuildListaUF();
+            return Json(lista, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetListaCidade(int ufId)
+        {
+            IEnumerable<ItemVO> lista = ItemVOBuilders.Instance.BuildListaCidadeByUFId(ufId);
+            return Json(lista, JsonRequestBehavior.AllowGet);
+        }
     }
 }

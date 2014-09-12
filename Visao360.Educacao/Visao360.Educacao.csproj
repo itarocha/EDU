@@ -2774,6 +2774,7 @@
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\meiomask.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\petra.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -2814,10 +2815,6 @@
     <Content Include="Views\TiposSalas\Delete.cshtml" />
     <Content Include="Views\TiposSalas\Edit.cshtml" />
     <Content Include="Views\TiposSalas\Index.cshtml" />
-    <Content Include="Views\TiposTurmas\_Listagem.cshtml" />
-    <Content Include="Views\TiposTurmas\Delete.cshtml" />
-    <Content Include="Views\TiposTurmas\Edit.cshtml" />
-    <Content Include="Views\TiposTurmas\Index.cshtml" />
     <Content Include="Views\Usuarios\_Usuarios.cshtml" />
     <Content Include="Views\Usuarios\DatabaseError.cshtml" />
     <Content Include="Views\Usuarios\Delete.cshtml" />
@@ -2887,7 +2884,6 @@
     <Content Include="Views\PeriodosAulas\Index.cshtml" />
     <Content Include="Views\Matrizes\__Index.cshtml" />
     <Content Include="Views\Matrizes\MatrizDisciplina.cshtml" />
-    <Content Include="Views\Matrizes\MatrizSelecionar.cshtml" />
     <Content Include="Views\Matrizes\Matriz.cshtml" />
     <Content Include="Views\Matrizes\Index.cshtml" />
     <Content Include="Views\Matrizes\_Listagem.cshtml" />

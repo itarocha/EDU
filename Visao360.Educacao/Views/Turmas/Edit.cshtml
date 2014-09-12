@@ -34,68 +34,46 @@
             $("#TipoAtendimentoId").html(items);
         });
         */
-        carregarEtapas();
+        
         $("#Nome").focus();
        
         $('#ModalidadeId').change(function () {
             carregarEtapas();
         });
+        carregarEtapas();
 
+        /*
         function carregarEtapas() {
             var modalidade_id = $('#ModalidadeId').val();
 
             $.getJSON("/Turmas/Etapas", { modalidadeId: modalidade_id },
-               function (fooList) {
+               function (lista) {
                    var options = '';
-                   $.each(fooList, function (i, foo) {
-                       options += "<option value='" + foo.Id + "'>"
-                          + foo.Descricao + "</option>";
+                   $.each(lista, function (i, item) {
+                       options += "<option value='" + item.Id + "'>"
+                          + item.Descricao + "</option>";
+                   });
+                   $('#EtapaId').removeAttr('disabled').html(options);
+               });
+        }
+        */
+
+        function carregarEtapas() {
+            var modalidade_id = $('#ModalidadeId').val() || 0;
+            var etapa_id = $('#EtapaId').val();
+            //alert('antes ' + etapa_id);
+            $.getJSON("/Turmas/Etapas", { modalidadeId: modalidade_id },
+                function (lista) {
+                   var options = '';
+                   $.each(lista, function (i, item) {
+                       var selected = item.Id == etapa_id ? " selected='selected' " : "";
+                       options += "<option value='" + item.Id + "'" + selected + ">"
+                               + item.Descricao + "</option>";
                    });
                    $('#EtapaId').removeAttr('disabled').html(options);
                });
         }
 
-
-        function oldCarregarEtapas(){
-            $('#EtapaId').html('<option value="">Aguarde...</option>');
-
-            var modalidade_id = $('#ModalidadeId').val();
-            //alert(modalidade_id);
-
-            
-            $.GET('/Turmas/Etapas/',
-            {
-                modalidadeId: $('#ModalidadeId').val(),
-                //cod_vaga: $('#cod_vaga').val()
-            }, function (data) {
-                $('#EtapaId').html(data);
-            });
-            
-            /*
-            $.ajax({
-                success: function (states) {
-                    // states is your JSON array
-                    var $select = $('#StateID');
-                    $.each(states, function (i, state) {
-                        $('<option>', {
-                            value: state.stateId
-                        }).html(state.StateName).appendTo($select);
-                    });
-                }
-            });
-            */
-
-
-            /*
-            $.post(LINK_DEFAULT + 'recrutador/agendaentrevista/ajaxbuscacandidatos/',
-            {
-                modalidade_id: $('#ModalidadeId').val(),
-                //cod_vaga: $('#cod_vaga').val()
-            }, function(data) {
-                $('#EtapaId').html(data);
-            });
-            */
-        }
 
         
     });
@@ -134,7 +112,7 @@
         </div>
         <div class="col-md-6">
             <label class="input-label f-left">@Html.LabelFor(model => model.EtapaId):</label>
-            <select id="EtapaId" name="EtapaId" class="input-select f-left"></select>
+            @Html.DropDownListFor(model => model.EtapaId, ViewBag.ListaEtapa as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
         </div>
     </div>
 

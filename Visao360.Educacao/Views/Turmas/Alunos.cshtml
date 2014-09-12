@@ -15,22 +15,6 @@
     <a href="/Alunos/Novo/@turma.Id" class="btn btn-default">Novo Aluno</a>
     </div>
 </div>
-<!--
- _using (Ajax.BeginForm(    
-     new AjaxOptions
-     {
-         HttpMethod = "get",
-         InsertionMode = InsertionMode.Replace,
-         UpdateTargetId = "lista"
-        }))
-     {
-         <p>
-         Entre com o texto:
-         <input type="search" name="SearchString" /> 
-         <input type="submit" value="Filtrar" />
-         </p> 
-     } 
--->
 <div id="lista">
 @Html.Partial("_ListagemAlunos", Model)
 </div>

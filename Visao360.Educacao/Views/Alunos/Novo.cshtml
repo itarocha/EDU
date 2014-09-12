@@ -2,41 +2,19 @@
 
 @{
     ViewBag.Title = ViewBag.Acao;
-    /*
-    List<Dardani.GER.Entities.Model.ItemVO> ListaSexo = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaSexo"];
-    List<Dardani.GER.Entities.Model.ItemVO> ListaEstadoCivil = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaEstadoCivil"];
-    List<Dardani.GER.Entities.Model.ItemVO> ListaRaca = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaRaca"];
-    List<Dardani.GER.Entities.Model.ItemStringVO> ListaDeficiencia = (List<Dardani.GER.Entities.Model.ItemStringVO>)Session["ListaDeficiencia"];
-    List<Dardani.GER.Entities.Model.ItemVO> ListaPais = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaPais"];
-    List<Dardani.GER.Entities.Model.ItemVO> ListaTipoNacionalidade = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaTipoNacionalidade"];
-    List<Dardani.GER.Entities.Model.ItemVO> ListaUF = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaUF"];
-    List<Dardani.GER.Entities.Model.ItemVO> ListaCidade = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaCidade"];
-    */
-
     Dardani.EDU.Entities.VO.TurmaVO turma = (Dardani.EDU.Entities.VO.TurmaVO)ViewBag.Turma;
-
-    List<Dardani.GER.Entities.Model.ItemVO> ListaEscolarizacaoEspecial = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaEscolarizacaoEspecial"];
-    List<Dardani.GER.Entities.Model.ItemVO> ListaTransportePublico = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaTransportePublico"];
-    List<Dardani.GER.Entities.Model.ItemVO> ListaTurmaUnificada = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaTurmaUnificada"];
 }
 
 <script type="text/javascript">
     $(function() {
         $("#Nome").focus();
 
-        $("#DataNascimento").datepicker({
-            dateFormat: 'dd/mm/yy',
-            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-            dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
-            dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
-            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-            monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-            nextText: 'Próximo',
-            prevText: 'Anterior'
+        // carregarCidades em petra.js
+        $('#UFNascimentoId').change(function () {
+            carregarCidades($(this), $("#CidadeNascimentoId"));
         });
-        //bindCaledario($("#DataNascimento"));
-        //bindCaledario($("#RGDataExpedicao"));
-        //bindCaledario($("#CTPSDataExpedicao"));
+        carregarCidades($('#UFNascimentoId'), $("#CidadeNascimentoId"));
+
     });
 </script>
 @if (ViewBag.TurmaId > 0)
@@ -84,7 +62,7 @@
     <div class="row">
         <div class="col-md-3">
             <label class="input-label f-left">@Html.LabelFor(model => model.DataNascimento):</label>
-            @Html.TextBoxFor(model => model.DataNascimento, new { @Value = Model.DataNascimento.ToString("dd/MM/yyyy"), @class = "input-text f-left" })
+            @Html.TextBoxFor(model => model.DataNascimento, new { @Value = Model.DataNascimento.ToString("dd/MM/yyyy"), @class = "input-text f-left data" })
         </div>
         <div class="col-md-3">
             <label class="input-label f-left">@Html.LabelFor(model => model.SexoId):</label>

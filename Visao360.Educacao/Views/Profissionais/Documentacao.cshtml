@@ -2,34 +2,17 @@
 
 @{
     ViewBag.Title = "Documentação do Profissional";
-    //List<Dardani.GER.Entities.Model.ItemVO> ListaZona = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaZona"];
-    //List<Dardani.GER.Entities.Model.ItemVO> ListaUF = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaUF"];
-    //List<Dardani.GER.Entities.Model.ItemVO> ListaCidade = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaCidade"];
-    //List<Dardani.GER.Entities.Model.ItemVO> ListaSituacaoDocumento = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaSituacaoDocumento"];
-    //List<Dardani.GER.Entities.Model.ItemVO> ListaModeloCertidao = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaModeloCertidao"];
-    //List<Dardani.GER.Entities.Model.ItemVO> ListaTipoCertidao = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaTipoCertidao"];
 }
 
 <script type="text/javascript">
-    $(function () {
-        $("#Logradouro").focus();
-
-        $(".data").datepicker({
-            dateFormat: 'dd/mm/yy',
-            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-            dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
-            dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
-            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-            monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-            nextText: 'Próximo',
-            prevText: 'Anterior'
-        });
-
-
-        //bindCaledario($("#DataNascimento"));
-        //bindCaledario($("#RGDataExpedicao"));
-        //bindCaledario($("#CTPSDataExpedicao"));
+$(function () {
+    $("#Logradouro").focus();
+    // carregarCidades em petra.js
+    $('#CertidaoUFId').change(function () {
+        carregarCidades($(this), $("#CertidaoCidadeId"));
     });
+    carregarCidades($('#CertidaoUFId'), $("#CertidaoCidadeId"));
+});
 </script>
 @if (Model.PessoaId > 0)
 {
@@ -109,12 +92,12 @@
 
     <div class="row">
         <div class="col-md-4">
-            <label class="input-label f-left">@Html.LabelFor(model => model.CertidaoCidadeId):</label>
-            @Html.DropDownListFor(model => model.CertidaoCidadeId, ViewBag.ListaCidade as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
-        </div>
-        <div class="col-md-4">
             <label class="input-label f-left">@Html.LabelFor(model => model.CertidaoUFId):</label>
             @Html.DropDownListFor(model => model.CertidaoUFId, ViewBag.ListaUF as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
+        </div>
+        <div class="col-md-4">
+            <label class="input-label f-left">@Html.LabelFor(model => model.CertidaoCidadeId):</label>
+            @Html.DropDownListFor(model => model.CertidaoCidadeId, ViewBag.ListaCidade as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
         </div>
         <div class="col-md-4">
             <label class="input-label f-left">@Html.LabelFor(model => model.CertidaoNumeroNovo):</label>

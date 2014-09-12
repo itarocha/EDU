@@ -2,19 +2,17 @@
 
 @{
     ViewBag.Title = "Endereço do Profissional";
-    //List<Dardani.GER.Entities.Model.ItemVO> ListaZona = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaZona"];
-    //List<Dardani.GER.Entities.Model.ItemVO> ListaUF = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaUF"];
-    //List<Dardani.GER.Entities.Model.ItemVO> ListaCidade = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaCidade"];
 }
 
 <script type="text/javascript">
-    $(function () {
-        $("#Logradouro").focus();
+$(function () {
+    $("#Logradouro").focus();
 
-        //bindCaledario($("#DataNascimento"));
-        //bindCaledario($("#RGDataExpedicao"));
-        //bindCaledario($("#CTPSDataExpedicao"));
+    $('#UFId').change(function () {
+        carregarCidades($(this), $("#CidadeId"));
     });
+    carregarCidades($('#UFId'), $("#CidadeId"));
+});
 </script>
 @if (Model.Id > 0)
 {

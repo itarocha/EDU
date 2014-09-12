@@ -18,6 +18,7 @@ namespace Dardani.EDU.BO.NH
 
         public IEnumerable<EscolaTurnoVO> GetListaVOByEscolaId(int escolaId)
         {
+            // TODO ERRO!!!
             IEnumerable<EscolaTurnoVO> model = 
                 Session.CreateQuery(
                     "SELECT "+
