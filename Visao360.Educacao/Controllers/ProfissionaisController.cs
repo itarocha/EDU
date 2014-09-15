@@ -16,6 +16,7 @@ using Petra.Util.Funcoes;
 using Dardani.EDU.BO.App;
 using Petra.DAO.Util;
 using Visao360.Educacao.Models;
+using System.Globalization;
 
 namespace Visao360.Educacao.Controllers
 {
@@ -41,6 +42,9 @@ namespace Visao360.Educacao.Controllers
         public ActionResult Edit(int id = 0)
         {
             Boolean novo = (id == 0);
+
+            Pessoa p = new PessoaDAO().GetById(id);
+            ViewBag.PessoaNome = (p == null) ? "" : p.Nome;
 
             PessoaVO model = new PessoaVO();
             if (!novo)
@@ -150,6 +154,10 @@ namespace Visao360.Educacao.Controllers
             {
                 aToSave = new PessoaEndereco();
             }
+            // Antes da validação
+            model.CEP = model.CEP != null ? model.CEP.Replace("-", "") : null;
+            ModelState.Remove("CEP");
+            ModelState.SetModelValue("CEP", new ValueProviderResult(model.CEP, String.Empty, CultureInfo.InvariantCulture));
             if (!ModelState.IsValid)
             {
                 Pessoa pessoa = new PessoaDAO().GetById(model.PessoaId);
@@ -157,7 +165,7 @@ namespace Visao360.Educacao.Controllers
                 EnviarViewBagEndereco(); 
                 return View(model);
             }
-            model.CEP = model.CEP.Replace("-", "");
+
             Conversor.Converter(model, aToSave, NHibernateBase.Session);
             if (novo)
             {

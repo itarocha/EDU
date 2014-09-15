@@ -157,7 +157,7 @@ namespace Visao360.Educacao.Controllers
                 aToSave = new EscolaEndereco();
             }
 
-            model.CEP = model.CEP.Replace("-", "");
+            model.CEP = model.CEP != null ? model.CEP.Replace("-", "") : null;
             ModelState.Remove("CEP");
             ModelState.SetModelValue("CEP", new ValueProviderResult(model.CEP, String.Empty, CultureInfo.InvariantCulture));
 

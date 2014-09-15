@@ -37,7 +37,6 @@ namespace Dardani.EDU.Entities.VO
 
         [Display(Name = "CEP")]
         [StringLength(8)]
-        //[RegularExpression(@"^\d{8}$|^\d{5}-\d{3}$", ErrorMessage = "O código postal deverá estar no formato 00000000 ou 00000-000")]
         [RegularExpression(@"^\d{5}-\d{3}$", ErrorMessage = "O código postal deverá estar no formato 00000-000")]
         [ConverterEntidade]
         public virtual string CEP { get; set; }

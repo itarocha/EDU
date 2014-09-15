@@ -2,9 +2,11 @@
 <hibernate-configuration xmlns="urn:nhibernate-configuration-2.2">
   <session-factory>
     <property name="connection.provider">NHibernate.Connection.DriverConnectionProvider</property>
-    <property name="dialect">NHibernate.Dialect.MySQL5Dialect</property>
-    <property name="connection.driver_class">NHibernate.Driver.MySqlDataDriver</property>
-    <property name="connection.connection_string">Server=localhost;Port=3306;Database=edu;User ID=root;Password=root</property>
+    <property name="connection.provider">NHibernate.Connection.DriverConnectionProvider</property>
+    <property name="dialect">NHibernate.Dialect.MsSql2008Dialect</property>
+    <property name="connection.driver_class">NHibernate.Driver.SqlClientDriver</property>
+    <property name="connection.connection_string">Data Source=.\SQLExpress;Initial Catalog=EDU_NH_VAZIO;Persist Security Info=True;User ID=sa;Password=masterkey</property>
+
     <property name="show_sql">true</property>
     <property name="format_sql">true</property>
     <event type="pre-update">

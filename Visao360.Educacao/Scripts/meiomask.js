@@ -179,6 +179,18 @@
                 'cc': {
                     mask: '9999 9999 9999 9999'
                 }, // credit card
+                'inep8': {
+                    mask: '99999999'
+                }, // código de INEP de 8
+                'inep10': {
+                    mask: '9999999999'
+                }, // código de INEP de 10
+                'inep12': {
+                    mask: '999999999999'
+                }, // código de INEP de 12
+                'numero11': {
+                    mask: '99999999999'
+                }, // código de INEP de 12
                 'integer': {
                     mask: '999.999.999.999',
                     type: 'reverse'

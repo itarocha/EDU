@@ -38,7 +38,12 @@ $(function() {
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(false)
-
+    <div class="row">
+        <div class="col-md-12">
+            <label class="input-label f-left">Nome:</label>
+            <h4>@ViewBag.EscolaNome</h4>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-12">
             <div class="alert alert-success">Localização</div>

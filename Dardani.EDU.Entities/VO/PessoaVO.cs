@@ -64,13 +64,13 @@ namespace Dardani.EDU.Entities.VO
 
         [Display(Name = "Número do NIS")]
         [StringLength(11, MinimumLength = 11)]
-        [RegularExpression(@"^\d{11}$", ErrorMessage = "O Núero do NIS deverá estar no formato 00000000000")]
+        [RegularExpression(@"^\d{11}$", ErrorMessage = "O Número do NIS deverá estar no formato de 11 caracteres numéricos")]
         [ConverterEntidade]
         public virtual string NumeroNIS { get; set; }
 
         [Display(Name = "Código do INEP")]
         [StringLength(12, MinimumLength = 12)]
-        [RegularExpression(@"^\d{12}$", ErrorMessage = "O Núero do NIS deverá estar no formato 000000000000")]
+        [RegularExpression(@"^\d{12}$", ErrorMessage = "O Número do NIS deverá estar no formato de 12 caracteres numéricos")]
         [ConverterEntidade]
         public virtual string CodigoINEP { get; set; }
 

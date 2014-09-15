@@ -299,7 +299,6 @@ namespace Visao360.Educacao.Controllers
             model.CEP = model.CEP.Replace("-","");
             ModelState.Remove("CEP");
             ModelState.SetModelValue("CEP", new ValueProviderResult(model.CEP, String.Empty, CultureInfo.InvariantCulture));
-
             if (!ModelState.IsValid)
             {
                 EnviarViewBagEndereco();
