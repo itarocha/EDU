@@ -51,9 +51,9 @@ namespace EduTestes
             }
             */
 
-            PopularTabelasBasicas();
-            PopularOutrasTabelas();
-            //CarregarArquivo();
+            //PopularTabelasBasicas();
+            //PopularOutrasTabelas();
+            CarregarArquivo();
 
             Console.WriteLine("oua......");
             Console.ReadLine();
@@ -122,8 +122,8 @@ namespace EduTestes
 
         private static void CarregarArquivo() {
 
-            string local = @"d:\pessoal\educacao\arquivos";
-            //string local = @"E:\projetos_dardani\repositorio_classes\patro";
+            //string local = @"d:\pessoal\educacao\arquivos";
+            string local = @"E:\projetos_dardani\repositorio_classes\patro";
 
             AnoLetivo anoLetivo = new AnoLetivo() { Ano = 2013, FlagStatus = "S" };
             using (ISession session = NHibernateBase.OpenSession())
@@ -940,7 +940,10 @@ namespace EduTestes
 
         private static void PopularOutrasTabelas()
         {
-            string local = @"D:\pessoal\educacao\arquivos";
+            //string local = @"D:\pessoal\educacao\arquivos";
+            string local = @"E:\projetos_dardani\repositorio_classes\patro";
+
+
             //string local = "";
             //con = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=E:\projetos_dardani\repositorio_classes\patro\TBUF.XLS;Extended Properties='Excel 8.0;HDR=Yes;'";
             string con = "";

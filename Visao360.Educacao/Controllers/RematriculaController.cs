@@ -90,16 +90,16 @@ namespace Visao360.Educacao.Controllers
             {
                 model.TurmaDestinoId = t.Id;
             }
-            IEnumerable<TurmaVO> lista = new TurmaDAO().GetListagemByEscolaAno(this.EscolaSessao.EscolaId, this.EscolaSessao.AnoLetivoAno - 1);
-            ViewBag.Acao = "Seleção de Alunos para Rematrícula";
-            ViewBag.ListaTurma = lista;
             ViewBag.Turma = t;
+            ViewBag.Acao = "Seleção de Alunos para Rematrícula";
             EnviarViewBagEdit();
 
             return View(model);
         }
 
         private void EnviarViewBagEdit() {
+            IEnumerable<TurmaVO> lista = new TurmaDAO().GetListagemByEscolaAno(this.EscolaSessao.EscolaId, this.EscolaSessao.AnoLetivoAno - 1);
+            ViewBag.ListaTurma = lista;
             ViewBag.ListaEscolarizacaoEspecial = ComboBuilder.ListaEscolarizacaoEspecial();
             ViewBag.ListaTransportePublico = ComboBuilder.ListaTransportePublico();
             ViewBag.ListaTurmaUnificada = ComboBuilder.ListaTurmaUnificada();
@@ -116,6 +116,8 @@ namespace Visao360.Educacao.Controllers
             {
                 ViewBag.Acao = "Seleção de Alunos para Rematrícula";
                 EnviarViewBagEdit();
+                TurmaVO t = new TurmaDAO().GetVOById(model.TurmaDestinoId);
+                ViewBag.Turma = t;
                 return View(model);
             }
             EscolaSessao e = GerenciadorEscolaSessao.GetEscolaAtual();

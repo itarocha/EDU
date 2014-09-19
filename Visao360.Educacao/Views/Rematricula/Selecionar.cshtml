@@ -4,10 +4,6 @@
     ViewBag.Title = ViewBag.Acao;
     IEnumerable<Dardani.EDU.Entities.VO.TurmaVO> ListaTurma = (IEnumerable<Dardani.EDU.Entities.VO.TurmaVO>)ViewBag.ListaTurma;
     Dardani.EDU.Entities.VO.TurmaVO turma = (Dardani.EDU.Entities.VO.TurmaVO)ViewBag.Turma;
-
-    List<Dardani.GER.Entities.Model.ItemVO> ListaEscolarizacaoEspecial = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaEscolarizacaoEspecial"];
-    List<Dardani.GER.Entities.Model.ItemVO> ListaTransportePublico = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaTransportePublico"];
-    List<Dardani.GER.Entities.Model.ItemVO> ListaTurmaUnificada = (List<Dardani.GER.Entities.Model.ItemVO>)Session["ListaTurmaUnificada"];
 }
 
 <script type="text/javascript">
@@ -46,7 +42,6 @@
     <div class="col-md-12 pt-20">
         <a href="/TurmaAlunos/@Model.TurmaDestinoId" class="btn btn-default">Voltar</a>
         @Html.ActionLink("Editar Turma", "Edit", "Turmas", new { id = @Model.TurmaDestinoId }, new { @class = "btn btn-default" }) 
-        @Html.ActionLink("Editar Aluno", "Edit", "Alunos", new { id = @Model.TurmaDestinoId }, new { @class = "btn btn-default" }) 
     </div>
 </div>
 
@@ -58,7 +53,7 @@
     <div class="row">
         <div class="col-md-6">
             <label class="input-label f-left">Turma:</label>
-            <h4>@turma.Nome</h4>
+            <h4>@ViewBag.Turma.Nome</h4>
         </div>
         <div class="col-md-6">
             <label class="input-label f-left">Modalidade:</label>
@@ -79,15 +74,15 @@
     <div class="row">
         <div class="col-md-4">
             <label class="input-label f-left">@Html.LabelFor(model => model.EscolarizacaoEspecialId):</label>
-            @Html.DropDownListFor(model => model.EscolarizacaoEspecialId, new SelectList(ListaEscolarizacaoEspecial, "Id", "Descricao"), new { @class = "input-select f-left" })
+            @Html.DropDownListFor(model => model.EscolarizacaoEspecialId, ViewBag.ListaEscolarizacaoEspecial as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
         </div>
         <div class="col-md-4">
             <label class="input-label f-left">@Html.LabelFor(model => model.TurmaUnificadaId):</label>
-            @Html.DropDownListFor(model => model.TurmaUnificadaId, new SelectList(ListaTurmaUnificada, "Id", "Descricao"), new { @class = "input-select f-left" })
+            @Html.DropDownListFor(model => model.TurmaUnificadaId, ViewBag.ListaTurmaUnificada as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
         </div>
         <div class="col-md-4">
             <label class="input-label f-left">@Html.LabelFor(model => model.TransportePublicoId):</label>
-            @Html.DropDownListFor(model => model.TransportePublicoId, new SelectList(ListaTransportePublico, "Id", "Descricao"), new { @class = "input-select f-left" })
+            @Html.DropDownListFor(model => model.TransportePublicoId, ViewBag.ListaTransportePublico as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
         </div>
     </div>
         
