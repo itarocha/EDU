@@ -227,6 +227,11 @@ namespace Visao360.Educacao.Controllers
             {
                 aToSave = new PessoaDocumentacao();
             }
+
+            ModelState.Remove("CNHUFId");
+            ModelState.Remove("CertidaoUFId");
+            ModelState.Remove("RGUFId");
+
             if (!ModelState.IsValid)
             {
                 Pessoa pessoa = new PessoaDAO().GetById(model.PessoaId);

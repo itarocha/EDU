@@ -90,6 +90,14 @@ namespace Dardani.EDU.BO.App
             return retorno;
         }
 
+        public IEnumerable<ItemVO> BuildListaAnoLetivoVazio()
+        {
+            //IEnumerable<AnoLetivo> lista = Session.QueryOver<AnoLetivo>().OrderBy(x => x.Ano).Asc.List();
+            List<ItemVO> retorno = new List<ItemVO>();
+            //lista.ToList().ForEach(x => retorno.Add(new ItemVO { Id = x.Id, Descricao = x.Ano.ToString() }));
+            return retorno;
+        }
+
         public IEnumerable<ItemVO> BuildListaSexo()
         {
             IEnumerable<Sexo> lista = Session.QueryOver<Sexo>().OrderBy(x => x.Descricao).Asc.List();

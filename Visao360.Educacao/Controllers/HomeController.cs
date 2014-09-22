@@ -40,6 +40,7 @@ namespace Visao360.Educacao.Controllers
             //Escola e = GerenciadorEscolaSessao.GetEscolaAtual();
 
             Session["ListaEscola"] = ItemVOBuilders.Instance.BuildListaEscola();
+            //Session["ListaAnoLetivo"] = ItemVOBuilders.Instance.BuildListaAnoLetivoVazio();
             Session["ListaAnoLetivo"] = ItemVOBuilders.Instance.BuildListaAnoLetivo();
 
             //ViewBag.Acao = novo ? "Nova Turma" : "Editar Turma";
@@ -51,6 +52,16 @@ namespace Visao360.Educacao.Controllers
         public ActionResult SelecionarConfirmed(EscolaSessao model)
         {
             // Se não é válido, retorna
+            if (model.AnoLetivoId <= 0)
+            {
+                ModelState.AddModelError("AnoLetivoId", "Ano Letivo é obrigatório.");
+            }
+            /*
+            if (model.EscolaId <= 0)
+            {
+                ModelState.AddModelError("EscolaId", "Escola é obrigatória.");
+            }
+            */
             if (!ModelState.IsValid)
             {
                 return View(model);

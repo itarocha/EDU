@@ -102,7 +102,7 @@ namespace Dardani.EDU.Entities.VO
         [Display(Name = "Número do CPF")]
         //[StringLength(11, MinimumLength = 11)]
         //[RegularExpression(@"^\d{11}$", ErrorMessage = "O CPF deverá estar no formato 00000000000")]
-        [RegularExpression(@"^\d{3}.\d{3}.\d{3}-\d{2}$", ErrorMessage = "O CPF deverá estar no formato 000.000.000-00")]
+        //[RegularExpression(@"^\d{3}.\d{3}.\d{3}-\d{2}$", ErrorMessage = "O CPF deverá estar no formato 000.000.000-00")]
         [ConverterEntidade]
         public virtual string CPFNumero { get; set; }
 
