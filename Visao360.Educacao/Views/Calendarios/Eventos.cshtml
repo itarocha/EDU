@@ -93,8 +93,10 @@
 <script type="text/javascript">
 
     $(function () {
-        var thespanFiguras = $("<span class='glyphicon icosel'></span>");
-        var spanFigurasLite = $("<span class='glyphicon ico'></span>");
+        $.ajaxSetup({ cache: false });
+
+    var thespanFiguras = $("<span class='glyphicon icosel'></span>");
+    var spanFigurasLite = $("<span class='glyphicon ico'></span>");
 
     var calendarioId = $('#CalendarioId').val();
     var anoId = $('#Ano').val();
@@ -146,15 +148,23 @@
 			data: json,
 			contentType: 'application/json; charset=utf-8',
 			success: function(dados){
-			    processarRetorno(dados);
+			    processarRetorno(diaId, dados);
 			}
 		});			
     }
 
     // Ao retornar dados
-	function processarRetorno(dados){
+	function processarRetorno(diaoriginal, dados){
 	    var tiposDias = dados.ListaEstiloTipoDia;
 	    var tiposEventos = dados.ListaEstiloTipoEvento;
+
+	    if (diaoriginal > 0) {
+	        var xdiaAlvo = $("#xli-" + diaoriginal);
+	        xdiaAlvo.removeData('tipoDiaId');
+	        xdiaAlvo.removeAttr('style');
+	        //xdiaAlvo.css('background-color', '#fff');
+	        //xdiaAlvo.data('tipoDiaId', tipoDiaId);
+	    }
 
         // Remove todas as figuras do calendário
 	    $('.figuras').empty();
@@ -368,7 +378,7 @@
         data: { CalendarioId: calendarioId, AnoId: anoId, MesId: mesId },
         contentType: 'application/json; charset=utf-8',
         success: function (dados) {
-            processarRetorno(dados);
+            processarRetorno(0, dados);
         }
     });
 

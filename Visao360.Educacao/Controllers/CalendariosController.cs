@@ -172,7 +172,7 @@ namespace Visao360.Educacao.Controllers
         {
             // Veja  data.TiposEventos int[]
             CalendarioDiaDAO cdao = new CalendarioDiaDAO();
-            DateTime dt = new DateTime(data.AnoId, data.MesId, data.DiaId);
+            DateTime dt = new DateTime(data.AnoId, data.MesId, data.DiaId); // ISSO VAI SER ARRAY
 
             CalendarioDia toDelete = cdao.GetByCalendarioAndDia(data.CalendarioId, dt);
             if (toDelete != null) {
@@ -182,10 +182,14 @@ namespace Visao360.Educacao.Controllers
             // Excluir tipo de dia da data
 
             // Incluir tipo de dia na data
-            CalendarioDia toSave = new CalendarioDia();
-            CalendarioDiaVO model = new CalendarioDiaVO() { CalendarioId = data.CalendarioId, DataEvento = dt, TipoDiaId = data.TipoDiaId };
-            Conversor.Converter(model, toSave, NHibernateBase.Session);
-            cdao.SaveOrUpdate(toSave, toSave.Id);
+
+            if (data.TipoDiaId > 0)
+            {
+                CalendarioDia toSave = new CalendarioDia();
+                CalendarioDiaVO model = new CalendarioDiaVO() { CalendarioId = data.CalendarioId, DataEvento = dt, TipoDiaId = data.TipoDiaId };
+                Conversor.Converter(model, toSave, NHibernateBase.Session);
+                cdao.SaveOrUpdate(toSave, toSave.Id);
+            }
 
             // Tipos de Eventos
             CalendarioDiaEventoDAO cedao = new CalendarioDiaEventoDAO();

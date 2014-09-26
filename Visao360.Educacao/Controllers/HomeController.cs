@@ -352,5 +352,17 @@ namespace Visao360.Educacao.Controllers
             IEnumerable<ItemVO> lista = ItemVOBuilders.Instance.BuildListaCidadeByUFId(ufId);
             return Json(lista, JsonRequestBehavior.AllowGet);
         }
+
+        /*
+        [Role(Roles = "Administrador,Visitante")]
+        [Persistencia]
+        public ActionResult ProfissionaisPorDisciplina(int disciplinaId)
+        {
+            IEnumerable<ItemVO> lista = ItemVOBuilders.Instance.BuildListaProfissionaisPorDisciplina(disciplinaId);
+            //IEnumerable<ItemVO> lista = this.BuildListaProfissionaisPorDisciplina(disciplinaId);
+            return Json(lista, JsonRequestBehavior.AllowGet);
+        }
+        */
+
     }
 }

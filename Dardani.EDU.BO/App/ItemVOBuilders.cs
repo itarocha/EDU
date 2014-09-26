@@ -70,6 +70,7 @@ namespace Dardani.EDU.BO.App
         {
             IEnumerable<TipoDia> lista = Session.QueryOver<TipoDia>().OrderBy(x => x.Descricao).Asc.List();
             List<ItemVO> retorno = new List<ItemVO>();
+            retorno.Add(new ItemVO { Id = 0, Descricao = "--- LIMPAR DIA ---"});   
             lista.ToList().ForEach(x => retorno.Add(new ItemVO { Id = x.Id, Descricao = x.Descricao }));
             return retorno;
         }
@@ -374,6 +375,8 @@ namespace Dardani.EDU.BO.App
 
         public IEnumerable<ItemVO> BuildListaProfissionaisPorDisciplina(int disciplinaId)
         {
+
+            //NHibernateBase.Session.Flush();
             List<ItemVO> retorno = new List<ItemVO>();
             PessoaDisciplinaDAO pdao = new PessoaDisciplinaDAO();
             IEnumerable<PessoaVO> lista = pdao.GetListaPessoasByDisciplina(disciplinaId);
