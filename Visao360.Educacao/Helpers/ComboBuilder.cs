@@ -46,13 +46,20 @@ namespace Visao360.Educacao.Helpers
         }
 
 
-        public static IEnumerable<SelectListItem> ListaDisciplinasByModalidadeEtapa(int modalidadeId, int etapaId)
+        public static IEnumerable<SelectListItem> ListaDisciplinasByModalidadeEtapa(int modalidadeId, int etapaId, bool opcaoLimpar = false)
         {
             MatrizDisciplinaDAO mdao = new MatrizDisciplinaDAO();
             IEnumerable<MatrizDisciplinaVO> listaDisciplinas = mdao.GetMatrizDisciplinaVOByModaliadeEtapa(modalidadeId, etapaId);
 
             List<SelectListItem> retorno = new List<SelectListItem>();
-            retorno.Add(new SelectListItem { Value = "", Text = "------" });
+            if (opcaoLimpar)
+            {
+                retorno.Add(new SelectListItem { Value = "0", Text = "--- LIMPAR ---" });
+            }
+            else
+            {
+                retorno.Add(new SelectListItem { Value = "", Text = "------" });
+            }
             foreach (MatrizDisciplinaVO i in listaDisciplinas)
             {
                 retorno.Add(new SelectListItem

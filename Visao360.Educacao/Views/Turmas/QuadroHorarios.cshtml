@@ -80,8 +80,15 @@
         background:#ddd;
 	}
 	.check { 
-        background:#b6ff00; 
+        /*background:#b6ff00;*/
 	}
+    .verde {
+        background:#b6ff00; 
+    }
+    .vermelho {
+        background:#fabbbb; 
+    }
+
 </style>
 
 <script type="text/javascript">
@@ -154,15 +161,26 @@
                 $(this).toggleClass('check');
                 var e = $(this).find('.input-check');
                 e.prop('checked', e.is(':checked') ? false : true);
+
                 if (e.is(':checked')) {
                     //alert('MARCADO');
                     pmat.clone().html(sigla).appendTo($(this));
                     ppes.clone().html($("#PessoaId option:selected").text()).appendTo($(this));
 
+                    if ($('#DisciplinaId').val() > 0) {
+                        $(this).addClass("verde");
+                    } else {
+                        $(this).addClass("vermelho");
+                    }
+
                     $(this).find('.titulo_disciplina_old').hide();
                     $(this).find('.nome_professor_old').hide();
 
                 } else {
+                    $(this).removeClass("verde");
+                    $(this).removeClass("vermelho");
+
+
                     //alert('desmarcadoooo');
                     $(this).find('.titulo_disciplina').remove();
                     $(this).find('.nome_professor').remove();
@@ -204,7 +222,7 @@
 
         function limparTudo() {
             $('.input-check').prop('checked', false);
-            $('.coluna-li').removeClass("check");
+            $('.coluna-li').removeClass("check").removeClass("verde").removeClass("vermelho");
 
             $('.coluna-li').find('.titulo_disciplina').remove();
             $('.coluna-li').find('.nome_professor').remove();

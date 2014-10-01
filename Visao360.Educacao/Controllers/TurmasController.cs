@@ -95,16 +95,17 @@ namespace Visao360.Educacao.Controllers
             Quadro q = new Quadro(id);
 
 
-            ViewBag.ListaDisciplina = ComboBuilder.ListaDisciplinasByModalidadeEtapa(model.ModalidadeId, model.EtapaId);
-
+            ViewBag.ListaDisciplina = ComboBuilder.ListaDisciplinasByModalidadeEtapa(model.ModalidadeId, model.EtapaId, true);
+            /*
             List<Celula> celulas = new List<Celula>();
             celulas.Add(new Celula() { CabecalhoId = 2, HorarioId = 2, Nome = "Academia" });
             celulas.Add(new Celula() { CabecalhoId = 2, HorarioId = 3, Nome = "Musculação" });
             celulas.Add(new Celula() { CabecalhoId = 3, HorarioId = 3, Nome = "Academia" });
             celulas.Add(new Celula() { CabecalhoId = 1, HorarioId = 1, Nome = "Ginástica" });
             celulas.Add(new Celula() { CabecalhoId = 1, HorarioId = 4, Nome = "Dança" });
-
+            
             q.Celulas = celulas;
+            */
 
             //ViewBag.Linhas = 5;
             //ViewBag.Colunas = 8;
@@ -156,18 +157,31 @@ namespace Visao360.Educacao.Controllers
                         if (!int.TryParse(horarios[0], out periodoAulaId)) { periodoAulaId = 0; }
                         if (!short.TryParse(horarios[1], out diaSemana)) { diaSemana = 0; }
 
-                        th = new TurmaHorario();
+                        IEnumerable<TurmaHorario> listaToDelete = thdao.GetListagemByPeriodoAulaDiaSemana(periodoAulaId, diaSemana);
+                        if (listaToDelete != null)
+                        {
+                            foreach (TurmaHorario xis in listaToDelete)
+                            {
+                                thdao.Delete(xis);
+                            }
+                        }
 
-                        thvo = new TurmaHorarioVO();
-                        thvo.TurmaId = r.TurmaId;
-                        thvo.DisciplinaId = r.DisciplinaId;
-                        thvo.PessoaId = r.PessoaId;
-                        thvo.FlagDiaSemana = diaSemana;
-                        thvo.PeriodoAulaId = periodoAulaId;
 
-                        Conversor.Converter(thvo, th, NHibernateBase.Session);
 
-                        thdao.SaveOrUpdate(th, 0);
+                        if (r.DisciplinaId > 0)
+                        {
+                            th = new TurmaHorario();
+                            thvo = new TurmaHorarioVO();
+                            thvo.TurmaId = r.TurmaId;
+                            thvo.DisciplinaId = r.DisciplinaId;
+                            thvo.PessoaId = r.PessoaId;
+                            thvo.FlagDiaSemana = diaSemana;
+                            thvo.PeriodoAulaId = periodoAulaId;
+
+                            Conversor.Converter(thvo, th, NHibernateBase.Session);
+
+                            thdao.SaveOrUpdate(th, 0);
+                        }
                     }
 
                     //Console.WriteLine(r.horarios[i]);

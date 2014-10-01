@@ -45,6 +45,12 @@ namespace Dardani.EDU.BO.NH
             return model;
         }
 
+        public IEnumerable<TurmaHorario> GetListagemByPeriodoAulaDiaSemana(int periodoAulaId, int diaSemana) {
+            IEnumerable<TurmaHorario> lista = Session.QueryOver<TurmaHorario>()
+                .Where(x => x.PeriodoAula.Id == periodoAulaId)
+                .And(x => x.FlagDiaSemana == diaSemana).List();
+            return lista;
+        }
 
     } // END CLASS
 } // END NAMESPACE

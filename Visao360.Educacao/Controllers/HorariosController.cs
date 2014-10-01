@@ -254,7 +254,7 @@ namespace Visao360.Educacao.Controllers
         [Persistencia]
         public ActionResult PeriodoDeleteConfirmed(int horarioId, int periodoId = 0)
         {
-            string mensagemRetorno;
+            //string mensagemRetorno;
             /*
             bool pode = new HorarioPeriodoDAO().PodeExcluir(id, out mensagemRetorno);
             if (!pode)
