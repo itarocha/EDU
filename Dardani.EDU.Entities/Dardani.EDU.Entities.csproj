@@ -248,6 +248,7 @@
     <Compile Include="VO\CalendarioDiaEventoVO.cs" />
     <Compile Include="VO\CalendarioDiaVO.cs" />
     <Compile Include="VO\CalendarioVO.cs" />
+    <Compile Include="VO\ConceitoNivelVO.cs" />
     <Compile Include="VO\EscolaTurnoVO.cs" />
     <Compile Include="VO\MatrizPeriodoDisciplinaVO.cs" />
     <Compile Include="VO\MatrizPeriodoVO.cs" />

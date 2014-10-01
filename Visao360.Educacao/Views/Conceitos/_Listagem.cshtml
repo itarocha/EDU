@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Dardani.EDU.Entities.Model.Conceito>
+
+@{
+    WebGrid grid = new WebGrid(Model, rowsPerPage: 20, ajaxUpdateContainerId: "gridArea", defaultSort:"Sequencia");
+}
+
+<div id="gridArea">
+@grid.GetHtml(
+    tableStyle:"table table-striped",
+    //alternatingRowStyle: "altRow",
+    columns:new[] {
+        grid.Column("Id", style:"to-the-right", canSort:false),
+        grid.Column("Descricao",header:"Descrição", canSort:false),
+        grid.Column("",header:"Ações", format:@<text>
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new {@class = "btn btn-xs btn-info"}) 
+                <a href="/ConceitosNiveis/@item.Id" class="btn btn-xs btn-success">Níveis</a>
+                @Html.ActionLink("Excluir", "Delete", new { @item.Id }, new {@class = "btn btn-xs btn-danger"})
+                </text>)
+    }
+)
+</div>

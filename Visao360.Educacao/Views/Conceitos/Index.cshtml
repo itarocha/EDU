@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Dardani.EDU.Entities.Model.Conceito>
+
+@{
+    ViewBag.Title = "Conceitos";
+}
+
+<div class="row">
+    <div class="col-md-12">
+    @Html.ActionLink("Novo Conceito", "Edit", "Conceitos", null, new { @class = "btn btn-default" }) 
+    </div>
+</div>
+<div id="lista">
+@Html.Partial("_Listagem", Model)
+</div>
+
+

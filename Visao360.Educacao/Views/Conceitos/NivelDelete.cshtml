@@ -1,0 +1,48 @@
+﻿@model Dardani.EDU.Entities.VO.HorarioPeriodoVO
+
+@{
+    ViewBag.Title = "Exclusão de Período";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="alert alert-success"><b>@ViewBag.Horario.Descricao</b></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#PeriodoAulaId").focus();
+    });
+</script>
+
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-danger">Deseja realmente excluir o Período abaixo?</div>
+        </div>
+    </div>
+    
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false)
+
+    <div class="row">
+        <div class="col-md-6">
+            <label class="input-label f-left">@Html.LabelFor(model => model.HoraInicio):</label>
+            <h4>@Html.DisplayFor(model => model.HoraInicio, new { @class = "input-text f-left" })</h4>
+        </div>
+        <div class="col-md-6">
+            <label class="input-label f-left">@Html.LabelFor(model => model.HoraTermino):</label>
+            <h4>@Html.DisplayFor(model => model.HoraTermino, new { @class = "input-text f-left" })</h4>
+        </div>
+    </div>
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.HorarioId)
+    <div class="row">
+        <div class="col-md-12 pt-20">
+            <input type="submit" value="Excluir" class="btn btn-danger" />
+            <a href="/PeriodosHorario/@ViewBag.Horario.Id" class="btn btn-default">Voltar</a>
+        </div>
+    </div>
+}

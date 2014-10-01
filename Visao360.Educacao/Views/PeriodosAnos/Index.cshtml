@@ -1,0 +1,15 @@
+﻿@model IEnumerable<Dardani.EDU.Entities.Model.PeriodoAno>
+
+@{
+    ViewBag.Title = "Períodos do Ano";
+}
+
+<p>
+    @Html.ActionLink("Novo Período do Ano", "Edit", "PeriodosAnos", null, new { @class="btn btn-default"})&nbsp;
+</p>
+
+<div id="lista">
+@Html.Partial("_Listagem", Model)
+</div>
+
+

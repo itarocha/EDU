@@ -44,7 +44,7 @@ namespace Visao360.Educacao
 
 
 
-
+            //  PeriodosHorarios
             routes.MapRoute(
                 name: "PeriodoHorarioIndex",
                 url: "PeriodosHorario/{id}",
@@ -64,7 +64,6 @@ namespace Visao360.Educacao
                     periodoId = UrlParameter.Optional
                 });
 
-
             routes.MapRoute(
                 name: "PeriodoHorarioDelete",
                 url: "PeriodoHorario/{horarioId}/Delete/{periodoId}",
@@ -76,6 +75,35 @@ namespace Visao360.Educacao
                 });
 
 
+            //  ConceitosNiveis
+            routes.MapRoute(
+                name: "ConceitoNivelIndex",
+                url: "ConceitosNiveis/{id}",
+                defaults: new
+                {
+                    controller = "Conceitos",
+                    action = "Niveis"
+                });
+
+            routes.MapRoute(
+                name: "ConceitoNivelEdit",
+                url: "ConceitosNiveis/{conceitoId}/Edit/{nivelId}",
+                defaults: new
+                {
+                    controller = "Conceitos",
+                    action = "NivelEdit",
+                    periodoId = UrlParameter.Optional
+                });
+
+            routes.MapRoute(
+                name: "ConceitoNivelDelete",
+                url: "ConceitoNivel/{conceitoId}/Delete/{nivelId}",
+                defaults: new
+                {
+                    controller = "Conceitos",
+                    action = "NivelDelete",
+                    periodoId = UrlParameter.Optional
+                });
 
 
 

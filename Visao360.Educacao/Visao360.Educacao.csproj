@@ -170,6 +170,8 @@
     <Compile Include="Controllers\AlunosController.cs" />
     <Compile Include="Controllers\AnosLetivosController.cs" />
     <Compile Include="Controllers\CombosController.cs" />
+    <Compile Include="Controllers\ConceitosController.cs" />
+    <Compile Include="Controllers\PeriodosAnosController.cs" />
     <Compile Include="Controllers\TiposEventosController.cs" />
     <Compile Include="Controllers\TiposDiasController.cs" />
     <Compile Include="Controllers\HorariosController.cs" />
@@ -2919,6 +2921,18 @@
     <Content Include="Views\Horarios\Index.cshtml" />
     <Content Include="Views\PeriodosAulas\Delete.cshtml" />
     <Content Include="Views\Horarios\PeriodoDelete.cshtml" />
+    <Content Include="Views\PeriodosAnos\_Listagem.cshtml" />
+    <Content Include="Views\PeriodosAnos\Delete.cshtml" />
+    <Content Include="Views\PeriodosAnos\Edit.cshtml" />
+    <Content Include="Views\PeriodosAnos\Index.cshtml" />
+    <Content Include="Views\Conceitos\_Listagem.cshtml" />
+    <Content Include="Views\Conceitos\_ListagemNiveis.cshtml" />
+    <Content Include="Views\Conceitos\Delete.cshtml" />
+    <Content Include="Views\Conceitos\Edit.cshtml" />
+    <Content Include="Views\Conceitos\Index.cshtml" />
+    <Content Include="Views\Conceitos\NivelDelete.cshtml" />
+    <Content Include="Views\Conceitos\NivelEdit.cshtml" />
+    <Content Include="Views\Conceitos\Niveis.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -12,12 +12,12 @@ using Dardani.EDU.BO.NH;
 
 namespace Visao360.Educacao.Controllers
 {
-    public class PeriodosAulasController : BaseController
+    public class PeriodosAnosController : BaseController
     {
         [Role(Roles = "Administrador")]
         public ActionResult Index(string searchString)
         {
-            IEnumerable<PeriodoAula> lista = new PeriodoAulaDAO().GetListagem(searchString);
+            IEnumerable<PeriodoAno> lista = new PeriodoAnoDAO().GetListagem(searchString);
             if (Request.IsAjaxRequest())
             {
                 return PartialView("_Listagem", lista);
@@ -30,34 +30,37 @@ namespace Visao360.Educacao.Controllers
         {
             Boolean novo = (id == 0);
 
-            PeriodoAula model = novo ? new PeriodoAula() : new PeriodoAulaDAO().GetById(id);
+            PeriodoAno model = novo ? new PeriodoAno() : new PeriodoAnoDAO().GetById(id);
 
             if (model == null)
             {
                 return HttpNotFound();
             }
-
-            ViewBag.Acao = novo ? "Novo Período de Aula" : "Editar Período de Aula";
+            EnviarViewBagEdit();
+            ViewBag.Acao = novo ? "Novo Período do Ano" : "Editar Período do Ano";
             return View(model);
         }
 
         [HttpPost, ActionName("Edit")]
         [Role(Roles = "Administrador")]
         [Persistencia]
-        public ActionResult EditConfirmed(PeriodoAula model)
+        public ActionResult EditConfirmed(PeriodoAno model)
         {
             Boolean novo = (model.Id == 0);
-            PeriodoAulaDAO dao = new PeriodoAulaDAO();
+            PeriodoAnoDAO dao = new PeriodoAnoDAO();
             if (!novo)
             {
+                EnviarViewBagEdit();
+                /*
                 if (dao.PossuiHorarioPeriodo(model.Id)) {
-                    ModelState.AddModelError("Id", "Período de Aula não pode ser alterado porque já está sendo utilizado.");
+                    ModelState.AddModelError("Id", "Período do Ano não pode ser alterado porque já está sendo utilizado.");
                 }
+                 */ 
             }
 
             if (!ModelState.IsValid)
             {
-                ViewBag.Acao = novo ? "Novo Período de Aula" : "Editar Período de Aula";
+                ViewBag.Acao = novo ? "Novo Período do Ano" : "Editar Período do Ano";
 
                 return View(model);
             }
@@ -66,11 +69,16 @@ namespace Visao360.Educacao.Controllers
             return RedirectToAction("Index");
         }
 
+        private void EnviarViewBagEdit()
+        {
+            ViewBag.ListaSimNao = ComboBuilder.ListaSimNao();
+        }
+
         [Role(Roles = "Administrador")]
         public ActionResult Delete(int Id)
         {
-            PeriodoAulaDAO dao = new PeriodoAulaDAO();
-            PeriodoAula model = dao.GetById(Id);
+            PeriodoAnoDAO dao = new PeriodoAnoDAO();
+            PeriodoAno model = dao.GetById(Id);
 
             if (model == null)
             {
@@ -85,26 +93,25 @@ namespace Visao360.Educacao.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             string mensagemRetorno;
-            bool pode = new PeriodoAulaDAO().PodeExcluir(id, out mensagemRetorno);
+            bool pode = new PeriodoAnoDAO().PodeExcluir(id, out mensagemRetorno);
             if (!pode)
             {
                 ModelState.AddModelError("Id", mensagemRetorno);
             }
 
-            PeriodoAulaDAO dao = new PeriodoAulaDAO();
+            PeriodoAnoDAO dao = new PeriodoAnoDAO();
             if (ModelState.IsValid)
             {
-                PeriodoAula o = dao.GetById(id);
-                string descricao = o.HoraInicio + " - " + o.HoraTermino;
+                PeriodoAno o = dao.GetById(id);
+                string descricao = o.Descricao;
 
                 dao.Delete(o);
 
-                this.FlashMessage(string.Format("Período de Aula \"{0}\" excluído com sucesso", descricao));
+                this.FlashMessage(string.Format("Período do Ano \"{0}\" excluído com sucesso", descricao));
                 return RedirectToAction("Index");
             }
-            PeriodoAula model = dao.GetById(id);
+            PeriodoAno model = dao.GetById(id);
             return View(model);
         }
     }
 }
-

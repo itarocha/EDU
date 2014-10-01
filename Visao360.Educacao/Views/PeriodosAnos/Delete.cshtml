@@ -1,0 +1,35 @@
+﻿@model Dardani.EDU.Entities.Model.PeriodoAno
+
+@{
+    ViewBag.Title = "Exclusão de Período do Ano";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false)
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-danger">Deseja realmente excluir o Período Abaixo?</div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label class="input-label f-left">@Html.LabelFor(model => model.Descricao):</label>
+            <h4>@Html.DisplayFor(model => model.Descricao, new { @class = "input-text f-left" })</h4>
+        </div>
+        <div class="col-md-6">
+            <label class="input-label f-left">@Html.LabelFor(model => model.DescricaoAbreviada):</label>
+            <h4>@Html.DisplayFor(model => model.DescricaoAbreviada, new { @class = "input-text f-left" })</h4>
+        </div>
+    </div>
+    @Html.HiddenFor(model => model.Id)
+    <div class="row">
+        <div class="col-md-12 pt-20">
+            <input type="submit" value="Excluir" class="btn btn-danger" />
+            @Html.ActionLink("Voltar", "Index", "PeriodosAnos", null, new { @class = "btn btn-default" })
+        </div>
+    </div>
+}

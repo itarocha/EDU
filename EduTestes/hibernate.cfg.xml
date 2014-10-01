@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<!--
+
 <hibernate-configuration xmlns="urn:nhibernate-configuration-2.2">
   <session-factory>
     <property name="connection.provider">NHibernate.Connection.DriverConnectionProvider</property>
@@ -10,7 +10,7 @@
     <property name="format_sql">true</property>
   </session-factory>
 </hibernate-configuration>
--->
+<!--
 <hibernate-configuration xmlns="urn:nhibernate-configuration-2.2">
   <session-factory>
     <property name="connection.provider">NHibernate.Connection.DriverConnectionProvider</property>
@@ -18,17 +18,17 @@
     <property name="dialect">NHibernate.Dialect.MsSql2008Dialect</property>
     <property name="connection.driver_class">NHibernate.Driver.SqlClientDriver</property>
     <property name="connection.connection_string">Data Source=.\SQLExpress;Initial Catalog=EDU_NH_VAZIO;Persist Security Info=True;User ID=sa;Password=masterkey</property>
-    <!--
+    
     <event type="pre-update">
       <listener class="Dardani.EDU.Entities.Model.AuditEventListener, Dardani.EDU.Entities" />
     </event>
     <event type="pre-insert">
       <listener class="Dardani.EDU.Entities.Model.AuditEventListener, Dardani.EDU.Entities" />
     </event>
-    -->
+    
     <property name="show_sql">true</property>
     <property name="format_sql">true</property>
   </session-factory>
 </hibernate-configuration>
-
+-->
 

@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Dardani.EDU.Entities.VO.ConceitoNivelVO>
+
+@{
+    ViewBag.Title = "Níveis do Conceito";
+
+    Dardani.EDU.Entities.Model.Conceito conceito = (Dardani.EDU.Entities.Model.Conceito)ViewBag.Conceito;
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="alert alert-success"><b>@conceito.Descricao</b></div>
+    </div>
+</div>
+<p>
+    <a href="/ConceitoNivel/@conceito.Id/Edit" class="btn btn-default">Novo Nível</a>
+    <!--<a href="/PeriodosHorario/__ViewBag.Horario.Id" class="btn btn-default">Voltar</a>-->
+    <a href="/Conceitos" class="btn btn-default">Voltar</a>
+</p>
+
+<div id="lista">
+@Html.Partial("_ListagemNiveis", Model)
+</div>

@@ -1,0 +1,20 @@
+﻿@model IEnumerable<Dardani.EDU.Entities.VO.ConceitoNivelVO>
+@{
+    WebGrid grid = new WebGrid(Model, rowsPerPage: 20, ajaxUpdateContainerId: "gridArea");
+}
+
+<div id="gridArea">
+@grid.GetHtml(
+    tableStyle:"table table-striped",
+    //alternatingRowStyle: "altRow",
+    columns:new[] {
+        grid.Column("Descricao",header:"Início", style:"to-the-left",canSort:false),
+        grid.Column("Peso",header:"Término", style:"to-the-left",canSort:false),
+        
+        grid.Column("",header:"Ações",style:"w20pct", format:@<text>
+            <a href="/ConceitoNivel/@item.ConceitoId/Edit/@item.Id" class="btn btn-xs btn-info">Editar</a>
+            <a href="/ConceitoNivel/@item.ConceitoId/Delete/@item.Id" class="btn btn-xs btn-danger">Excluir</a>
+        </text>)
+    }
+)
+</div>
