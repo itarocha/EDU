@@ -26,35 +26,41 @@ namespace Dardani.EDU.Entities.Model
         [Display(Name = "Tipo de Avaliação")]
         [Required(ErrorMessage = "O campo Tipo de Avaliação deve ser preenchido.")]
         [StringLength(1, MinimumLength = 1)]
-        public virtual string FlagTipoAvaliacao { get; set; }  // N = Nota; C = Conceito
+        public virtual string FlagTipoAvaliacao { get; set; }  // N = Nota; C = Conceito; P = Parecer
 
         [Display(Name = "Tipo de Avaliação")]
         public virtual string FlagTipoAvaliacaoDescricao {
             get { 
                 if (this.FlagTipoAvaliacao == "N") {
-                    return "Nota"; 
-                } else if (this.FlagTipoAvaliacao == "N") {
+                    return "Nota";
+                }
+                else if (this.FlagTipoAvaliacao == "C")
+                {
                     return "Conceito";
+                } else if (this.FlagTipoAvaliacao == "P") {
+                    return "Parecer";
                 } else return "";
             }
         }
 
-        // NEW
         [Display(Name = "Categoria")]
         [Required(ErrorMessage = "O campo Categoria deve ser preenchido.")]
         [StringLength(1, MinimumLength = 1)]
         public virtual string FlagCategoria { get; set; }  // N = Base Nacional Comum; P = Parte Diversificada
 	
-        // NEW
         [Display(Name = "Aceita Dispensa")]
         [Required(ErrorMessage = "O campo Aceita Dispensa deve ser preenchido.")]
         [StringLength(1, MinimumLength = 1)]
         public virtual string FlagAceitaDispensa { get; set; }  // S = Sim; N = Não
 
-        // NEW
         [Display(Name = "Reprova")]
         [Required(ErrorMessage = "O campo Reprova deve ser preenchido.")]
         [StringLength(1, MinimumLength = 1)]
         public virtual string FlagReprova { get; set; }  // S = Sim; N = Não
+
+        // NEW - Indica o critério de Conceito para definir o Nível Mínimo
+        // Requerido se FlagTipoAvaliacao = "C"
+        [Display(Name = "Conceito")]
+        public virtual Conceito Conceito { get; set; }
     }
 }

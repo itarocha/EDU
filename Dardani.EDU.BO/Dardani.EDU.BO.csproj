@@ -64,6 +64,8 @@
     <Compile Include="NH\ConvenioPublicoDAO.cs" />
     <Compile Include="NH\AnoLetivoDAO.cs" />
     <Compile Include="NH\EscolaTurnoDAO.cs" />
+    <Compile Include="NH\MatrizPeriodoDisciplinaDAO.cs" />
+    <Compile Include="NH\MatrizPeriodoDAO.cs" />
     <Compile Include="NH\TipoDiaDAO.cs" />
     <Compile Include="NH\TipoEventoDAO.cs" />
     <Compile Include="NH\TurmaHorarioDAO.cs" />

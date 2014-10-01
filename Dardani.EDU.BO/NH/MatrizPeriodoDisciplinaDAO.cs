@@ -12,11 +12,12 @@ using NHibernate.Transform;
 
 namespace Dardani.EDU.BO.NH
 {
-    public class MatrizDisciplinaDAO : GenericDAO<MatrizDisciplina>
+    public class MatrizPeriodoDisciplinaDAO : GenericDAO<MatrizPeriodoDisciplina>
     {
-        public MatrizDisciplinaVO GetMatrizDisciplinaVOById(int id)
+        /*
+        public MatrizPeriodoVO GetMatrizPeriodoVOById(int id)
         {
-        	MatrizDisciplinaVO model = Session.CreateQuery(
+        	MatrizPeriodoVO model = Session.CreateQuery(
         		"SELECT "+
                 "md.Id as Id, "+
                 "m.Id as MatrizId, "+
@@ -40,15 +41,15 @@ namespace Dardani.EDU.BO.NH
                 "LEFT JOIN md.Conceito c " +
                 "WHERE md.Id = :id")
         		.SetParameter("id",id)
-        		.SetResultTransformer(Transformers.AliasToBean(typeof(MatrizDisciplinaVO)))
-        		.UniqueResult<MatrizDisciplinaVO>();
+                .SetResultTransformer(Transformers.AliasToBean(typeof(MatrizPeriodoVO)))
+                .UniqueResult<MatrizPeriodoVO>();
         	
         	return model;
         }
 
-        public IEnumerable<MatrizDisciplinaVO> GetMatrizDisciplinaVOByMatriz(int matrizId)
+        public IEnumerable<MatrizPeriodoVO> GetMatrizDisciplinaVOByMatriz(int matrizId)
         {
-        	IEnumerable<MatrizDisciplinaVO> model = Session.CreateQuery(
+            IEnumerable<MatrizPeriodoVO> model = Session.CreateQuery(
         		"SELECT "+
                 "md.Id as Id, "+
                 "m.Id as MatrizId, "+
@@ -71,17 +72,17 @@ namespace Dardani.EDU.BO.NH
                 "WHERE m.Id = :matrizId " +
         	    "ORDER BY d.Descricao ")
         		.SetParameter("matrizId",matrizId)
-        		.SetResultTransformer(Transformers.AliasToBean(typeof(MatrizDisciplinaVO)))
-        		.List<MatrizDisciplinaVO>();
+                .SetResultTransformer(Transformers.AliasToBean(typeof(MatrizPeriodoVO)))
+                .List<MatrizPeriodoVO>();
         	
         	return model;
         }
-        public IEnumerable<MatrizDisciplinaVO> GetMatrizDisciplinaVOByModaliadeEtapa(int modalidadeId, int etapaId)
+        public IEnumerable<MatrizPeriodoVO> GetMatrizDisciplinaVOByModaliadeEtapa(int modalidadeId, int etapaId)
         {
             //MatrizDisciplina z;
             //z.Matriz.Modalidade
 
-            IEnumerable<MatrizDisciplinaVO> model = Session.CreateQuery(
+            IEnumerable<MatrizPeriodoVO> model = Session.CreateQuery(
                 "SELECT " +
                 "md.Id as Id, " +
                 "m.Id as MatrizId, " +
@@ -106,11 +107,11 @@ namespace Dardani.EDU.BO.NH
                 "ORDER BY d.Descricao ")
                 .SetParameter("modalidadeId", modalidadeId)
                 .SetParameter("etapaId", etapaId)
-                .SetResultTransformer(Transformers.AliasToBean(typeof(MatrizDisciplinaVO)))
-                .List<MatrizDisciplinaVO>();
+                .SetResultTransformer(Transformers.AliasToBean(typeof(MatrizPeriodoVO)))
+                .List<MatrizPeriodoVO>();
 
             return model;
         }
-
+        */
     } // END CLASS
 } // END NAMESPACE
