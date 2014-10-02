@@ -32,7 +32,7 @@ namespace Visao360.Educacao.Controllers
             return View();
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "escolas.selecionar")]
         public ActionResult Selecionar()
         {
             EscolaSessao e = new EscolaSessao();
@@ -48,7 +48,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Selecionar")]
-        [Role(Roles = "Administrador")]
         public ActionResult SelecionarConfirmed(EscolaSessao model)
         {
             // Se não é válido, retorna

@@ -20,8 +20,8 @@ namespace Visao360.Educacao.Controllers
 {
     public class CalendariosController : BaseController
     {
-        [Role(Roles = "Administrador")]
         [SelecionouFilial(MensagemErro = "Para gerenciar Calendários, selecione primeiro uma Escola Padrão.")]
+        [Acesso(AcaoId = "calendarios.index")]
         public ActionResult Index(string searchString)
         {
             IEnumerable<Calendario> lista = new CalendarioDAO().GetListagemByEscolaAno(this.EscolaSessao.EscolaId, this.EscolaSessao.AnoLetivoAno);
@@ -33,7 +33,7 @@ namespace Visao360.Educacao.Controllers
             return View(lista);
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "calendarios.edit")]
         [SelecionouFilial(MensagemErro = "Para editar Calendários, selecione primeiro uma Escola Padrão.")]
         public ActionResult Edit(int id = 0)
         {
@@ -64,7 +64,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Edit")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult EditConfirmed(CalendarioVO model)
         {
@@ -101,7 +100,7 @@ namespace Visao360.Educacao.Controllers
             return RedirectToAction("Index");
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "calendarios.delete")]
         [SelecionouFilial(MensagemErro = "Para excluir Calendários, selecione primeiro uma Escola Padrão.")]
         public ActionResult Delete(int Id)
         {
@@ -116,7 +115,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult DeleteConfirmed(int id)
         {
@@ -144,6 +142,7 @@ namespace Visao360.Educacao.Controllers
         }
 
         [SelecionouFilial(MensagemErro = "Para editar Eventos do Calendário, selecione primeiro uma Escola Padrão.")]
+        [Acesso(AcaoId = "calendarios.eventos")]
         public ActionResult Eventos(int calendarioId, int mesId)
         {
             ViewBag.EscolaId = this.EscolaSessao.EscolaId;
@@ -159,7 +158,6 @@ namespace Visao360.Educacao.Controllers
             return View(calendario);
         }
 
-        [Role(Roles = "Administrador,Visitante")]
         public JsonResult GetTiposDias()
         {
             IEnumerable<ItemVO> lista = ItemVOBuilders.Instance.BuildListaTipoDia();

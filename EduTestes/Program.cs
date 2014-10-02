@@ -52,6 +52,7 @@ namespace EduTestes
             */
 
             //PopularTabelasBasicas();
+            //PopularAcoes();
             //PopularOutrasTabelas();
             //CarregarArquivo();
 
@@ -118,7 +119,6 @@ namespace EduTestes
         {
             new SchemaUpdate(config).Execute(false, true);
         }
-
 
         private static void CarregarArquivo() {
 
@@ -1070,8 +1070,46 @@ namespace EduTestes
                     transaction.Commit();
                 } // end transaction
             } // end session
-             
         }
+
+        private static void PopularAcoes()
+        {
+            using (ISession session = NHibernateBase.OpenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    AcaoDAO acaodao = new AcaoDAO();
+                    
+                    // Limpa tudo
+                    acaodao.All().ToList().ForEach(x => acaodao.Delete(x));
+
+                    session.Flush();
+
+                    List<Acao> lstAcao = new List<Acao>(){
+                        new Acao() { Id="PRDANO.INDEX", Descricao = "Listagem de Períodos de Anos", FlagAtivo = "S" },
+                        new Acao() { Id="PRDANO.EDIT", Descricao = "Edição de Períodos de Anos", FlagAtivo = "S" },
+                        new Acao() { Id="MTZ.INDEX", Descricao = "Listagem de Matrizes Curriculares", FlagAtivo = "S" }
+                    };
+                    lstAcao.ForEach(x => acaodao.Add(x));
+                    
+                    string senhaMd5 = Criptografia.MD5("admin");
+                    Usuario usuario = new Usuario() { NomeUsuario = "admin", 
+                                                      SenhaAcesso = senhaMd5, 
+                                                      Email = "admin@escola.com.br",
+                                                      Nome = "Administrador", 
+                                                      DataNascimento = new DateTime(2000, 01, 01), 
+                                                      NumeroCPF = "12345678901", 
+                                                      Nivel = "Administrador",
+                                                      Ativo = "S" };
+
+                    UsuarioDAO gerudao = new UsuarioDAO();
+                    gerudao.Add(usuario);
+
+                    transaction.Commit();
+                } // end transaction
+            } // end session
+        }
+
 
         private static void PopularTabelasBasicas()
         {
@@ -1083,19 +1121,6 @@ namespace EduTestes
                     Sexo sexoBase = new Sexo() { Descricao = "Masculino", ValorEducacenso = 1 };
                     gersdao.Add(sexoBase);
                     gersdao.Add(new Sexo() { Descricao = "Feminino", ValorEducacenso = 2 });
-
-                    string senhaMd5 = Criptografia.MD5("admin");
-                    UsuarioAcesso acesso = new UsuarioAcesso() { NomeUsuario = "admin", SenhaAcesso = senhaMd5, Email = "admin@escola.com.br" };
-                    Usuario usuario = new Usuario() { Nome = "Administrador", DataNascimento = new DateTime(2000, 01, 01), NumeroCPF = "12345678901", Nivel = "Administrador", Sexo = sexoBase, Ativo = "S"};
-
-                    acesso.Usuario = usuario;
-                    //usuario.Acesso = acesso;
-
-                    UsuarioDAO gerudao = new UsuarioDAO();
-                    gerudao.Add(usuario);
-
-                    UsuarioAcessoDAO geruadao = new UsuarioAcessoDAO();
-                    geruadao.Add(acesso);
 
                     RacaDAO gerrdao = new RacaDAO();
                     List<Raca> lstRaca = new List<Raca>() {

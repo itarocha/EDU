@@ -22,7 +22,7 @@ namespace Visao360.Educacao.Controllers
 {
     public class AlunosController : BaseController
     {
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId="alunos.index")]
         public ActionResult Index(string searchString)
         {
             string tipo = "A";
@@ -39,7 +39,7 @@ namespace Visao360.Educacao.Controllers
             return View(lista);
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "alunos.edit")]
         public ActionResult Edit(int id = 0)
         {
             Boolean novo = (id == 0);
@@ -94,7 +94,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Edit")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult EditConfirmed(PessoaVO model)
         {
@@ -134,8 +133,8 @@ namespace Visao360.Educacao.Controllers
             }
         }
 
-        [Role(Roles = "Administrador")]
         // id será turmaId
+        [Acesso(AcaoId = "alunos.novo")]
         public ActionResult Novo(int id = 0)
         {
             TurmaVO t = new TurmaDAO().GetVOById(id);
@@ -192,7 +191,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Novo")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult NovoConfirmed(PessoaVO model)
         {
@@ -250,7 +248,7 @@ namespace Visao360.Educacao.Controllers
             }
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "alunos.endereco")]
         public ActionResult Endereco(int id = 0)
         {
             Boolean novo = (id == 0);
@@ -284,7 +282,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Endereco")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult EnderecoConfirmed(PessoaEnderecoVO model)
         {
@@ -325,7 +322,7 @@ namespace Visao360.Educacao.Controllers
             ViewBag.ListaZona = ComboBuilder.ListaZona();
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "alunos.documentacao")]
         public ActionResult Documentacao(int id = 0)
         {
             Boolean novo = (id == 0);
@@ -370,7 +367,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Documentacao")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult DocumentacaoConfirmed(PessoaDocumentacaoVO model)
         {
@@ -406,56 +402,25 @@ namespace Visao360.Educacao.Controllers
             }
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "alunos.delete")]
         public ActionResult Delete(int Id)
         {
-            /*
-            DiaSemanaDAO dao = new DiaSemanaDAO();
-            DiaSemana model = dao.GetById(Id);
-
-            if (model == null)
-            {
-                return HttpNotFound();
-            }
-            return View(model);
-             */
+            // TODO...
             return View();
         }
 
         [HttpPost, ActionName("Delete")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult DeleteConfirmed(int id)
         {
-            /*
-            DiaSemanaDAO dao = new DiaSemanaDAO();
-            if (ModelState.IsValid)
-            {
-                DiaSemana o = dao.GetById(id);
-                string descricao = o.Descricao;
-
-                dao.Delete(o);
-
-                TempData["mensagem"] = string.Format("DiaSemana {0} excluída com sucesso", descricao);
-                return RedirectToAction("Index");
-            }
-            DiaSemana model = dao.GetById(id);
-            return View(model);
-             */
+            // TODO...
             return View();
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "alunos.necessidadesespeciais")]
         public ActionResult NecessidadesEspeciaisEdit(int id, int nId)
         {
-            /*
-            IEnumerable<DiaSemana> lista = new DiaSemanaDAO().GetListagem(searchString);
-            if (Request.IsAjaxRequest())
-            {
-                return PartialView("_Listagem", lista);
-            }
-            return View(lista);
-             */
+            // TODO...
             return View();
         }
     }

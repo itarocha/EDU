@@ -19,7 +19,7 @@ namespace Visao360.Educacao.Controllers
 {
     public class SalasController : BaseController
     {
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "salas.index")]
         [SelecionouFilial(MensagemErro = "Para gerenciar Salas, selecione primeiro uma Escola Padrão.")]
         public ActionResult Index(string searchString)
         {   
@@ -31,7 +31,7 @@ namespace Visao360.Educacao.Controllers
             return View(lista);
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "salas.edit")]
         [SelecionouFilial(MensagemErro = "Para Editar Salas, selecione primeiro uma Escola Padrão.")]
         public ActionResult Edit(int id = 0)
         {
@@ -58,7 +58,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Edit")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult EditConfirmed(SalaVO model)
         {
@@ -95,7 +94,7 @@ namespace Visao360.Educacao.Controllers
             return RedirectToAction("Index");
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "salas.delete")]
         [SelecionouFilial(MensagemErro = "Para excluir Salas, selecione primeiro uma Escola Padrão.")]
         public ActionResult Delete(int Id)
         {
@@ -110,7 +109,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult DeleteConfirmed(int id)
         {

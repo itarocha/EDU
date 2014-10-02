@@ -15,7 +15,7 @@ namespace Visao360.Educacao.Controllers
 {
     public class AnosLetivosController : BaseController
     {
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "anosletivos.index")]
         public ActionResult Index()
         {
             IEnumerable<AnoLetivo> lista = new AnoLetivoDAO().GetListagem();
@@ -26,7 +26,7 @@ namespace Visao360.Educacao.Controllers
             return View(lista);
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "anosletivos.edit")]
         public ActionResult Edit(int id = 0)
         {
             Boolean novo = (id == 0);
@@ -47,7 +47,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Edit")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult EditConfirmed(AnoLetivo model)
         {
@@ -77,7 +76,7 @@ namespace Visao360.Educacao.Controllers
             return RedirectToAction("Index");
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "anosletivos.delete")]
         public ActionResult Delete(int Id)
         {
             AnoLetivoDAO dao = new AnoLetivoDAO();
@@ -91,7 +90,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult DeleteConfirmed(int id)
         {

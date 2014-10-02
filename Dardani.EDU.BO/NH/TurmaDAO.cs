@@ -27,7 +27,7 @@ namespace Dardani.EDU.BO.NH
         	
         	IEnumerable<Turma> model = Session.CreateQuery(
         		"SELECT t "+
-        		"FROM Matricvula m "+
+        		"FROM Matricula m "+
                 "INNER JOIN m.Turma t "+
                 "INNER JOIN m.Pessoa p "+
                 "INNER JOIN t.Escola e "+

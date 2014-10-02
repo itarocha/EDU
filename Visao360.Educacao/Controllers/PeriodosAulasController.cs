@@ -14,7 +14,7 @@ namespace Visao360.Educacao.Controllers
 {
     public class PeriodosAulasController : BaseController
     {
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "periodosaulas.index")]
         public ActionResult Index(string searchString)
         {
             IEnumerable<PeriodoAula> lista = new PeriodoAulaDAO().GetListagem(searchString);
@@ -25,7 +25,7 @@ namespace Visao360.Educacao.Controllers
             return View(lista);
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "periodosaulas.edit")]
         public ActionResult Edit(int id = 0)
         {
             Boolean novo = (id == 0);
@@ -42,7 +42,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Edit")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult EditConfirmed(PeriodoAula model)
         {
@@ -66,7 +65,7 @@ namespace Visao360.Educacao.Controllers
             return RedirectToAction("Index");
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "periodosaulas.delete")]
         public ActionResult Delete(int Id)
         {
             PeriodoAulaDAO dao = new PeriodoAulaDAO();
@@ -80,7 +79,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult DeleteConfirmed(int id)
         {

@@ -22,7 +22,7 @@ namespace Visao360.Educacao.Controllers
 {
     public class ProfissionaisController : BaseController
     {
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "profissionais.index")]
         public ActionResult Index(string searchString)
         {
             string tipo = "P";
@@ -38,7 +38,7 @@ namespace Visao360.Educacao.Controllers
             return View(lista);
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "profissionais.edit")]
         public ActionResult Edit(int id = 0)
         {
             Boolean novo = (id == 0);
@@ -86,7 +86,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Edit")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult EditConfirmed(PessoaVO model)
         {
@@ -112,7 +111,7 @@ namespace Visao360.Educacao.Controllers
             }
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "profissionais.endereco")]
         public ActionResult Endereco(int id = 0)
         {
             Pessoa p = new PessoaDAO().GetById(id);
@@ -143,7 +142,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Endereco")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult EnderecoConfirmed(PessoaEnderecoVO model)
         {
@@ -183,7 +181,7 @@ namespace Visao360.Educacao.Controllers
             }
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "profissionais.documentacao")]
         public ActionResult Documentacao(int id = 0)
         {
             Pessoa p = new PessoaDAO().GetById(id);
@@ -216,7 +214,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Documentacao")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult DocumentacaoConfirmed(PessoaDocumentacaoVO model)
         {
@@ -258,7 +255,7 @@ namespace Visao360.Educacao.Controllers
             }
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "profissionais.delete")]
         public ActionResult Delete(int Id)
         {
             /*
@@ -275,7 +272,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult DeleteConfirmed(int id)
         {
@@ -297,7 +293,7 @@ namespace Visao360.Educacao.Controllers
             return View();
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "profissionais.necessidadesespeciaisedit")]
         public ActionResult NecessidadesEspeciaisEdit(int id, int nId)
         {
             /*
@@ -311,7 +307,7 @@ namespace Visao360.Educacao.Controllers
             return View();
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "profissionais.disciplinas")]
         public ActionResult Disciplinas(int id = 0)
         {
             Boolean novo = (id == 0);
@@ -333,7 +329,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Disciplinas")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult DisciplinasConfirmed(PessoaDisciplinaVO model)
         {

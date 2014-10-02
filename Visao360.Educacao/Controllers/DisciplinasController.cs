@@ -19,7 +19,7 @@ namespace Visao360.Educacao.Controllers
 {
     public class DisciplinasController : BaseController
     {
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "disciplinas.index")]
         public ActionResult Index(string searchString)
         {
             IEnumerable<DisciplinaVO> lista = new DisciplinaDAO().GetListagemVO();
@@ -30,7 +30,7 @@ namespace Visao360.Educacao.Controllers
             return View(lista);
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "disciplinas.edit")]
         public ActionResult Edit(int id = 0)
         {
             Boolean novo = (id == 0);
@@ -63,7 +63,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Edit")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult EditConfirmed(DisciplinaVO model)
         {
@@ -95,6 +94,7 @@ namespace Visao360.Educacao.Controllers
             return RedirectToAction("Index");
         }
 
+        [Acesso(AcaoId = "disciplinas.delete")]
         public ActionResult Delete(int Id)
         {
             DisciplinaDAO dao = new DisciplinaDAO();
@@ -108,7 +108,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult DeleteConfirmed(int id)
         {

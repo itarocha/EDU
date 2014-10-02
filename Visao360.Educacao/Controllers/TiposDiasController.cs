@@ -15,7 +15,7 @@ namespace Visao360.Educacao.Controllers
 {
     public class TiposDiasController : BaseController
     {
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "tiposdias.index")]
         public ActionResult Index(string searchString)
         {
             IEnumerable<TipoDia> lista = new TipoDiaDAO().GetListagem();
@@ -31,7 +31,7 @@ namespace Visao360.Educacao.Controllers
             ViewBag.ListaSimNao = ComboBuilder.ListaSimNao();
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "tiposdias.edit")]
         public ActionResult Edit(int id = 0)
         {
             Boolean novo = (id == 0);
@@ -49,7 +49,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Edit")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult EditConfirmed(TipoDia model)
         {
@@ -79,7 +78,7 @@ namespace Visao360.Educacao.Controllers
             return RedirectToAction("Index");
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "tiposdias.delete")]
         public ActionResult Delete(int Id)
         {
             TipoDiaDAO dao = new TipoDiaDAO();
@@ -93,7 +92,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult DeleteConfirmed(int id)
         {

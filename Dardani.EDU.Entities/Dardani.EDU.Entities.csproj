@@ -63,6 +63,7 @@
     <Compile Include="Mapping\CalendarioDiaMap.cs" />
     <Compile Include="Mapping\CalendarioMap.cs" />
     <Compile Include="Mapping\CategoriaPrivadaMap.cs" />
+    <Compile Include="Mapping\AcaoMap.cs" />
     <Compile Include="Mapping\ConceitoNivelMap.cs" />
     <Compile Include="Mapping\ConvenioPublicoMap.cs" />
     <Compile Include="Mapping\AnoLetivoMap.cs" />
@@ -81,7 +82,6 @@
     <Compile Include="Mapping\TipoEventoMap.cs" />
     <Compile Include="Mapping\TurmaHorarioMap.cs" />
     <Compile Include="Mapping\HorarioMap.cs" />
-    <Compile Include="Mapping\UsuarioAcessoMap.cs" />
     <Compile Include="Mapping\UsuarioMap.cs" />
     <Compile Include="Mapping\DisciplinaMap.cs" />
     <Compile Include="Mapping\EquipamentoMap.cs" />
@@ -160,12 +160,14 @@
     <Compile Include="Model\CalendarioDia.cs" />
     <Compile Include="Model\CalendarioDiaEvento.cs" />
     <Compile Include="Model\CategoriaPrivada.cs" />
+    <Compile Include="Model\Acao.cs" />
     <Compile Include="Model\ConceitoNivel.cs" />
     <Compile Include="Model\EscolaTurno.cs" />
     <Compile Include="Model\EntityUpper.cs" />
     <Compile Include="Model\ConvenioPublico.cs" />
     <Compile Include="Model\Diciplina.cs" />
     <Compile Include="Model\DisciplinaEducacenso.cs" />
+    <Compile Include="Model\UsuarioAcao.cs" />
     <Compile Include="Model\MatrizPeriodoDisciplina.cs" />
     <Compile Include="Model\MatrizPeriodo.cs" />
     <Compile Include="Model\MatrizDisciplina.cs" />
@@ -241,7 +243,6 @@
     <Compile Include="Model\TurmaUnificada.cs" />
     <Compile Include="Model\Horario.cs" />
     <Compile Include="Model\Usuario.cs" />
-    <Compile Include="Model\UsuarioAcesso.cs" />
     <Compile Include="Model\VeiculoCategoria.cs" />
     <Compile Include="Model\VeiculoTipo.cs" />
     <Compile Include="Model\Zona.cs" />

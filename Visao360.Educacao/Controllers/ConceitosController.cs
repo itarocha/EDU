@@ -22,7 +22,7 @@ namespace Visao360.Educacao.Controllers
 {
     public class ConceitosController : BaseController
     {
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "conceitos.index")]
         public ActionResult Index(string searchString)
         {
             IEnumerable<Conceito> lista = new ConceitoDAO().GetListagem();
@@ -33,7 +33,7 @@ namespace Visao360.Educacao.Controllers
             return View(lista);
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "conceitos.edit")]
         public ActionResult Edit(int id = 0)
         {
             Boolean novo = (id == 0);
@@ -48,7 +48,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Edit")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult EditConfirmed(Conceito model)
         {
@@ -73,7 +72,7 @@ namespace Visao360.Educacao.Controllers
         }
 
         // Horários
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "conceitos.niveis")]
         // id = ConceitoId
         public ActionResult Niveis(int id)
         {
@@ -92,7 +91,7 @@ namespace Visao360.Educacao.Controllers
             return View(lista);
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "conceitosniveis.edit")]
         public ActionResult NivelEdit(int ConceitoId, int NivelId = 0)
         {
             Boolean novo = (NivelId == 0);
@@ -129,7 +128,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("NivelEdit")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult NivelEditConfirmed(ConceitoNivelVO model)
         {
@@ -173,7 +171,7 @@ namespace Visao360.Educacao.Controllers
             return Redirect(String.Format("/ConceitoNiveis/{0}", model.ConceitoId));
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "conceitos.delete")]
         public ActionResult Delete(int Id)
         {
             ConceitoDAO dao = new ConceitoDAO();
@@ -187,7 +185,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult DeleteConfirmed(int id)
         {
@@ -213,7 +210,7 @@ namespace Visao360.Educacao.Controllers
             return View(model);
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "conceitosniveis.delete")]
         public ActionResult NivelDelete(int ConceitoId, int NivelId = 0)
         {
             Boolean novo = (NivelId == 0);
@@ -234,14 +231,13 @@ namespace Visao360.Educacao.Controllers
                 }
             }
 
-            Conceito Conceito = new ConceitoDAO().GetById(ConceitoId);
-            @ViewBag.Conceito = Conceito;
+            Conceito conceito = new ConceitoDAO().GetById(ConceitoId);
+            ViewBag.Conceito = conceito;
 
             return View(model);
         }
 
         [HttpPost, ActionName("NivelDelete")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult NivelDeleteConfirmed(int ConceitoId, int NivelId = 0)
         {

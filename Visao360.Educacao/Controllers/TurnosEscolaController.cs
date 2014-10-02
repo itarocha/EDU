@@ -19,7 +19,7 @@ namespace Visao360.Educacao.Controllers
 {
     public class TurnosEscolaController : BaseController
     {
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "turnosescola.index")]
         public ActionResult Index(string searchString)
         {
             if (!ExisteEscolaSelecionada("Para acessar Turnos da Escola, selecione primeiro uma Escola Padrão"))
@@ -36,7 +36,7 @@ namespace Visao360.Educacao.Controllers
             return View(lista);
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "turnosescola.edit")]
         public ActionResult Edit(int id = 0)
         {
             Boolean novo = (id == 0);
@@ -56,7 +56,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Edit")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult EditConfirmed(EscolaTurnoVO model)
         {
@@ -84,7 +83,7 @@ namespace Visao360.Educacao.Controllers
         }
 
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "turnosescola.horarios")]
         public ActionResult Horarios(int id)
         {
             if (!ExisteEscolaSelecionada("Para acessar Turnos da Escola, selecione primeiro uma Escola Padrão"))
@@ -108,7 +107,7 @@ namespace Visao360.Educacao.Controllers
             return View(lista);
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "turnosescola.horariosedit")]
         public ActionResult HorarioEdit(int turnoId, int horarioId = 0)
         {
             Boolean novo = (horarioId == 0);
@@ -148,7 +147,6 @@ namespace Visao360.Educacao.Controllers
 
 
         [HttpPost, ActionName("HorarioEdit")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult HorarioEditConfirmed(HorarioPeriodoVO model)
         {
@@ -196,7 +194,7 @@ namespace Visao360.Educacao.Controllers
             return Redirect(String.Format("/HorarioPeriodos/{0}", model.HorarioId));
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "turnosescola.delete")]
         public ActionResult Delete(int Id)
         {
             TurnoDAO dao = new TurnoDAO();
@@ -210,7 +208,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult DeleteConfirmed(int id)
         {

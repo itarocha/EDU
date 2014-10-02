@@ -20,7 +20,7 @@ namespace Visao360.Educacao.Controllers
 {
     public class TurmasController : BaseController
     {
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "turmas.index")]
         [SelecionouFilial(MensagemErro = "Para acessar Turmas da Escola, selecione primeiro uma Escola Padrão.")]
         public ActionResult Index(string searchString)
         {
@@ -37,20 +37,21 @@ namespace Visao360.Educacao.Controllers
             return View(lista);
         }
 
-        [Role(Roles = "Administrador,Visitante")]
+        //[Acesso(AcaoId = "turmas.etapas")]
         public ActionResult Etapas(int modalidadeId)
         {
             IEnumerable<ItemVO> lista = ItemVOBuilders.Instance.BuildListaEtapa(modalidadeId);
             return Json(lista, JsonRequestBehavior.AllowGet);
         }
 
-        [Role(Roles = "Administrador,Visitante")]
+        //[Acesso(AcaoId = "turmas.profissionaispordisciplina")]
         public ActionResult ProfissionaisPorDisciplina(int disciplinaId)
         {
             IEnumerable<ItemVO> lista = ItemVOBuilders.Instance.BuildListaProfissionaisPorDisciplina(disciplinaId);
             return Json(lista, JsonRequestBehavior.AllowGet);
         }
 
+        /*
         [Role(Roles = "Administrador,Visitante")]
         public ActionResult OldEtapas(int modalidadeId)
         {
@@ -61,8 +62,9 @@ namespace Visao360.Educacao.Controllers
             }
             return this.Content(html, "text/html", System.Text.Encoding.UTF8);
         }
+        */
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "turmas.view")]
         public ActionResult View(int id = 0)
         {
             TurmaVO model = null;
@@ -78,7 +80,7 @@ namespace Visao360.Educacao.Controllers
             return View(model);
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "turmas.quadrohorarios")]
         [SelecionouFilial(MensagemErro = "Para acessar Quadro de Horários, selecione primeiro uma Escola Padrão.")]
         public ActionResult QuadroHorarios(int id = 0)
         {
@@ -190,7 +192,7 @@ namespace Visao360.Educacao.Controllers
             return Redirect(string.Format("/Turmas/QuadroHorarios/{0}",r.TurmaId));
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "turmas.edit")]
         [SelecionouFilial(MensagemErro = "Para Editar Turma, selecione primeiro uma Escola Padrão.")]
         public ActionResult Edit(int id = 0)
         {
@@ -231,7 +233,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Edit")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult EditConfirmed(TurmaVO model)
         {
@@ -268,7 +269,7 @@ namespace Visao360.Educacao.Controllers
             return RedirectToAction("Index");
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "turmas.delete")]
         [SelecionouFilial(MensagemErro = "Para Excluir Turma, selecione primeiro uma Escola Padrão.")]
         public ActionResult Delete(int Id)
         {
@@ -283,7 +284,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult DeleteConfirmed(int id)
         {
@@ -308,7 +308,7 @@ namespace Visao360.Educacao.Controllers
             return View(model);
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "turmas.horarios")]
         [SelecionouFilial(MensagemErro = "Para acessar Horários de Turma, selecione primeiro uma Escola Padrão.")]
         public ActionResult Horarios(int turmaId)
         {
@@ -342,7 +342,7 @@ namespace Visao360.Educacao.Controllers
             return View(turma);
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "turmas.alunos")]
         [SelecionouFilial(MensagemErro = "Para acessar Alunos da Turma, selecione primeiro uma Escola Padrão.")]
         public ActionResult Alunos(int turmaId)
         {

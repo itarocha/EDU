@@ -21,7 +21,7 @@ namespace Visao360.Educacao.Controllers
     public class UsuariosController : BaseController
     {
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "usuarios.getusuarios")]
         public ActionResult GetUsuariosJSON(string searchString)
         {
             IEnumerable<Usuario> lista = new List<Usuario>();
@@ -30,7 +30,7 @@ namespace Visao360.Educacao.Controllers
             return Json(lista, JsonRequestBehavior.AllowGet);
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "usuarios.index")]
         public ActionResult Index(string searchString)
         {
             IEnumerable<Usuario> lista = new List<Usuario>();
@@ -44,7 +44,7 @@ namespace Visao360.Educacao.Controllers
             return View(lista);
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "usuarios.edit")]
         public ActionResult Edit(int id = 0)
         {
             Boolean novo = (id == 0);
@@ -68,7 +68,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Edit")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         [HandleError(ExceptionType = typeof(DbException), View = "DatabaseError")]
         [HandleError(View = "DatabaseError")]
@@ -84,7 +83,7 @@ namespace Visao360.Educacao.Controllers
             UsuarioDAO fdao = new UsuarioDAO();
 
             Usuario fToSave = novo ? new Usuario() : fdao.GetById(model.Id);
-            fToSave.Acesso = fToSave.Acesso == null ? new UsuarioAcesso() : fToSave.Acesso;
+            //fToSave.Acesso = fToSave.Acesso == null ? new UsuarioAcesso() : fToSave.Acesso;
 
             if (novo)
             {
@@ -94,15 +93,15 @@ namespace Visao360.Educacao.Controllers
 
             SexoDAO sdao = new SexoDAO();
 
-            fToSave.Sexo = sdao.GetById(model.SexoId);
-            fToSave.Acesso.Usuario = fToSave;
+            //fToSave.Sexo = sdao.GetById(model.SexoId);
+            //fToSave.Acesso.Usuario = fToSave;
 
             fdao.SaveOrUpdate(fToSave, fToSave.Id);
 
             return RedirectToAction("Index");
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "usuarios.delete")]
         public ActionResult Delete(int id = 0)
         {
             UsuarioDAO dao = new UsuarioDAO();
@@ -117,7 +116,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        [Role(Roles = "Administrador")]
         public ActionResult DeleteConfirmed(int id)
         {
             UsuarioDAO dao = new UsuarioDAO();

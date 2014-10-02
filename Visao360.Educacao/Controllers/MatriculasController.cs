@@ -20,7 +20,7 @@ namespace Visao360.Educacao.Controllers
 {
     public class MatriculasController : BaseController
     {
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "matriculas.edit")]
         public ActionResult Edit(int id)
         {
             MatriculaVO model = null;
@@ -50,7 +50,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Edit")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult EditConfirmed(MatriculaVO model)
         {
@@ -73,7 +72,7 @@ namespace Visao360.Educacao.Controllers
             return Redirect("/TurmaAlunos/"+model.TurmaId);
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "matriculas.delete")]
         public ActionResult Delete(int Id)
         {
             // TODO
@@ -88,7 +87,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult DeleteConfirmed(int id)
         {

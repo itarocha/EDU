@@ -21,14 +21,13 @@ namespace Visao360.Educacao.Controllers
     public class RematriculaController : BaseController
     {
 
-        [Role(Roles = "Administrador,Visitante")]
+        //[Acesso(AcaoId = "rematricula.etapas")]
         public ActionResult Etapas(int modalidadeId)
         {
             IEnumerable<ItemVO> lista = ItemVOBuilders.Instance.BuildListaEtapa(modalidadeId);
             return Json(lista, JsonRequestBehavior.AllowGet);
         }
 
-        [Role(Roles = "Administrador,Visitante")]
         public ActionResult OldEtapas(int modalidadeId)
         {
             IEnumerable<ItemVO> lista = ItemVOBuilders.Instance.BuildListaEtapa(modalidadeId);
@@ -63,7 +62,7 @@ namespace Visao360.Educacao.Controllers
         }
         */
 
-        [Role(Roles = "Administrador,Visitante")]
+        [Acesso(AcaoId = "rematricula.alunos")]
         public ActionResult Alunos(int turmaOrigemId)
         {
             MatriculaDAO mdao = new MatriculaDAO();
@@ -74,7 +73,7 @@ namespace Visao360.Educacao.Controllers
             return Json(lista, JsonRequestBehavior.AllowGet);
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "rematricula.selecionar")]
         [SelecionouFilial(MensagemErro = "Para acessar Rematrícula, selecione primeiro uma Escola Padrão.")]
         public ActionResult Selecionar(int id = 0)
         {
@@ -107,7 +106,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Selecionar")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult EditConfirmed(RematriculaVO model)
         {

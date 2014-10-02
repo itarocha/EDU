@@ -15,7 +15,7 @@ namespace Visao360.Educacao.Controllers
 {
     public class TiposEventosController : BaseController
     {
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "tiposeventos.index")]
         public ActionResult Index(string searchString)
         {
             IEnumerable<TipoEvento> lista = new TipoEventoDAO().GetListagem();
@@ -31,7 +31,7 @@ namespace Visao360.Educacao.Controllers
             ViewBag.ListaSimNao = ComboBuilder.ListaSimNao();
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "tiposeventos.edit")]
         public ActionResult Edit(int id = 0)
         {
             Boolean novo = (id == 0);
@@ -48,7 +48,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Edit")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult EditConfirmed(TipoEvento model)
         {
@@ -78,7 +77,7 @@ namespace Visao360.Educacao.Controllers
             return RedirectToAction("Index");
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "tiposeventos.delete")]
         public ActionResult Delete(int Id)
         {
             TipoEventoDAO dao = new TipoEventoDAO();
@@ -92,7 +91,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult DeleteConfirmed(int id)
         {

@@ -54,6 +54,8 @@
   <ItemGroup>
     <Compile Include="App\EDUListasBuilder.cs" />
     <Compile Include="App\ItemVOBuilders.cs" />
+    <Compile Include="NH\AcaoDAO.cs" />
+    <Compile Include="NH\UsuarioAcaoDAO.cs" />
     <Compile Include="NH\ConceitoNivelDAO.cs" />
     <Compile Include="NH\ConceitoDAO.cs" />
     <Compile Include="NH\EstadoDAO.cs" />
@@ -145,7 +147,6 @@
     <Compile Include="NH\TurmaDAO.cs" />
     <Compile Include="NH\TurmaUnificadaDAO.cs" />
     <Compile Include="NH\TurnoDAO.cs" />
-    <Compile Include="NH\UsuarioAcessoDAO.cs" />
     <Compile Include="NH\UsuarioDAO.cs" />
     <Compile Include="NH\VeiculoCategoriaDAO.cs" />
     <Compile Include="NH\VeiculoTipoDAO.cs" />

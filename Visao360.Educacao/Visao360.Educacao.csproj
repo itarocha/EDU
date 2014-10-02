@@ -197,8 +197,8 @@
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Filters\NHSessionAttribute.cs" />
     <Compile Include="Filters\PersistenciaAttribute.cs" />
+    <Compile Include="Filters\AcessoAttribute.cs" />
     <Compile Include="Filters\SelecionouFilialAttribute.cs" />
-    <Compile Include="Filters\RoleAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -225,6 +225,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\complemento.css" />
     <Content Include="Content\Menu.css" />
+    <Content Include="Content\login.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />

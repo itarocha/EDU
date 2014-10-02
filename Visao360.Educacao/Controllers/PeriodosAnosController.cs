@@ -14,7 +14,7 @@ namespace Visao360.Educacao.Controllers
 {
     public class PeriodosAnosController : BaseController
     {
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId="PRDANO.INDEX")]
         public ActionResult Index(string searchString)
         {
             IEnumerable<PeriodoAno> lista = new PeriodoAnoDAO().GetListagem(searchString);
@@ -25,7 +25,7 @@ namespace Visao360.Educacao.Controllers
             return View(lista);
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "periodosanos.edit")]
         public ActionResult Edit(int id = 0)
         {
             Boolean novo = (id == 0);
@@ -42,7 +42,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Edit")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult EditConfirmed(PeriodoAno model)
         {
@@ -74,7 +73,7 @@ namespace Visao360.Educacao.Controllers
             ViewBag.ListaSimNao = ComboBuilder.ListaSimNao();
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "periodosanos.delete")]
         public ActionResult Delete(int Id)
         {
             PeriodoAnoDAO dao = new PeriodoAnoDAO();
@@ -88,7 +87,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult DeleteConfirmed(int id)
         {

@@ -19,7 +19,7 @@ namespace Visao360.Educacao.Controllers
 {
     public class TurnosController : BaseController
     {
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "turnos.index")]
         [SelecionouFilial(MensagemErro="Para acessar Turnos, selecione primeiro uma Escola Padrão")]
         public ActionResult Index(string searchString)
         {
@@ -32,7 +32,7 @@ namespace Visao360.Educacao.Controllers
             return View(lista);
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "turnos.edit")]
         [SelecionouFilial(MensagemErro = "Para Editar Turno, selecione primeiro uma Escola Padrão")]
         public ActionResult Edit(int id = 0)
         {
@@ -49,7 +49,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Edit")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult EditConfirmed(TurnoVO model)
         {
@@ -73,7 +72,7 @@ namespace Visao360.Educacao.Controllers
             ViewBag.ListaPeriodoAula = ComboBuilder.ListaPeriodoAula();
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "turnos.delete")]
         [SelecionouFilial(MensagemErro = "Para excluir Turno, selecione primeiro uma Escola Padrão")]
         public ActionResult Delete(int Id)
         {
@@ -88,7 +87,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult DeleteConfirmed(int id)
         {

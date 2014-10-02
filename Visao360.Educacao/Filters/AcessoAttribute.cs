@@ -8,8 +8,10 @@ using Visao360.Educacao.Helpers;
 
 namespace Visao360.Educacao.Filters
 {
-    public class RoleAttribute : AuthorizeAttribute
+    public class AcessoAttribute : AuthorizeAttribute
     {
+        public string AcaoId{ get; set; }
+
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
             if (!httpContext.Request.IsAuthenticated)
@@ -17,28 +19,11 @@ namespace Visao360.Educacao.Filters
             
             // O nome do cara é: httpContext.User.Identity.Name;
             string nome = httpContext.User.Identity.Name;
-            string userRole;
-
+            //string userRole;
             UsuarioDAO dao = new UsuarioDAO();
-            userRole = dao.GetNivelByUsuario(nome);
+            //userRole = dao.GetNivelByUsuario(nome);
 
-            /*
-            using (var db = new CemiterioContext())
-            {
-
-                userRole = (from obj in db.Usuarios
-                               join x in db.UsuariosAcessos on obj.Id equals x.Id into _Acesso
-                               from a in _Acesso.DefaultIfEmpty()
-                               where a.NomeUsuario == nome
-                               select obj.Nivel).SingleOrDefault();
-            }
-             */ 
-            //userRole = "Administrador,Visitante";
-
-            foreach (string definedRole in this.Roles.Split(',')){
-                if (definedRole.Equals(userRole)) 
-                    return true;
-            }
+            if (dao.UsuarioPossuiPermissao(nome, this.AcaoId)) { return true; }
 
             return false; // base.AuthorizeCore(httpContext);
         }

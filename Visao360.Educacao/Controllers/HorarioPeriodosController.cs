@@ -19,7 +19,7 @@ namespace Visao360.Educacao.Controllers
 {
     public class HorarioPeriodosController : BaseController
     {
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "horariosperiodos.delete")]
         public ActionResult Delete(int Id)
         {
             HorarioPeriodoDAO dao = new HorarioPeriodoDAO();
@@ -33,7 +33,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult DeleteConfirmed(int id)
         {

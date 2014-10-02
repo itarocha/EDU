@@ -19,7 +19,7 @@ namespace Visao360.Educacao.Controllers
 {
     public class HorariosController : BaseController
     {
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "horarios.index")]
         public ActionResult Index(string searchString)
         {
             if (!ExisteEscolaSelecionada("Para acessar Horários da Escola, selecione primeiro uma Escola Padrão"))
@@ -37,7 +37,7 @@ namespace Visao360.Educacao.Controllers
             return View(lista);
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "horarios.edit")]
         public ActionResult Edit(int id = 0)
         {
             Boolean novo = (id == 0);
@@ -55,7 +55,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Edit")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult EditConfirmed(HorarioVO model)
         {
@@ -76,7 +75,7 @@ namespace Visao360.Educacao.Controllers
         }
 
         // Horários
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "horarios.periodos")]
         // id = HorarioId
         public ActionResult Periodos(int id)
         {
@@ -101,7 +100,7 @@ namespace Visao360.Educacao.Controllers
             return View(lista);
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "horarios.periodosedit")]
         public ActionResult PeriodoEdit(int horarioId, int periodoId = 0)
         {
             Boolean novo = (periodoId == 0);
@@ -138,7 +137,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("PeriodoEdit")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult PeriodoEditConfirmed(HorarioPeriodoVO model)
         {
@@ -182,7 +180,7 @@ namespace Visao360.Educacao.Controllers
             return Redirect(String.Format("/PeriodosHorario/{0}", model.HorarioId));
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "horarios.delete")]
         public ActionResult Delete(int Id)
         {
             HorarioDAO dao = new HorarioDAO();
@@ -196,7 +194,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult DeleteConfirmed(int id)
         {
@@ -222,7 +219,7 @@ namespace Visao360.Educacao.Controllers
             return View(model);
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "horarios.periodosdelete")]
         public ActionResult PeriodoDelete(int horarioId, int periodoId = 0)
         {
             Boolean novo = (periodoId == 0);
@@ -250,7 +247,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("PeriodoDelete")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult PeriodoDeleteConfirmed(int horarioId, int periodoId = 0)
         {

@@ -16,7 +16,7 @@ namespace Visao360.Educacao.Controllers
 {
     public class TiposSalasController : BaseController
     {
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "tipossalas.index")]
         public ActionResult Index(string searchString)
         {
             IEnumerable<TipoSala> lista = new TipoSalaDAO().GetListagem(searchString);
@@ -27,7 +27,7 @@ namespace Visao360.Educacao.Controllers
             return View(lista);
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "tipossalas.edit")]
         public ActionResult Edit(int id = 0)
         {
             Boolean novo = (id == 0);
@@ -53,7 +53,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Edit")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult EditConfirmed(TipoSala model)
         {
@@ -83,7 +82,7 @@ namespace Visao360.Educacao.Controllers
             return RedirectToAction("Index");
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "tipossalas.delete")]
         public ActionResult Delete(int Id)
         {
             TipoSalaDAO dao = new TipoSalaDAO();
@@ -97,7 +96,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult DeleteConfirmed(int id)
         {

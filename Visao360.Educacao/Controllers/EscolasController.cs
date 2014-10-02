@@ -21,7 +21,7 @@ namespace Visao360.Educacao.Controllers
 {
     public class EscolasController : BaseController
     {
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "escolas.index")]
         public ActionResult Index(string searchString)
         {
             IEnumerable<Escola> lista = new EscolaDAO().GetListagem(searchString);
@@ -32,7 +32,7 @@ namespace Visao360.Educacao.Controllers
             return View(lista);
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "escolas.tornarpadrao")]
         public ActionResult TornarPadrao(int id = 0)
         {
             Boolean novo = (id == 0);
@@ -57,7 +57,7 @@ namespace Visao360.Educacao.Controllers
             ViewBag.ListaSimNao = ComboBuilder.ListaSimNao();
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "escolas.edit")]
         public ActionResult Edit(int id = 0)
         {
             Boolean novo = (id == 0);
@@ -83,7 +83,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Edit")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult EditConfirmed(EscolaVO model)
         {
@@ -112,7 +111,7 @@ namespace Visao360.Educacao.Controllers
             return RedirectToAction("Endereco", new { id = aToSave.Id });
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "escolas.endereco")]
         public ActionResult Endereco(int id = 0)
         {
             Boolean novo = (id == 0);
@@ -143,7 +142,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Endereco")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult EnderecoConfirmed(EscolaEnderecoVO model)
         {
@@ -188,7 +186,7 @@ namespace Visao360.Educacao.Controllers
             return RedirectToAction("Infraestrutura", new { id = aToSave.Id });
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "escolas.infraestrutura")]
         public ActionResult Infraestrutura(int id = 0)
         {
             Boolean novo = (id == 0);
@@ -222,7 +220,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Infraestrutura")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult InfraestruturaConfirmed(EscolaInfraestruturaVO model)
         {
@@ -236,7 +233,7 @@ namespace Visao360.Educacao.Controllers
             return RedirectToAction("DadosEducacionais", new { id = model.EscolaId });
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "escolas.dadoseducacionais")]
         public ActionResult DadosEducacionais(int id = 0)
         {
             Boolean novo = (id == 0);
@@ -282,7 +279,6 @@ namespace Visao360.Educacao.Controllers
 
 
         [HttpPost, ActionName("DadosEducacionais")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult DadosEducacionaisConfirmed(EscolaEducacionalVO model)
         {
@@ -298,7 +294,7 @@ namespace Visao360.Educacao.Controllers
             return RedirectToAction("Index");
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "escolas.listagemsalas")]
         public ActionResult ListagemSalasJson()/*(int escolaId = 1)*/
         {
             int escolaId = 1;
@@ -317,7 +313,7 @@ namespace Visao360.Educacao.Controllers
         }
 
         //  SALAS DE AULA DA ESCOLA
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "escolas.salaedit")]
         public ActionResult SalaEdit(int id = 0)
         {
             Boolean novo = (id == 0);
@@ -340,7 +336,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("SalaEdit")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult SalaEditConfirmed(SalaVO model)
         {
@@ -378,7 +373,7 @@ namespace Visao360.Educacao.Controllers
             return PartialView("_SalaEdit", model);
         }
 
-        [Role(Roles = "Administrador")]
+        [Acesso(AcaoId = "escolas.delete")]
         public ActionResult Delete(int Id)
         {
             EscolaDAO dao = new EscolaDAO();
@@ -392,7 +387,6 @@ namespace Visao360.Educacao.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        [Role(Roles = "Administrador")]
         [Persistencia]
         public ActionResult DeleteConfirmed(int id)
         {

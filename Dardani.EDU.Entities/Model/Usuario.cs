@@ -16,21 +16,43 @@ namespace Dardani.EDU.Entities.Model
         [ManterCase]
         public virtual string Nome { get; set; }
 
+
+        [Required(ErrorMessage = "Identificação precisa ser preenchida")]
+        [StringLength(32, MinimumLength = 5)]
+        [Display(Name = "Identificação")]
+        [ManterCase]
+        public virtual string NomeUsuario { get; set; }
+
+        [DataType(DataType.Password)]
+        [Required(ErrorMessage = "Senha de acesso precisa ser preenchida.")]
+        [StringLength(32, MinimumLength = 5)]
+        [Display(Name = "Senha")]
+        [ManterCase]
+        public virtual string SenhaAcesso { get; set; }
+
+        [DataType(DataType.EmailAddress)]
+        [Required(ErrorMessage = "E-mail precisa ser preenchido.")]
+        [StringLength(64, MinimumLength = 8)]
+        [Display(Name = "E-mail")]
+        [ManterCase]
+        public virtual string Email { get; set; }
+
+
         [Required(ErrorMessage = "Data de Nascimento precisa ser preenchido")]
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         [Display(Name = "Data de Nascimento")]
         public virtual DateTime DataNascimento { get; set; }
 
-        [Required(ErrorMessage = "CPF precisa ser preenchido")]
+        //[Required(ErrorMessage = "CPF precisa ser preenchido")]
         [StringLength(11, MinimumLength = 11)]
         [RegularExpression(@"^(\d{11})$", ErrorMessage = "CPF Inválido")]
         [Display(Name = "Número do CPF")]
         public virtual string NumeroCPF { get; set; }
 
-        [Required(ErrorMessage = "Sexo precisa ser informado")]
-        [Display(Name = "Sexo")]
-        public virtual Sexo Sexo { get; set; }
+        //[Required(ErrorMessage = "Sexo precisa ser informado")]
+        //[Display(Name = "Sexo")]
+        //public virtual Sexo Sexo { get; set; }
 
         [Required(ErrorMessage = "Nível precisa ser preenchido.")]
         [Display(Name = "Nível")]
@@ -44,14 +66,14 @@ namespace Dardani.EDU.Entities.Model
         [Display(Name = "Situação")]
         public virtual string DescricaoAtivo { get { return (this.Ativo == "S") ? "Ativo" : "Inativo"; } }
 
-        public virtual UsuarioAcesso Acesso { get; set; }
+        //public virtual UsuarioAcesso Acesso { get; set; }
 
         public Usuario()
         {
             Ativo = "S";
             //Sexo = "M";
-            Nivel = "Visitante"; // Administrador/Visitante
-            Acesso = new UsuarioAcesso();
+            //Nivel = "Visitante"; // Administrador/Visitante
+            //Acesso = new UsuarioAcesso();
         }
     }
 }

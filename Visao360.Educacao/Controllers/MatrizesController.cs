@@ -20,6 +20,7 @@ namespace Visao360.Educacao.Controllers
 {
     public class MatrizesController : BaseController
     {
+        [Acesso(AcaoId = "matrizes.index")]
         public ActionResult Index()
         {
             ModalidadeDAO mdao = new ModalidadeDAO();
@@ -40,6 +41,7 @@ namespace Visao360.Educacao.Controllers
         }
 
         // Já selecionado
+        [Acesso(AcaoId = "matrizes.matriz")]
         [SelecionouFilial(MensagemErro = "Para gerenciar Matrizes, selecione primeiro uma Escola Padrão.")]
         public ActionResult Matriz(int modalidadeId, int etapaId)
         {
@@ -94,6 +96,7 @@ namespace Visao360.Educacao.Controllers
 
         // Já selecionado
         [SelecionouFilial(MensagemErro = "Para acessar Disciplinas da Matriz, selecione primeiro uma Escola Padrão.")]
+        [Acesso(AcaoId = "matrizes.matrizdisciplina")]
         public ActionResult MatrizDisciplina(int modalidadeId, int etapaId, int identificacao = 0)
         {
             /*
