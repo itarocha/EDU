@@ -68,6 +68,7 @@
     <Compile Include="Mapping\ConvenioPublicoMap.cs" />
     <Compile Include="Mapping\AnoLetivoMap.cs" />
     <Compile Include="Mapping\ConceitoMap.cs" />
+    <Compile Include="Mapping\UsuarioAcaoMap.cs" />
     <Compile Include="Mapping\MatrizPeriodoDisciplinaMap.cs" />
     <Compile Include="Mapping\MatrizPeriodoMap.cs" />
     <Compile Include="Mapping\PeriodoAnoMap.cs" />

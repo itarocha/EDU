@@ -14,7 +14,7 @@ namespace Visao360.Educacao.Controllers
 {
     public class PeriodosAnosController : BaseController
     {
-        [Acesso(AcaoId="PRDANO.INDEX")]
+        [Acesso(AcaoId="periodosanos.index")]
         public ActionResult Index(string searchString)
         {
             IEnumerable<PeriodoAno> lista = new PeriodoAnoDAO().GetListagem(searchString);

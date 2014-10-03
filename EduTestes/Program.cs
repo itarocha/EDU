@@ -53,6 +53,7 @@ namespace EduTestes
 
             //PopularTabelasBasicas();
             //PopularAcoes();
+            PopularUsuarios();
             //PopularOutrasTabelas();
             //CarregarArquivo();
 
@@ -1086,14 +1087,133 @@ namespace EduTestes
                     session.Flush();
 
                     List<Acao> lstAcao = new List<Acao>(){
-                        new Acao() { Id="PRDANO.INDEX", Descricao = "Listagem de Períodos de Anos", FlagAtivo = "S" },
-                        new Acao() { Id="PRDANO.EDIT", Descricao = "Edição de Períodos de Anos", FlagAtivo = "S" },
-                        new Acao() { Id="MTZ.INDEX", Descricao = "Listagem de Matrizes Curriculares", FlagAtivo = "S" }
+                        
+                        new Acao() { Id="alunos.index", Descricao = "Alunos - Listagem", FlagAtivo = "S" },
+                        new Acao() { Id="alunos.novo", Descricao = "Alunos - Novo", FlagAtivo = "S" },
+                        new Acao() { Id="alunos.edit", Descricao = "Alunos - Edição", FlagAtivo = "S" },
+                        new Acao() { Id="alunos.delete", Descricao = "Alunos - Exclusão", FlagAtivo = "S" },
+                        new Acao() { Id="alunos.endereco", Descricao = "Alunos - Endereço", FlagAtivo = "S" },
+                        new Acao() { Id="alunos.documentacao", Descricao = "Alunos - Documentação", FlagAtivo = "S" },
+                        new Acao() { Id="alunos.necessidadesespeciais", Descricao = "Alunos - Necessidades Especiais", FlagAtivo = "N" },
+                        new Acao() { Id="anosletivos.index", Descricao = "Anos Letivos - Listagem", FlagAtivo = "S" },
+                        new Acao() { Id="anosletivos.edit", Descricao = "Anos Letivos - Edição", FlagAtivo = "S" },
+                        new Acao() { Id="anosletivos.delete", Descricao = "Anos Letivos - Exclusão", FlagAtivo = "S" },
+                        new Acao() { Id="calendarios.index", Descricao = "Calendários - Listagem", FlagAtivo = "S" },
+                        new Acao() { Id="calendarios.edit", Descricao = "Calendários - Edição", FlagAtivo = "S" },
+                        new Acao() { Id="calendarios.delete", Descricao = "Calendários - Exclusão", FlagAtivo = "S" },
+                        new Acao() { Id="calendarios.eventos", Descricao = "Calendários - Eventos", FlagAtivo = "S" },
+
+                        new Acao() { Id="conceitos.index", Descricao = "Conceitos - Listagem", FlagAtivo = "S" },
+                        new Acao() { Id="conceitos.edit", Descricao = "Conceitos - Edição", FlagAtivo = "S" },
+                        new Acao() { Id="conceitos.niveis", Descricao = "Conceitos - Níveis", FlagAtivo = "S" },
+                        new Acao() { Id="conceitos.delete", Descricao = "Conceitos - Exclusão", FlagAtivo = "S" },
+                        new Acao() { Id="conceitosniveis.delete", Descricao = "Conceitos, Níveis de - Exclusão", FlagAtivo = "S" },
+
+                        new Acao() { Id="disciplinas.index", Descricao = "Disciplinas - Listagem", FlagAtivo = "S" },
+                        new Acao() { Id="disciplinas.edit", Descricao = "Disciplinas - Edição", FlagAtivo = "S" },
+                        new Acao() { Id="disciplinas.delete", Descricao = "Disciplinas - Exclusão", FlagAtivo = "S" },
+
+                        new Acao() { Id="escolas.index", Descricao = "Escolas - Listagem", FlagAtivo = "S" },
+                        new Acao() { Id="escolas.tornarpadrao", Descricao = "Escolas - Tornar Padrão", FlagAtivo = "S" },
+                        new Acao() { Id="escolas.edit", Descricao = "Escolas - Edição", FlagAtivo = "S" },
+                        new Acao() { Id="escolas.endereco", Descricao = "Escolas - Endereço", FlagAtivo = "S" },
+                        new Acao() { Id="escolas.infraestrutura", Descricao = "Escolas - Infraestrutura", FlagAtivo = "S" },
+                        new Acao() { Id="escolas.dadoseducacionais", Descricao = "Escolas - Dados Educacionais", FlagAtivo = "S" },
+                        new Acao() { Id="escolas.listagemsalas", Descricao = "Escolas - Listagem de Salas", FlagAtivo = "S" },
+                        new Acao() { Id="escolas.salaedit", Descricao = "Escolas - Edição de Sala", FlagAtivo = "S" },
+                        new Acao() { Id="escolas.selecionar", Descricao = "Escolas - Selecionar Escola", FlagAtivo = "S" },
+                        new Acao() { Id="escolas.delete", Descricao = "Escolas - Exclusão", FlagAtivo = "S" },
+
+                        new Acao() { Id="horariosperiodos.delete", Descricao = "Horários, Períodos de - Exclusão", FlagAtivo = "N" },
+
+                        new Acao() { Id="horarios.index", Descricao = "Horários - Listagem", FlagAtivo = "S" },
+                        new Acao() { Id="horarios.edit", Descricao = "Horários - Edição", FlagAtivo = "S" },
+                        new Acao() { Id="horarios.periodos", Descricao = "Horários - Períodos", FlagAtivo = "S" },
+                        new Acao() { Id="horarios.periodosedit", Descricao = "Horários, Períodos de - Edição", FlagAtivo = "S" },
+                        new Acao() { Id="horarios.delete", Descricao = "Horários - Exclusão", FlagAtivo = "S" },
+                        new Acao() { Id="horarios.periodosdelete", Descricao = "Horários, Períodos de - Exclusão", FlagAtivo = "S" },
+
+                        new Acao() { Id="matriculas.edit", Descricao = "Matrículas - Edição", FlagAtivo = "S" },
+                        new Acao() { Id="matriculas.delete", Descricao = "Horários - Exclusão", FlagAtivo = "S" },
+
+                        new Acao() { Id="matrizes.index", Descricao = "Matrizes - Listagem", FlagAtivo = "S" },
+                        new Acao() { Id="matrizes.matriz", Descricao = "Matrizes - Matriz", FlagAtivo = "S" },
+                        new Acao() { Id="matrizes.matrizdisciplina", Descricao = "Matrizes - Disciplinas da Matriz", FlagAtivo = "S" },
+
+                        new Acao() { Id="periodosanos.index", Descricao = "Períodos de Anos - Listagem", FlagAtivo = "S" },
+                        new Acao() { Id="periodosanos.edit", Descricao = "Períodos de Anos - Edição", FlagAtivo = "S" },
+                        new Acao() { Id="periodosanos.delete", Descricao = "Períodos de Anos - Exclusão", FlagAtivo = "S" },
+
+                        new Acao() { Id="periodosaulas.index", Descricao = "Períodos de Aulas - Listagem", FlagAtivo = "S" },
+                        new Acao() { Id="periodosaulas.edit", Descricao = "Períodos de Aulas - Edição", FlagAtivo = "S" },
+                        new Acao() { Id="periodosaulas.delete", Descricao = "Períodos de Aulas - Exclusão", FlagAtivo = "S" },
+
+                        new Acao() { Id="profissionais.index", Descricao = "Profissionais - Listagem", FlagAtivo = "S" },
+                        new Acao() { Id="profissionais.edit", Descricao = "Profissionais - Edição", FlagAtivo = "S" },
+                        new Acao() { Id="profissionais.endereco", Descricao = "Profissionais - Endereço", FlagAtivo = "S" },
+                        new Acao() { Id="profissionais.documentacao", Descricao = "Profissionais - Documentação", FlagAtivo = "S" },
+                        new Acao() { Id="profissionais.delete", Descricao = "Profissionais - Exclusão", FlagAtivo = "S" },
+                        new Acao() { Id="profissionais.necessidadesespeciaisedit", Descricao = "Profissionais - Necessidades Especiais", FlagAtivo = "N" },
+                        new Acao() { Id="profissionais.disciplinas", Descricao = "Profissionais - Disciplinas", FlagAtivo = "S" },
+
+                        new Acao() { Id="rematricula.alunos", Descricao = "Rematrícula - Listagem de Alunos", FlagAtivo = "S" },
+                        new Acao() { Id="rematricula.selecionar", Descricao = "Rematrícula - Selecionar", FlagAtivo = "S" },
+
+                        new Acao() { Id="salas.index", Descricao = "Salas - Listagem", FlagAtivo = "S" },
+                        new Acao() { Id="salas.edit", Descricao = "Salas - Edição", FlagAtivo = "S" },
+                        new Acao() { Id="salas.delete", Descricao = "Salas - Exclusão", FlagAtivo = "S" },
+
+                        new Acao() { Id="tiposdias.index", Descricao = "Tipos de Dias - Listagem", FlagAtivo = "S" },
+                        new Acao() { Id="tiposdias.edit", Descricao = "Tipos de Dias - Edição", FlagAtivo = "S" },
+                        new Acao() { Id="tiposdias.delete", Descricao = "Tipos de Dias - Exclusão", FlagAtivo = "S" },
+
+                        new Acao() { Id="tiposensinos.index", Descricao = "Tipos de Ensinos - Listagem", FlagAtivo = "S" },
+                        new Acao() { Id="tiposensinos.edit", Descricao = "Tipos de Ensinos - Edição", FlagAtivo = "S" },
+                        new Acao() { Id="tiposensinos.delete", Descricao = "Tipos de Ensinos - Exclusão", FlagAtivo = "S" },
+
+                        new Acao() { Id="tiposeventos.index", Descricao = "Tipos de Eventos - Listagem", FlagAtivo = "S" },
+                        new Acao() { Id="tiposeventos.edit", Descricao = "Tipos de Eventos - Edição", FlagAtivo = "S" },
+                        new Acao() { Id="tiposeventos.delete", Descricao = "Tipos de Eventos - Exclusão", FlagAtivo = "S" },
+
+                        new Acao() { Id="tipossalas.index", Descricao = "Tipos de Salas - Listagem", FlagAtivo = "S" },
+                        new Acao() { Id="tipossalas.edit", Descricao = "Tipos de Salas - Edição", FlagAtivo = "S" },
+                        new Acao() { Id="tipossalas.delete", Descricao = "Tipos de Salas - Exclusão", FlagAtivo = "S" },
+
+                        new Acao() { Id="turmas.index", Descricao = "Turmas - Listagem", FlagAtivo = "S" },
+                        new Acao() { Id="turmas.view", Descricao = "Turmas - Visualização", FlagAtivo = "S" },
+                        new Acao() { Id="turmas.quadrohorarios", Descricao = "Turmas - Quadro de Horários", FlagAtivo = "S" },
+                        new Acao() { Id="turmas.edit", Descricao = "Turmas - Edição", FlagAtivo = "S" },
+                        new Acao() { Id="turmas.delete", Descricao = "Turmas - Exclusão", FlagAtivo = "S" },
+                        new Acao() { Id="turmas.horarios", Descricao = "Turmas - Horários", FlagAtivo = "S" },
+                        new Acao() { Id="turmas.alunos", Descricao = "Turmas - Alunos", FlagAtivo = "S" },
+
+                        new Acao() { Id="turnos.index", Descricao = "Turnos - Listagem", FlagAtivo = "S" },
+                        new Acao() { Id="turnos.edit", Descricao = "Turnos - Edição", FlagAtivo = "S" },
+                        new Acao() { Id="turnos.delete", Descricao = "Turnos - Exclusão", FlagAtivo = "S" },
+
+                        new Acao() { Id="turnosescola.index", Descricao = "Turnos da Escola - Listagem", FlagAtivo = "S" },
+                        new Acao() { Id="turnosescola.edit", Descricao = "Turnos da Escola - Edição", FlagAtivo = "S" },
+                        new Acao() { Id="turnosescola.horarios", Descricao = "Turnos da Escola - Horários - Listagem", FlagAtivo = "S" },
+                        new Acao() { Id="turnosescola.horariosedit", Descricao = "Turnos da Escola - Horários - Edição", FlagAtivo = "S" },
+                        new Acao() { Id="turnosescola.delete", Descricao = "Turnos da Escola - Horários - Exclusão", FlagAtivo = "S" }
                     };
                     lstAcao.ForEach(x => acaodao.Add(x));
-                    
+
+                    transaction.Commit();
+                } // end transaction
+            } // end session
+        }
+
+        private static void PopularUsuarios()
+        {
+            using (ISession session = NHibernateBase.OpenSession())
+            {
+                using (ITransaction transaction = session.BeginTransaction())
+                {
+                    AcaoDAO acaodao = new AcaoDAO();
+
                     string senhaMd5 = Criptografia.MD5("admin");
-                    Usuario usuario = new Usuario() { NomeUsuario = "admin", 
+                    Usuario admin = new Usuario() { NomeUsuario = "admin", 
                                                       SenhaAcesso = senhaMd5, 
                                                       Email = "admin@escola.com.br",
                                                       Nome = "Administrador", 
@@ -1101,9 +1221,27 @@ namespace EduTestes
                                                       NumeroCPF = "12345678901", 
                                                       Nivel = "Administrador",
                                                       Ativo = "S" };
+                    Usuario visitante = new Usuario()
+                    {
+                        NomeUsuario = "guest",
+                        SenhaAcesso = Criptografia.MD5("guest"),
+                        Email = "guest@escola.com.br",
+                        Nome = "Visitante",
+                        DataNascimento = new DateTime(2000, 01, 01),
+                        NumeroCPF = "72345678901",
+                        Nivel = "Visitante",
+                        Ativo = "S"
+                    };
 
                     UsuarioDAO gerudao = new UsuarioDAO();
-                    gerudao.Add(usuario);
+                    gerudao.Add(admin);
+                    gerudao.Add(visitante);
+
+                    UsuarioAcaoDAO uadao = new UsuarioAcaoDAO();
+
+                    acaodao.All().ToList().ForEach(x => {
+                        uadao.Add(new UsuarioAcao() { Usuario = admin, Acao = x});
+                    });
 
                     transaction.Commit();
                 } // end transaction

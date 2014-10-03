@@ -12,10 +12,23 @@ using Petra.DAO.NH;
 
 namespace Dardani.EDU.BO.NH
 {
+    // Talvez seja interesante...
+    // Definir perfil de Usuário: Diretor, Secretário, Profissional, Aluno...  independente do tipo de acesso
+    // Dependendo do perfil, vai direcionar para uma página ou outra.
     public class UsuarioDAO : GenericDAO<Usuario>
     {
         public bool UsuarioPossuiPermissao(string nome, string acaoId) {
-            return true;
+            UsuarioAcao ua = Session.CreateQuery("SELECT ua "+
+                "FROM UsuarioAcao ua "+ 
+                "WHERE ua.Acao.Id = :acaoId  "+
+                "AND ua.Usuario.NomeUsuario = :nome "+
+                "AND ua.Acao.FlagAtivo = :flagAtivo")
+                .SetParameter("acaoId", acaoId)
+                .SetParameter("nome", nome)
+                .SetParameter("flagAtivo", "S")
+                .UniqueResult<UsuarioAcao>();
+
+            return (ua != null);
         }
 
         /*
