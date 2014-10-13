@@ -74,7 +74,6 @@ namespace Visao360.Educacao
                     periodoId = UrlParameter.Optional
                 });
 
-
             //  ConceitosNiveis
             routes.MapRoute(
                 name: "ConceitoNivelIndex",
@@ -104,9 +103,6 @@ namespace Visao360.Educacao
                     action = "NivelDelete",
                     periodoId = UrlParameter.Optional
                 });
-
-
-
 
             routes.MapRoute(
                 name: "CalendariosEventos",

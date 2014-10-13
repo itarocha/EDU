@@ -73,23 +73,16 @@ namespace Dardani.EDU.BO.NH
             return model;
         }
 
-        public IEnumerable<Usuario> GetListaUsuarios(string searchString = null)
+        public IEnumerable<Usuario> GetListagem()
         {
             IQueryOver<Usuario> q = Session.QueryOver<Usuario>();
             IEnumerable<Usuario> lista;
 
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                lista = q.List<Usuario>().Where(s => s.Nome.ToLower().Contains(searchString.ToLower())).ToList();
-            }
-            else
-            {
-                lista = q.List<Usuario>().ToList().OrderBy(x => x.Nome);
-            }
+            lista = q.List<Usuario>().ToList().OrderBy(x => x.Nome);
             return lista;
         }
 
-        public UsuarioVO GetUsuarioVOById(int id)
+        public UsuarioVO GetVOById(int id)
         {
             UsuarioVO fvo = null;
             Usuario f = null;
@@ -105,7 +98,7 @@ namespace Dardani.EDU.BO.NH
                     .Select(() => f.Nivel).WithAlias(() => fvo.Nivel)
                     .Select(() => f.Ativo).WithAlias(() => fvo.Ativo)
                     .Select(() => f.NomeUsuario).WithAlias(() => fvo.NomeUsuario)
-                    .Select(() => f.SenhaAcesso).WithAlias(() => fvo.SenhaAcesso)
+                    //.Select(() => f.SenhaAcesso).WithAlias(() => fvo.SenhaAcesso)
                     .Select(() => f.Email).WithAlias(() => fvo.Email)
                 ).Where(() => f.Id == id)
                 .TransformUsing(Transformers.AliasToBean<UsuarioVO>())
@@ -113,6 +106,56 @@ namespace Dardani.EDU.BO.NH
 
             return model;
         }
+
+        public UsuarioAcaoVO GetUsuarioAcao(int usuarioId)
+        {
+            UsuarioAcaoVO pd = new UsuarioAcaoVO();
+            pd.Id = usuarioId;
+            pd.UsuarioId = usuarioId;
+
+            IEnumerable<UsuarioAcao> itens =
+                Session.QueryOver<UsuarioAcao>().Where(x => x.Usuario.Id == usuarioId).List();
+            List<string> lista = new List<string>();
+            foreach (UsuarioAcao i in itens)
+            {
+                string acao = i.Acao.Id;
+                lista.Add(acao);
+            }
+            pd.ListaAcoes = lista.ToArray();
+
+            return pd;
+        }
+
+        public void GravarAcoes(UsuarioAcaoVO usuario)
+        {
+            try
+            {
+                IEnumerable<UsuarioAcao> itens =
+                    Session.QueryOver<UsuarioAcao>().Where(x => x.Usuario.Id == usuario.Id).List();
+
+                foreach (UsuarioAcao i in itens)
+                {
+                    Session.Delete(i);
+                }
+
+                Usuario e = GetById(usuario.Id);
+                AcaoDAO idao = new AcaoDAO();
+
+                foreach(String a in usuario.ListaAcoes)
+                {
+                    Acao item = idao.GetByIdString(a);
+                    if ((e != null) && (item != null))
+                    {
+                        Session.Save(new UsuarioAcao() { Usuario = e, Acao = item });
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+            }
+        }
+
+
 
     }
 }

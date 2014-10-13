@@ -25,16 +25,11 @@ namespace Dardani.EDU.Entities.VO
         public virtual DateTime DataNascimento { get; set; }
 
         [Required(ErrorMessage = "CPF precisa ser preenchido")]
-        [StringLength(11, MinimumLength = 11)]
-        [RegularExpression(@"^(\d{11})$", ErrorMessage = "CPF Inválido")]
+        //[StringLength(11, MinimumLength = 11)]
+        //[RegularExpression(@"^(\d{11})$", ErrorMessage = "CPF Inválido")]
         [Display(Name = "Número do CPF")]
         [ConverterEntidade]
         public virtual string NumeroCPF { get; set; }
-
-        [Required(ErrorMessage = "Sexo precisa ser informado")]
-        [Display(Name = "Sexo")]
-        [ConverterEntidade]
-        public virtual int SexoId { get; set; }
 
         [Required(ErrorMessage = "Nível precisa ser preenchido.")]
         [Display(Name = "Nível")]
@@ -52,21 +47,28 @@ namespace Dardani.EDU.Entities.VO
         [Required(ErrorMessage = "Identificação precisa ser preenchido")]
         [StringLength(32, MinimumLength = 5)]
         [Display(Name = "Identificação")]
-        [ConverterEntidade(Objeto="Acesso")]
+        [ConverterEntidade]
         public virtual string NomeUsuario { get; set; }
 
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Senha de acesso precisa ser preenchida.")]
         [StringLength(32, MinimumLength = 5)]
         [Display(Name = "Senha")]
-        [ConverterEntidade(Objeto = "Acesso")]
+        [ConverterEntidade]
         public virtual string SenhaAcesso { get; set; }
+
+        // Não tem conversão
+        [DataType(DataType.Password)]
+        [Required(ErrorMessage = "Senha de Confirmação precisa ser preenchida.")]
+        [StringLength(32, MinimumLength = 5)]
+        [Display(Name = "Senha de Confirmação")]
+        public virtual string SenhaConfirmacao { get; set; }
 
         [DataType(DataType.EmailAddress)]
         [Required(ErrorMessage = "E-mail precisa ser preenchido.")]
         [StringLength(64, MinimumLength = 8)]
         [Display(Name = "E-mail")]
-        [ConverterEntidade(Objeto = "Acesso")]
+        [ConverterEntidade]
         public virtual string Email { get; set; }
 
         public UsuarioVO()

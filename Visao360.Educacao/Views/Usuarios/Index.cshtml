@@ -1,40 +1,15 @@
-﻿@model IEnumerable<Dardani.CMT.Entities.Model.Usuario>
+﻿@model IEnumerable<Dardani.EDU.Entities.Model.Usuario>
 
 @{
-    ViewBag.Title = "Listagem de Usuários";
+    ViewBag.Title = "Usuários";
 }
 
-<p>
-    @Html.ActionLink("Novo Usuário", "Edit", "Usuarios", null, new { @class="links_big"})&nbsp;
-</p>
-
- @using (Ajax.BeginForm(    
-     new AjaxOptions
-     {
-         HttpMethod = "get",
-         InsertionMode = InsertionMode.Replace,
-         UpdateTargetId = "lista",
-         
-        }))
-     {
-         <p>
-         Entre com um trecho do nome:
-         <input type="search" name="SearchString" id="SearchString" /> 
-         <input type="submit" value="Filtrar" />
-         </p> 
-     } 
-
-<div id="lista">
-@{
-    //if (Model.Count() > 0) {
-        @Html.Partial("_Usuarios", Model)
-    //}
-}
+<div class="row">
+    <div class="col-md-12">
+    @Html.ActionLink("Novo Usuário", "Edit", "Usuarios", null, new { @class = "btn btn-default" }) 
+    </div>
 </div>
-<script>
-    $(function () {
-        $("#SearchString").focus();
-    });
-</script>
-
+<div id="lista">
+@Html.Partial("_Listagem", Model)
+</div>
 

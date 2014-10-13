@@ -32,7 +32,6 @@ namespace Dardani.EDU.BO.NH
             return lista;
         }
 
-
         public DisciplinaVO GetVOById(int id)
         {
             DisciplinaVO model = Session.CreateQuery("SELECT "+

@@ -2818,11 +2818,8 @@
     <Content Include="Views\TiposSalas\Delete.cshtml" />
     <Content Include="Views\TiposSalas\Edit.cshtml" />
     <Content Include="Views\TiposSalas\Index.cshtml" />
-    <Content Include="Views\Usuarios\_Usuarios.cshtml" />
     <Content Include="Views\Usuarios\DatabaseError.cshtml" />
     <Content Include="Views\Usuarios\Delete.cshtml" />
-    <Content Include="Views\Usuarios\Edit.cshtml" />
-    <Content Include="Views\Usuarios\Index.cshtml" />
     <Content Include="Views\Turnos\_Listagem.cshtml" />
     <Content Include="Views\Turnos\Delete.cshtml" />
     <Content Include="Views\Turnos\Edit.cshtml" />
@@ -2934,6 +2931,10 @@
     <Content Include="Views\Conceitos\NivelDelete.cshtml" />
     <Content Include="Views\Conceitos\NivelEdit.cshtml" />
     <Content Include="Views\Conceitos\Niveis.cshtml" />
+    <Content Include="Views\Usuarios\Index.cshtml" />
+    <Content Include="Views\Usuarios\_Listagem.cshtml" />
+    <Content Include="Views\Usuarios\Edit.cshtml" />
+    <Content Include="Views\Usuarios\Acoes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

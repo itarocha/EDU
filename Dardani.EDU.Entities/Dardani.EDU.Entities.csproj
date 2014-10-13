@@ -254,6 +254,7 @@
     <Compile Include="VO\EscolaTurnoVO.cs" />
     <Compile Include="VO\MatrizPeriodoDisciplinaVO.cs" />
     <Compile Include="VO\MatrizPeriodoVO.cs" />
+    <Compile Include="VO\UsuarioAcaoVO.cs" />
     <Compile Include="VO\TurnoVO.cs" />
     <Compile Include="VO\TurmaHorarioVO.cs" />
     <Compile Include="VO\DisciplinaVO.cs" />

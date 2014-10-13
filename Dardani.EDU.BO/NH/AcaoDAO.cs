@@ -12,5 +12,18 @@ namespace Dardani.EDU.BO.NH
 {
     public class AcaoDAO : GenericDAO<Acao>
     {
+        public Acao GetByIdString(String id) {
+            return Session.QueryOver<Acao>().Where(x => x.Id == id).SingleOrDefault<Acao>();
+        }
+
+        public IEnumerable<Acao> GetListagem()
+        {
+            IQueryOver<Acao> q = Session.QueryOver<Acao>();
+            IEnumerable<Acao> lista;
+            lista = q.List<Acao>().OrderBy(x => x.Descricao).ToList();
+            return lista;
+        }
+
+
     } // END CLASS
 } // END NAMESPACE

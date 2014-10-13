@@ -1,76 +1,81 @@
-﻿@model Dardani.CMT.Entities.VO.UsuarioVO
+﻿@model Dardani.EDU.Entities.VO.UsuarioVO
 
 @{
     ViewBag.Title = ViewBag.Acao;
-    List<Dardani.CMT.Entities.Model.ItemVO> ListaSexos = (List<Dardani.CMT.Entities.Model.ItemVO>)Session["ListaSexos"];
-    List<Dardani.CMT.Entities.Model.ItemStringVO> ListaNiveis = (List<Dardani.CMT.Entities.Model.ItemStringVO>)Session["ListaNiveis"];
-    List<Dardani.CMT.Entities.Model.ItemStringVO> ListaSimNao = (List<Dardani.CMT.Entities.Model.ItemStringVO>)Session["ListaSimNao"];
 }
 
 <script type="text/javascript">
-    $(function () {
+    $(document).ready(function() {
         $("#Nome").focus();
-        bindCalendario("#DataNascimento");
     });
 </script>
-
-@using (Html.BeginForm()) {
+@if (Model.Id > 0)
+{
+<div class="row">
+    <div class="col-md-12 btn-group pt-20">
+    @Html.ActionLink("Ações", "Acoes", new { id = Model.Id }, new { @class = "btn btn-default" })
+    @Html.ActionLink("Novo Usuário", "Edit", new{}, new { @class = "btn btn-default" })
+    </div>
+</div>
+}
+@using (Html.BeginForm())
+{
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(false)
 
-    <fieldset>
-        <legend>Usuário</legend>
+    <div class="row">
+        <div class="col-md-6">
+            <label class="input-label f-left">@Html.LabelFor(model => model.Nome):</label>
+            @Html.TextBoxFor(model => model.Nome, new { @class = "input-text f-left" })
+        </div>
+        <div class="col-md-3">
+            <label class="input-label f-left">@Html.LabelFor(model => model.Email):</label>
+            @Html.TextBoxFor(model => model.Email, new { @class = "input-text f-left" })
+        </div>
+        <div class="col-md-3">
+            <label class="input-label f-left">@Html.LabelFor(model => model.Nivel):</label>
+            @Html.TextBoxFor(model => model.Nivel, new { @class = "input-text f-left" })
+        </div>
+    </div>
 
-        <table style="width:100%;">
-            <tr>
-                <td colspan="2"><p class="titulo-tabela">Dados Pessoais</p></td>
-            </tr>
-            <tr>
-                <td><div class="editor-label">@Html.LabelFor(model => model.Nome)</div></td>
-                <td><div class="editor-field">@Html.EditorFor(model => model.Nome, new { Size = "50"})</div></td>
-            </tr>
-            <tr>
-                <td><div class="editor-label">@Html.LabelFor(model => model.DataNascimento)</div></td>
-                <td><div class="editor-field">@Html.TextBoxFor(model => model.DataNascimento, new { @Value = Model.DataNascimento.ToString("dd/MM/yyyy") })</div></td>
-            </tr>
-            <tr>
-                <td><div class="editor-label">@Html.LabelFor(model => model.SexoId)</div></td>
-                <td><div class="editor-field">@Html.DropDownListFor(model => model.SexoId, new SelectList(ListaSexos, "Id", "Descricao"))</div></td>
-            </tr>
-            <tr>
-                <td><div class="editor-label">@Html.LabelFor(model => model.NumeroCPF)</div></td>
-                <td><div class="editor-field">@Html.EditorFor(model => model.NumeroCPF, new { Size = "50"})</div></td>
-            </tr>
+    <div class="row">
+        <div class="col-md-4">
+            <label class="input-label f-left">@Html.LabelFor(model => model.DataNascimento):</label>
+            @Html.TextBoxFor(model => model.DataNascimento, new { @Value = Model.DataNascimento.ToString("dd/MM/yyyy"), @class = "input-text f-left data", @alt = "date" })
+        </div>
+        <div class="col-md-4">
+            <label class="input-label f-left">@Html.LabelFor(model => model.NumeroCPF):</label>
+            @Html.TextBoxFor(model => model.NumeroCPF, new { @class = "input-text f-left", @alt = "cpf" })
+        </div>
+        <div class="col-md-4">
+            <label class="input-label f-left">@Html.LabelFor(model => model.Ativo):</label>
+            @Html.DropDownListFor(model => model.Ativo, ViewBag.ListaSimNao as IEnumerable<SelectListItem>, new { @class = "input-select f-left" })
+        </div>
+    </div>
 
-            <tr>
-                <td colspan="2"><p class="titulo-tabela">Acessibilidade</p></td>
-            </tr>
-            <tr>
-                <td><div class="editor-label">@Html.LabelFor(model => model.NomeUsuario)</div></td>
-                <td> <div class="editor-field">@Html.EditorFor(model => model.NomeUsuario)</div></td>
-            </tr>
-            <tr>
-                <td><div class="editor-label">@Html.LabelFor(model => model.Email)</div></td>
-                <td> <div class="editor-field">@Html.EditorFor(model => model.Email)</div></td>
-            </tr>
-            <tr>
-                <td><div class="editor-label">@Html.LabelFor(model => model.Nivel)</div></td>
-                <td><div class="editor-field">@Html.DropDownListFor(model => model.Nivel, new SelectList(ListaNiveis, "Id", "Descricao"))</div></td>
-            </tr>
-            <tr>
-                <td><div class="editor-label">@Html.LabelFor(model => model.Ativo)</div></td>
-                <td><div class="editor-field">@Html.DropDownListFor(model => model.Ativo, new SelectList(ListaSimNao, "Id", "Descricao"))</div></td>
-            </tr>
-            @Html.HiddenFor(model => model.Id)
-            @Html.HiddenFor(model => model.SenhaAcesso)
-       </table>
-        <p>
-            <input type="submit" value="Gravar" />
-        </p>
-    </fieldset>
+if(ViewBag.Novo)
+{
+    <div class="row">
+        <div class="col-md-4">
+            <label class="input-label f-left">@Html.LabelFor(model => model.NomeUsuario):</label>
+            @Html.TextBoxFor(model => model.NomeUsuario, new { @class = "input-text-normal f-left" })
+        </div>
+        <div class="col-md-4">
+            <label class="input-label f-left">@Html.LabelFor(model => model.SenhaAcesso):</label>
+            @Html.PasswordFor(model => model.SenhaAcesso, new { @class = "input-text-normal f-left" })
+        </div>
+        <div class="col-md-4">
+            <label class="input-label f-left">@Html.LabelFor(model => model.SenhaConfirmacao):</label>
+            @Html.PasswordFor(model => model.SenhaConfirmacao, new { @class = "input-text-normal f-left" })
+        </div>
+    </div>
 }
 
-<div>
-    @Html.ActionLink("Voltar a Lista", "Index", "Usuarios", null, new { @class="links_big"})
-</div>
-
+    @Html.HiddenFor(model => model.Id)
+    <div class="row">
+        <div class="col-md-12 pt-20">
+            <input type="submit" value="Gravar" class="btn btn-success" />
+            @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-default" })
+        </div>
+    </div>
+}

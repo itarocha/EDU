@@ -108,14 +108,16 @@
                 <li>@Html.ActionLink("Turnos da Escola", "Index", "TurnosEscola", null, null)</li>
                 <li>@Html.ActionLink("Turmas", "Index", "Turmas", null, null)</li>
                 <li>@Html.ActionLink("Matrizes Curriculares", "Index", "Matrizes", null, null)</li>
-                <!--
-                <li class="divider"></li>
-                <li class="dropdown-header">Nav header</li>
-                <li><a href="#">Separated link</a></li>
-                <li><a href="#">One more separated link</a></li>
-                -->
               </ul>
             </li>
+
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administração<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Usuários", "Index", "Usuarios", null, null)</li>
+                </ul>
+            </li>
+
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -145,7 +147,7 @@
         </div>
     }
     <div class="page-header">
-        <h2>@ViewBag.Title</h2>
+        <h4>@ViewBag.Title</h4>
     </div>
     @if (TempData["mensagem"] != null)
     {
@@ -153,8 +155,6 @@
             <strong>Aviso: </strong>@TempData["mensagem"]
         </div>
     }
-
-
     @RenderBody()
 
     </div> <!-- /container -->

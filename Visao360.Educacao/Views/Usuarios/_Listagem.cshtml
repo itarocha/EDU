@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Dardani.EDU.Entities.Model.Usuario>
+
+@{
+    WebGrid grid = new WebGrid(Model, rowsPerPage: 20, ajaxUpdateContainerId: "gridArea", defaultSort:"Sequencia");
+}
+
+<div id="gridArea">
+@grid.GetHtml(
+    tableStyle:"table table-striped",
+    //alternatingRowStyle: "altRow",
+    columns:new[] {
+        grid.Column("Id", style:"to-the-right", canSort:false),
+        grid.Column("Nome",header:"Nome", canSort:false),
+        grid.Column("NomeUsuario",header:"Identificação", canSort:false),
+        grid.Column("",header:"Ações", format:@<text>
+                @Html.ActionLink("Editar", "Edit", new { id = item.Id }, new {@class = "btn btn-xs btn-info"}) 
+                @Html.ActionLink("Ações", "Acoes", new { @item.Id }, new { @class = "btn btn-xs btn-success" })
+                @Html.ActionLink("Excluir", "Delete", new { @item.Id }, new { @class = "btn btn-xs btn-danger" })
+                </text>)
+    }
+)
+</div>
