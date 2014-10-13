@@ -43,8 +43,6 @@ namespace Dardani.EDU.BO.NH
             return lista;
         }
 
-
-
         public IEnumerable<Modalidade> GetListagem(string searchString = null)
         {
             IQueryOver<Modalidade> q = Session.QueryOver<Modalidade>();
@@ -65,7 +63,6 @@ namespace Dardani.EDU.BO.NH
 
         public IEnumerable<EtapaVO> GetListaEtapasVO()
         {
-        	
         	IEnumerable<EtapaVO> model = Session.CreateQuery(
         	   "SELECT "+
                "e.Id as Id, "+
@@ -84,38 +81,10 @@ namespace Dardani.EDU.BO.NH
         	   .List<EtapaVO>();
         	
         	return model;
-        	
-        	/*
-            Etapa e = null;
-            EtapaVO avo = null;
-            TipoEnsino te = null;
-            Modalidade m = null;
-            Serie s = null;
-
-            IEnumerable<EtapaVO> lista =
-            Session.QueryOver<Etapa>(() => e)
-                .Inner.JoinQueryOver<TipoEnsino>(() => e.TipoEnsino, () => te)
-                .Inner.JoinQueryOver<Modalidade>(() => e.Modalidade, () => m)
-                .Inner.JoinQueryOver<Serie>(() => e.Serie, () => s)
-                .SelectList(list => list
-                    .Select(() => e.Id).WithAlias(() => avo.Id)
-                    .Select(() => te.Id).WithAlias(() => avo.TipoEnsinoId)
-                    .Select(() => te.Descricao).WithAlias(() => avo.TipoEnsinoDescricao)
-                    .Select(() => m.Id).WithAlias(() => avo.ModalidadeId)
-                    .Select(() => m.Descricao).WithAlias(() => avo.ModalidadeDescricao)
-                    .Select(() => s.Id).WithAlias(() => avo.SerieId)
-                    .Select(() => s.Descricao).WithAlias(() => avo.SerieDescricao)
-                ).TransformUsing(Transformers.AliasToBean<EtapaVO>())
-                .List<EtapaVO>()
-                .OrderBy(x => x.ModalidadeDescricao);
-
-            return lista;
-            */
         }
 
         public EtapaVO GetEtapaVO(int modalidadeId, int etapaId)
         {
-        	
         	EtapaVO model = 
         		Session.CreateQuery(
         	   "SELECT "+
@@ -139,34 +108,6 @@ namespace Dardani.EDU.BO.NH
         	   .UniqueResult<EtapaVO>();
         	
         	return model;
-        	
-        	/*
-            Etapa e = null;
-            EtapaVO avo = null;
-            TipoEnsino te = null;
-            Modalidade m = null;
-            Serie s = null;
-
-            EtapaVO model =
-            Session.QueryOver<Etapa>(() => e)
-                .Inner.JoinQueryOver<TipoEnsino>(() => e.TipoEnsino, () => te)
-                .Inner.JoinQueryOver<Modalidade>(() => e.Modalidade, () => m)
-                .Inner.JoinQueryOver<Serie>(() => e.Serie, () => s)
-                .Where(() => e.Id == etapaId)
-                .Where(() => e.Modalidade.Id == modalidadeId)
-                .SelectList(list => list
-                    .Select(() => e.Id).WithAlias(() => avo.Id)
-                    .Select(() => te.Id).WithAlias(() => avo.TipoEnsinoId)
-                    .Select(() => te.Descricao).WithAlias(() => avo.TipoEnsinoDescricao)
-                    .Select(() => m.Id).WithAlias(() => avo.ModalidadeId)
-                    .Select(() => m.Descricao).WithAlias(() => avo.ModalidadeDescricao)
-                    .Select(() => s.Id).WithAlias(() => avo.SerieId)
-                    .Select(() => s.Descricao).WithAlias(() => avo.SerieDescricao)
-                ).TransformUsing(Transformers.AliasToBean<EtapaVO>())
-                .SingleOrDefault<EtapaVO>();
-
-            return model;
-            */
         }
   
         public IEnumerable<ItemVO> BuidListaItemVO()
@@ -183,3 +124,4 @@ namespace Dardani.EDU.BO.NH
         }
     } // END CLASS
 } // END NAMESPACE
+
