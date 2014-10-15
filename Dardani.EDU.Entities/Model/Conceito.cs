@@ -12,7 +12,7 @@ namespace Dardani.EDU.Entities.Model
         public virtual int Id { get; set; }
 
         [Required(ErrorMessage = "Descrição precisa ser preenchida.")]
-        [StringLength(64, MinimumLength = 3)]
+        [StringLength(64, MinimumLength = 1)]
         [Display(Name = "Descrição")]
         public virtual string Descricao { get; set; }
 
@@ -22,3 +22,4 @@ namespace Dardani.EDU.Entities.Model
         public virtual string FlagAtivo { get; set; } 
     }
 }
+
