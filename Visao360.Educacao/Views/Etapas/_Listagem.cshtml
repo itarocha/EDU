@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Dardani.EDU.Entities.VO.EtapaVO>
+@using Visao360.Educacao.Helpers
+
+@{
+    WebGrid grid = new WebGrid(Model, rowsPerPage: 20, ajaxUpdateContainerId: "gridArea");
+}
+
+<div id="gridArea">
+@grid.GetHtml(
+    tableStyle:"table table-striped",
+    //alternatingRowStyle: "altRow",
+    columns:new[] {
+        grid.Column("Id", style:"to-the-right",canSort:false),
+        grid.Column("ModalidadeDescricao",header:"Modalidade",canSort:false),
+        grid.Column("TipoEnsinoDescricao",header:"Ensino",canSort:false),
+        grid.Column("SerieDescricao",header:"Série",canSort:false),
+        grid.Column("",header:"Ações",style:"w20pct", format:@<text>
+            <a href="/MatrizEtapas/@item.Id" class="btn btn-xs btn-info">Matrizes</a>
+        </text>)
+    }
+)
+</div>

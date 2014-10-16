@@ -171,6 +171,7 @@
     <Compile Include="Controllers\AnosLetivosController.cs" />
     <Compile Include="Controllers\CombosController.cs" />
     <Compile Include="Controllers\ConceitosController.cs" />
+    <Compile Include="Controllers\EtapasController.cs" />
     <Compile Include="Controllers\PeriodosAnosController.cs" />
     <Compile Include="Controllers\TiposEventosController.cs" />
     <Compile Include="Controllers\TiposDiasController.cs" />
@@ -2935,6 +2936,14 @@
     <Content Include="Views\Usuarios\_Listagem.cshtml" />
     <Content Include="Views\Usuarios\Edit.cshtml" />
     <Content Include="Views\Usuarios\Acoes.cshtml" />
+    <Content Include="Views\Etapas\Index.cshtml" />
+    <Content Include="Views\Etapas\Matrizes.cshtml" />
+    <Content Include="Views\Etapas\EditarMatriz.cshtml" />
+    <Content Include="Views\Etapas\MatrizPeriodos.cshtml" />
+    <Content Include="Views\Etapas\EditarMatrizPeriodo.cshtml" />
+    <Content Include="Views\Etapas\MatrizDisciplinas.cshtml" />
+    <Content Include="Views\Etapas\EditarMatrizDisciplina.cshtml" />
+    <Content Include="Views\Etapas\_Listagem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

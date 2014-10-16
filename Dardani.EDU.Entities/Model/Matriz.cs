@@ -15,13 +15,18 @@ namespace Dardani.EDU.Entities.Model
         [Display(Name = "Ano Letivo")]
         public virtual AnoLetivo AnoLetivo { get; set; }
 
-        [Required(ErrorMessage = "Modalidade precisa ser informada.")]
-        [Display(Name = "Modalidade")]
-        public virtual Modalidade Modalidade { get; set; }
+        //[Required(ErrorMessage = "Modalidade precisa ser informada.")]
+        //[Display(Name = "Modalidade")]
+        //public virtual Modalidade Modalidade { get; set; }
 
         [Required(ErrorMessage = "Etapa precisa ser informada.")]
         [Display(Name = "Etapa")]
         public virtual Etapa Etapa { get; set; }
+
+        [Required(ErrorMessage = "Descrição precisa ser preenchida.")]
+        [StringLength(64, MinimumLength = 3)]
+        [Display(Name = "Descricao")]
+        public virtual string Descricao { get; set; }
 
         [Required(ErrorMessage = "Dias Letivos precisa ser preenchido.")]
         [Display(Name = "Dias Letivos")]

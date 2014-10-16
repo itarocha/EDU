@@ -17,15 +17,17 @@ namespace Dardani.EDU.Entities.VO
         [ConverterEntidade(NomeEntidade = "AnoLetivo", Campo = "AnoLetivo")]
         public virtual int AnoLetivoId { get; set; }
 
-        [Required(ErrorMessage = "Modalidade precisa ser informada.")]
         [Display(Name = "Modalidade")]
-        [ConverterEntidade(NomeEntidade = "Modalidade", Campo = "Modalidade")]
         public virtual int ModalidadeId { get; set; }
 
         [Required(ErrorMessage = "Etapa precisa ser informada.")]
         [Display(Name = "Etapa")]
         [ConverterEntidade(NomeEntidade = "Etapa", Campo = "Etapa")]
         public virtual int EtapaId { get; set; }
+
+        [Display(Name = "Descrição")]
+        [ConverterEntidade]
+        public virtual string Descricao { get; set; }
 
         [Required(ErrorMessage = "Dias Letivos precisa ser preenchido.")]
         [Display(Name = "Dias Letivos")]

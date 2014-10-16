@@ -13,6 +13,85 @@ namespace Visao360.Educacao
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            // Etapas
+            routes.MapRoute(
+                name: "Etp",
+                url: "Etapas",
+                defaults: new
+                {
+                    controller = "Etapas",
+                    action = "Index"
+                });
+
+            // Etapa.Matrizes
+            routes.MapRoute(
+                name: "EtpMtz",
+                url: "MatrizEtapas/{etapaId}",
+                defaults: new
+                {
+                    controller = "Etapas",
+                    action = "Matrizes"
+                });
+
+            // Etapa.Matriz.Edit
+            routes.MapRoute(
+                name: "EtpMtzEdt",
+                url: "EditarMatriz/{etapaId}/{matrizId}",
+                defaults: new
+                {
+                    controller = "Etapas",
+                    action = "EditarMatriz",
+                    matrizId = UrlParameter.Optional
+                });
+
+            // Etapa.Matriz.Periodos
+            routes.MapRoute(
+                name: "EtpPrd",
+                url: "MatrizPeriodos/{etapaId}/{matrizId}",
+                defaults: new
+                {
+                    controller = "Etapas",
+                    action = "MatrizPeriodos"
+                });
+
+            // Etapa.Matriz.Periodo.Edit
+            routes.MapRoute(
+                name: "EtpPrdEdt",
+                url: "EditarMatrizPeriodo/{etapaId}/{matrizId}/{periodoId}",
+                defaults: new
+                {
+                    controller = "Etapas",
+                    action = "EditarMatrizPeriodo",
+                    periodoId = UrlParameter.Optional
+                });
+
+            // Etapa.Matriz.Disciplinas
+            routes.MapRoute(
+                name: "EtpDsc",
+                url: "MatrizDisciplinas/{etapaId}/{matrizId}",
+                defaults: new
+                {
+                    controller = "Etapas",
+                    action = "MatrizDisciplinas"
+                });
+
+            // Etapa.Matriz.Disciplina.Edit
+            routes.MapRoute(
+                name: "EtpDscEdt",
+                url: "EditarMatrizDisciplina/{etapaId}/{matrizId}/{disciplinaId}",
+                defaults: new
+                {
+                    controller = "Etapas",
+                    action = "EditarMatrizDisciplina",
+                    disciplinaId = UrlParameter.Optional
+                });
+
+
+
+
+
+
+
             routes.MapRoute(
                 name: "TheMatriz",
                 url: "Matriz/{modalidadeId}/{etapaId}",
