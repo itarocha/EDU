@@ -2,15 +2,49 @@
     ViewBag.Title = "Editar Matriz";
 }
 
-<p>Título da Etapa</p>
-<p>Área de Edição da Matriz</p>
+<!-- Título da Etapa -->
+<div class="row">
+    <div class="col-md-4">
+        <label class="input-label f-left">Modalidade:</label>
+        <h4>_ViewBag.EtapaVO.ModalidadeDescricao</h4>
+    </div>
+    <div class="col-md-4">
+        <label class="input-label f-left">Ensino:</label>
+        <h4>_ViewBag.EtapaVO.TipoEnsinoDescricao</h4>
+    </div>
+    <div class="col-md-4">
+        <label class="input-label f-left">Série:</label>
+        <h4>_ViewBag.EtapaVO.SerieDescricao</h4>
+    </div>
+</div>
+<h4>Área de Edição da Matriz</h4>
+<div class="row">
+    <div class="col-md-12">
+        <div class="alert alert-success">Disciplinas da Matriz</div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 pt-20">
+        <p>
+        <a href="/MatrizEtapas/101" class="btn btn-default">Matrizes da Etapa</a>
+        <a href="/EditarMatrizDisciplina/101/1" class="btn btn-warning">Incluir Disciplina</a>
+        <a href="/EditarMatrizPeriodo/101/1" class="btn btn-warning">Incluir Período</a>
+        </p>
+    </div>
+</div>
 
-<p>Listagem de Disciplinas</p>
-<p>Botão Incluir Disciplina</p>
-<p>Para cada Disciplina, poder excluir ou Editar</p>
-<p>Listagem de Períodos</p>
-<p>Botão Incluir Período</p>
-<p>Para cada Período, poder excluir ou Editar</p>
+<div class="row">
+    <div class="col-md-12">
+        <div class="alert alert-warning">Disciplinas</div>
+    </div>
+</div>
 
-<p>Botão Voltar para Lista de Matrizes da Etapa</p>
+<p>Para cada Disciplina, [Editar] [Excluir]</p>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="alert alert-warning">Períodos</div>
+    </div>
+</div>
+
 

@@ -2,8 +2,36 @@
     ViewBag.Title = "Matrizes da Etapa";
 }
 
-<p>Título da Etapa</p>
-<p>Listagem de Matrizes</p>
-<p>Botão Voltar para Etapas</p>
-<p>Botão Incluir Matriz</p>
-<p>Para cada Matriz, poder excluir ou ver Disciplinas ou ainda Períodos</p>
+<!-- Título da Etapa -->
+<div class="row">
+    <div class="col-md-4">
+        <label class="input-label f-left">Modalidade:</label>
+        <h4>_ViewBag.EtapaVO.ModalidadeDescricao</h4>
+    </div>
+    <div class="col-md-4">
+        <label class="input-label f-left">Ensino:</label>
+        <h4>_ViewBag.EtapaVO.TipoEnsinoDescricao</h4>
+    </div>
+    <div class="col-md-4">
+        <label class="input-label f-left">Série:</label>
+        <h4>_ViewBag.EtapaVO.SerieDescricao</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 pt-20">
+        <p>
+        <a href="/MatrizEtapas/101" class="btn btn-default">Voltar para Etapas</a>
+        <a href="/EditarMatriz/101" class="btn btn-warning">Incluir Matriz</a>
+        </p>
+    </div>
+</div>
+<!-- Listagem de Matrizes -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="alert alert-success">Matrizes da Etapa</div>
+    </div>
+</div>
+
+<p>Para cada Matriz, [Excluir] [Disciplinas] [Períodos]</p>
+
+

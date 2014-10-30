@@ -55,7 +55,7 @@ namespace EduTestes
             //PopularAcoes();
             //PopularUsuarios();
             //PopularOutrasTabelas();
-            CarregarArquivo();
+            //CarregarArquivo();
 
             Console.WriteLine("oua......");
             Console.ReadLine();
